@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 44" fill="none">
+  <rect width="44" height="44" rx="4" fill="#C4983A"/>
+  <path d="M11 32 L11 18 L16 10 L22 18 L28 10 L33 18 L33 32 L28 32 L28 24 L22 30 L16 24 L16 32 Z" fill="#111111"/>
+  <rect x="10" y="32" width="24" height="4" rx="1" fill="#111111"/>
+  <text x="54" y="30" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif" font-size="20" font-weight="700" letter-spacing="2.5" fill="#FFFFFF">VITLION</text>
+</svg>
