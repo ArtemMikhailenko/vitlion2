@@ -21,6 +21,7 @@ import AccessibilityWidget from './components/ui/AccessibilityWidget'
 import ServicesPage from './pages/ServicesPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ContactPage from './pages/ContactPage'
+import AboutPage from './pages/AboutPage'
 import { useLanguage } from './hooks/useLanguage'
 
 function LandingPage() {
@@ -62,6 +63,7 @@ export default function App() {
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </HelmetProvider>
   )

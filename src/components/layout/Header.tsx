@@ -21,10 +21,11 @@ export default function Header({ lang, onSwitchLang }: Props) {
 
   const langParam = `?lang=${lang}`
   const navItems = [
+    { key: 'home',     href: `/${langParam}` },
     { key: 'services', href: `/services${langParam}` },
-    { key: 'about', href: `/${langParam}#why-us` },
-    { key: 'gallery', href: `/projects${langParam}` },
-    { key: 'contact', href: `/contact${langParam}` },
+    { key: 'about',    href: `/about${langParam}` },
+    { key: 'gallery',  href: `/projects${langParam}` },
+    { key: 'contact',  href: `/contact${langParam}` },
   ]
 
   return (
@@ -35,10 +36,23 @@ export default function Header({ lang, onSwitchLang }: Props) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#">
-            <img src="/logo.svg" alt="Vitlion Group" className="h-9 w-auto" />
+          <a href={`/${langParam}`} className="flex items-center gap-3 group">
+            <img
+              src="/vitlion-without-background.png"
+              alt="Vitlion Group"
+              className="h-10 w-auto"
+            />
+            <div className="hidden sm:flex flex-col leading-none">
+              <span className="text-white font-bold tracking-[0.18em] text-[15px] uppercase group-hover:text-gold transition-colors duration-200">
+                VITLION <span className="text-gold">GROUP</span>
+              </span>
+              <span className="text-gold/60 text-[9px] tracking-widest mt-0.5 font-medium" dir="rtl">
+                עבודות אלומיניום וזכוכית
+              </span>
+            </div>
           </a>
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+
+          <nav className="hidden md:flex items-center gap-7" aria-label="Main navigation">
             {navItems.map((item) => (
               <a
                 key={item.key}
@@ -49,6 +63,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               </a>
             ))}
           </nav>
+
           <div className="flex items-center gap-4">
             <LanguageSwitcher lang={lang} onSwitch={onSwitchLang} />
             <a
@@ -71,14 +86,15 @@ export default function Header({ lang, onSwitchLang }: Props) {
           </div>
         </div>
       </div>
+
       {menuOpen && (
         <div className="md:hidden bg-dark-card border-t border-dark-border">
-          <nav className="px-4 py-4 flex flex-col gap-4">
+          <nav className="px-4 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
               <a
                 key={item.key}
                 href={item.href}
-                className="text-gray-300 hover:text-gold py-2 text-base font-medium border-b border-dark-border"
+                className="text-gray-300 hover:text-gold py-3 px-2 text-base font-medium border-b border-dark-border/50"
                 onClick={() => setMenuOpen(false)}
               >
                 {t(`nav.${item.key}`)}
@@ -86,7 +102,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
             ))}
             <a
               href={`/contact${langParam}`}
-              className="inline-flex items-center justify-center bg-gold text-dark font-semibold px-5 py-3 rounded-lg mt-2"
+              className="inline-flex items-center justify-center bg-gold text-dark font-semibold px-5 py-3 rounded-lg mt-3"
               onClick={() => setMenuOpen(false)}
             >
               {t('nav.callUs')}

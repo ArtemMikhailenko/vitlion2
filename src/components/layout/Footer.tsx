@@ -1,9 +1,12 @@
 import { useTranslation } from 'react-i18next'
 import { SERVICES, CONTACT } from '../../data/services'
+import { useLanguage } from '../../hooks/useLanguage'
 
 export default function Footer() {
   const { t } = useTranslation()
+  const { lang } = useLanguage()
   const year = new Date().getFullYear()
+  const lp = `?lang=${lang}`
 
   return (
     <footer className="bg-dark-card border-t border-dark-border">
@@ -12,8 +15,16 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div className="lg:col-span-1">
-            <a href="#" className="inline-block mb-4">
-              <img src="/logo.svg" alt="Vitlion Group" className="h-9 w-auto" />
+            <a href={`/${lp}`} className="inline-flex items-center gap-3 mb-4 group">
+              <img src="/vitlion-without-background.png" alt="Vitlion Group" className="h-10 w-auto" />
+              <div className="flex flex-col leading-none">
+                <span className="text-white font-bold tracking-[0.18em] text-[14px] uppercase group-hover:text-gold transition-colors duration-200">
+                  VITLION <span className="text-gold">GROUP</span>
+                </span>
+                <span className="text-gold/50 text-[9px] tracking-widest mt-0.5" dir="rtl">
+                  עבודות אלומיניום וזכוכית
+                </span>
+              </div>
             </a>
             <p className="text-gray-400 text-sm leading-relaxed mb-5">
               {t('footer.tagline')}
@@ -90,9 +101,9 @@ export default function Footer() {
             <h3 className="text-white font-semibold mb-4 text-sm tracking-wide">{t('footer.company')}</h3>
             <ul className="space-y-2.5">
               {[
-                { key: 'about', href: '#why-us' },
-                { key: 'gallery', href: '#gallery' },
-                { key: 'contact', href: '#contact' },
+                { key: 'about',   href: `/about${lp}` },
+                { key: 'gallery', href: `/projects${lp}` },
+                { key: 'contact', href: `/contact${lp}` },
               ].map(item => (
                 <li key={item.key}>
                   <a
@@ -106,9 +117,19 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className="mt-12 pt-6 border-t border-dark-border flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="mt-12 pt-6 border-t border-dark-border flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-gray-500 text-xs">{t('footer.rights').replace('2024', String(year))}</p>
-          <p className="text-gray-600 text-xs">{t('footer.madeWith')}</p>
+          <a
+            href="https://beznest.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 opacity-50 hover:opacity-80 transition-opacity duration-200 group"
+          >
+            <img src="/logo-white.png" alt="Project Aurora" className="h-5 w-auto" />
+            <span className="text-gray-400 text-xs group-hover:text-white transition-colors duration-200">
+              Powered by Project Aurora
+            </span>
+          </a>
         </div>
       </div>
     </footer>
