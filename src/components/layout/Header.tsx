@@ -19,11 +19,12 @@ export default function Header({ lang, onSwitchLang }: Props) {
     return () => window.removeEventListener('scroll', handler)
   }, [])
 
+  const langParam = `?lang=${lang}`
   const navItems = [
-    { key: 'services', href: '#services' },
-    { key: 'about', href: '#why-us' },
-    { key: 'gallery', href: '#gallery' },
-    { key: 'contact', href: '#contact' },
+    { key: 'services', href: `/services${langParam}` },
+    { key: 'about', href: `/${langParam}#why-us` },
+    { key: 'gallery', href: `/projects${langParam}` },
+    { key: 'contact', href: `/contact${langParam}` },
   ]
 
   return (
@@ -51,7 +52,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
           <div className="flex items-center gap-4">
             <LanguageSwitcher lang={lang} onSwitch={onSwitchLang} />
             <a
-              href="#contact"
+              href={`/contact${langParam}`}
               className="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-dark font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 text-sm"
             >
               {t('nav.callUs')}
@@ -84,7 +85,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               </a>
             ))}
             <a
-              href="#contact"
+              href={`/contact${langParam}`}
               className="inline-flex items-center justify-center bg-gold text-dark font-semibold px-5 py-3 rounded-lg mt-2"
               onClick={() => setMenuOpen(false)}
             >

@@ -10,7 +10,11 @@ export const DEFAULT_LANGUAGE: Language = 'he'
 export function getLanguageFromUrl(): Language {
   const params = new URLSearchParams(window.location.search)
   const lang = params.get('lang') as Language
-  return SUPPORTED_LANGUAGES.includes(lang) ? lang : DEFAULT_LANGUAGE
+  if (SUPPORTED_LANGUAGES.includes(lang)) return lang
+  const url = new URL(window.location.href)
+  url.searchParams.set('lang', DEFAULT_LANGUAGE)
+  window.history.replaceState({}, '', url.toString())
+  return DEFAULT_LANGUAGE
 }
 
 export function setLanguageInUrl(lang: Language) {

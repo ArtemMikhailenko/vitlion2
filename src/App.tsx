@@ -1,10 +1,11 @@
+import { Routes, Route } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import SEOHead from './components/seo/SEOHead'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
+import StatsSection from './components/sections/StatsSection'
 import Services from './components/sections/Services'
-import GlassExplanation from './components/sections/GlassExplanation'
 import WhyUs from './components/sections/WhyUs'
 import ServiceVideos from './components/sections/ServiceVideos'
 import PromoVideo from './components/sections/PromoVideo'
@@ -12,17 +13,20 @@ import Gallery from './components/sections/Gallery'
 import VideoReviews from './components/sections/VideoReviews'
 import Testimonials from './components/sections/Testimonials'
 import Contact from './components/sections/Contact'
+import CTASection from './components/sections/CTASection'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 import ScrollProgress from './components/ui/ScrollProgress'
 import CursorGlow from './components/ui/CursorGlow'
 import AccessibilityWidget from './components/ui/AccessibilityWidget'
+import ServicesPage from './pages/ServicesPage'
+import ProjectsPage from './pages/ProjectsPage'
+import ContactPage from './pages/ContactPage'
 import { useLanguage } from './hooks/useLanguage'
 
-export default function App() {
+function LandingPage() {
   const { lang, switchLanguage } = useLanguage()
-
   return (
-    <HelmetProvider>
+    <>
       <ScrollProgress />
       <CursorGlow />
       <SEOHead lang={lang} />
@@ -32,9 +36,9 @@ export default function App() {
       <Header lang={lang} onSwitchLang={switchLanguage} />
       <main id="main">
         <Hero />
+        <StatsSection />
         <Services />
         <ServiceVideos />
-        <GlassExplanation />
         <WhyUs />
         <PromoVideo lang={lang} />
         <Gallery />
@@ -42,9 +46,23 @@ export default function App() {
         <Testimonials />
         <Contact />
       </main>
+      <CTASection />
       <Footer />
       <WhatsAppButton />
       <AccessibilityWidget />
+    </>
+  )
+}
+
+export default function App() {
+  return (
+    <HelmetProvider>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/projects" element={<ProjectsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+      </Routes>
     </HelmetProvider>
   )
 }
