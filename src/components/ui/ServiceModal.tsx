@@ -53,9 +53,9 @@ export default function ServiceModal({ service, onClose }: Props) {
       <div
         className="relative z-10 w-full sm:max-w-2xl max-h-[95dvh] sm:max-h-[88dvh] overflow-y-auto overscroll-contain rounded-t-3xl sm:rounded-2xl shadow-2xl"
         style={{
-          background: 'linear-gradient(160deg, #2E3140 0%, #1E2128 100%)',
-          border: '1px solid rgba(196,152,58,0.25)',
-          boxShadow: '0 0 0 1px rgba(196,152,58,0.08), 0 32px 80px rgba(0,0,0,0.6)',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #E4DECC',
+          boxShadow: '0 32px 80px rgba(0,0,0,0.18)',
         }}
       >
         {/* Gold accent line at top */}
@@ -63,17 +63,17 @@ export default function ServiceModal({ service, onClose }: Props) {
 
         {/* Header */}
         <div
-          className="sticky top-0 z-10 flex items-center justify-between px-5 py-4"
-          style={{ background: 'linear-gradient(180deg, #2E3140 0%, rgba(46,49,64,0.98) 100%)', backdropFilter: 'blur(8px)' }}
+          className="sticky top-0 z-10 flex items-center justify-between px-5 py-4 border-b"
+          style={{ backgroundColor: 'rgba(255,255,255,0.97)', backdropFilter: 'blur(8px)', borderColor: '#E4DECC' }}
         >
           <div className="flex items-center gap-3">
             <div className="w-1 h-5 rounded-full bg-gold" />
-            <h2 className="text-base font-bold text-ink tracking-wide">{name}</h2>
+            <h2 className="text-base font-bold tracking-wide" style={{ color: '#1A1D24' }}>{name}</h2>
           </div>
           <button
             onClick={onClose}
             className="w-8 h-8 rounded-lg flex items-center justify-center text-ink-soft hover:text-ink transition-all duration-150 hover:rotate-90"
-            style={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.08)' }}
+            style={{ background: '#F7F4EF', border: '1px solid #E4DECC' }}
             aria-label={t('accessibility.close')}
           >
             <X className="w-4 h-4" strokeWidth={2} />
@@ -149,23 +149,23 @@ export default function ServiceModal({ service, onClose }: Props) {
         <div className="px-5 pt-5 pb-6 space-y-5">
           {/* Divider */}
           <div className="flex items-center gap-3">
-            <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(196,152,58,0.4), transparent)' }} />
+            <div className="h-px flex-1" style={{ background: 'linear-gradient(90deg, rgba(196,152,58,0.35), transparent)' }} />
             <div className="w-1 h-1 rounded-full bg-gold/40" />
           </div>
 
           {/* Description */}
-          <p className="text-ink-mid text-sm leading-relaxed">{description}</p>
+          <p className="text-sm leading-relaxed" style={{ color: '#52566B' }}>{description}</p>
 
           {/* Features */}
           {Array.isArray(features) && features.length > 0 && (
             <div
               className="rounded-xl p-4 space-y-2"
-              style={{ background: 'rgba(196,152,58,0.05)', border: '1px solid rgba(196,152,58,0.15)' }}
+              style={{ background: 'rgba(196,152,58,0.06)', border: '1px solid rgba(196,152,58,0.18)' }}
             >
               <p className="text-gold text-xs font-semibold tracking-widest uppercase mb-3">{t('services.features')}</p>
               <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-2 gap-x-4">
                 {features.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-ink-mid">
+                  <li key={i} className="flex items-start gap-2 text-sm" style={{ color: '#52566B' }}>
                     <Check className="w-3.5 h-3.5 text-gold mt-0.5 shrink-0" strokeWidth={2.5} />
                     {f}
                   </li>

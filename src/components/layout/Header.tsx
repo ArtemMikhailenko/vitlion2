@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useLocation } from 'react-router-dom'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
 import type { Language } from '../../types'
 
@@ -12,6 +13,10 @@ export default function Header({ lang, onSwitchLang }: Props) {
   const { t } = useTranslation()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
+  const isHome = location.pathname === '/'
+  // On subpages there's no dark hero — always show solid header
+  const solid = scrolled || !isHome
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 50)
@@ -31,7 +36,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
   return (
     <header
       className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
-      style={scrolled ? {
+      style={solid ? {
         backgroundColor: 'rgba(247, 244, 239, 0.97)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
@@ -48,7 +53,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               className="h-10 w-auto"
             />
             <div className="hidden sm:flex flex-col leading-none">
-              <span className={`font-bold tracking-[0.18em] text-[14px] uppercase transition-colors duration-200 group-hover:text-gold ${scrolled ? 'text-ink' : 'text-white'}`}>
+              <span className={`font-bold tracking-[0.18em] text-[14px] uppercase transition-colors duration-200 group-hover:text-gold ${solid ? 'text-ink' : 'text-white'}`}>
                 VITLION <span className="text-gold">GROUP</span>
               </span>
               <span className="text-gold/60 text-[9px] tracking-widest mt-0.5" dir="rtl">
@@ -63,7 +68,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
                 key={item.key}
                 href={item.href}
                 className={`transition-colors duration-200 text-sm font-medium tracking-wide hover:text-gold ${
-                  scrolled ? 'text-ink' : 'text-gray-300'
+                  solid ? 'text-ink' : 'text-gray-300'
                 }`}
               >
                 {t(`nav.${item.key}`)}
@@ -80,7 +85,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               {t('nav.callUs')}
             </a>
             <button
-              className={`md:hidden p-2 transition-colors duration-200 ${scrolled ? 'text-ink' : 'text-gray-300'}`}
+              className={`md:hidden p-2 transition-colors duration-200 ${solid ? 'text-ink' : 'text-gray-300'}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >

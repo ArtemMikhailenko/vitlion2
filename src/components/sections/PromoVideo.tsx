@@ -31,7 +31,8 @@ export default function PromoVideo({ lang }: Props) {
       <section
         ref={sectionRef}
         id="promo"
-        className="py-24 lg:py-32 bg-dark overflow-hidden"
+        className="py-24 lg:py-32 overflow-hidden"
+        style={{ backgroundColor: '#1A1D24' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
@@ -40,14 +41,14 @@ export default function PromoVideo({ lang }: Props) {
             <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
               {t('promoVideo.badge')}
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 leading-tight" style={{ color: '#F7F4EF' }}>
               {lines.map((line, i) => (
                 <span key={i} className={`block ${i === 1 ? 'text-gradient-gold' : ''}`}>
                   {line}
                 </span>
               ))}
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg max-w-2xl mx-auto leading-relaxed" style={{ color: '#A8A8B8' }}>
               {t('promoVideo.subtitle')}
             </p>
           </div>

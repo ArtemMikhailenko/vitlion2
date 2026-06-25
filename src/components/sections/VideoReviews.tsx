@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import VideoModal from '../ui/VideoModal'
-import ScrambleText from '../ui/ScrambleText'
 
 const VIDEO_ITEMS = [
   {
@@ -49,9 +48,9 @@ export default function VideoReviews() {
             <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
               {t('videoReviews.badge')}
             </span>
-            <ScrambleText className="block text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5" delay={150}>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
               {t('videoReviews.title')}
-            </ScrambleText>
+            </h2>
             <p className="text-ink-mid text-lg max-w-xl mx-auto">
               {t('videoReviews.subtitle')}
             </p>

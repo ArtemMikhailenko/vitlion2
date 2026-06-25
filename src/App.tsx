@@ -16,7 +16,6 @@ import Contact from './components/sections/Contact'
 import CTASection from './components/sections/CTASection'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 import ScrollProgress from './components/ui/ScrollProgress'
-import LiquidCursor from './components/ui/LiquidCursor'
 import AccessibilityWidget from './components/ui/AccessibilityWidget'
 import ServicesPage from './pages/ServicesPage'
 import ProjectsPage from './pages/ProjectsPage'
@@ -57,7 +56,6 @@ function LandingPage() {
 export default function App() {
   return (
     <HelmetProvider>
-      <LiquidCursor />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/services" element={<ServicesPage />} />
