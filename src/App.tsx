@@ -16,7 +16,7 @@ import Contact from './components/sections/Contact'
 import CTASection from './components/sections/CTASection'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 import ScrollProgress from './components/ui/ScrollProgress'
-import CursorGlow from './components/ui/CursorGlow'
+import LiquidCursor from './components/ui/LiquidCursor'
 import AccessibilityWidget from './components/ui/AccessibilityWidget'
 import ServicesPage from './pages/ServicesPage'
 import ProjectsPage from './pages/ProjectsPage'
@@ -29,7 +29,6 @@ function LandingPage() {
   return (
     <>
       <ScrollProgress />
-      <CursorGlow />
       <SEOHead lang={lang} />
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:start-4 focus:z-[200] focus:bg-gold focus:text-dark focus:px-4 focus:py-2 focus:rounded-lg">
         Skip to main content
@@ -58,6 +57,7 @@ function LandingPage() {
 export default function App() {
   return (
     <HelmetProvider>
+      <LiquidCursor />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/services" element={<ServicesPage />} />

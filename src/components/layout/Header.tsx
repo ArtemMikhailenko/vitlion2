@@ -30,9 +30,14 @@ export default function Header({ lang, onSwitchLang }: Props) {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-dark/95 backdrop-blur-md border-b border-dark-border shadow-lg' : 'bg-transparent'
-      }`}
+      className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
+      style={scrolled ? {
+        backgroundColor: 'rgba(247, 244, 239, 0.97)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        borderBottom: '1px solid #E4DECC',
+        boxShadow: '0 2px 20px rgba(196,152,58,0.08), 0 1px 0 rgba(196,152,58,0.12)',
+      } : undefined}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -43,10 +48,10 @@ export default function Header({ lang, onSwitchLang }: Props) {
               className="h-10 w-auto"
             />
             <div className="hidden sm:flex flex-col leading-none">
-              <span className="text-white font-bold tracking-[0.18em] text-[15px] uppercase group-hover:text-gold transition-colors duration-200">
+              <span className={`font-bold tracking-[0.18em] text-[14px] uppercase transition-colors duration-200 group-hover:text-gold ${scrolled ? 'text-ink' : 'text-white'}`}>
                 VITLION <span className="text-gold">GROUP</span>
               </span>
-              <span className="text-gold/60 text-[9px] tracking-widest mt-0.5 font-medium" dir="rtl">
+              <span className="text-gold/60 text-[9px] tracking-widest mt-0.5" dir="rtl">
                 עבודות אלומיניום וזכוכית
               </span>
             </div>
@@ -57,7 +62,9 @@ export default function Header({ lang, onSwitchLang }: Props) {
               <a
                 key={item.key}
                 href={item.href}
-                className="text-gray-300 hover:text-gold transition-colors duration-200 text-sm font-medium tracking-wide"
+                className={`transition-colors duration-200 text-sm font-medium tracking-wide hover:text-gold ${
+                  scrolled ? 'text-ink' : 'text-gray-300'
+                }`}
               >
                 {t(`nav.${item.key}`)}
               </a>
@@ -68,12 +75,12 @@ export default function Header({ lang, onSwitchLang }: Props) {
             <LanguageSwitcher lang={lang} onSwitch={onSwitchLang} />
             <a
               href={`/contact${langParam}`}
-              className="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-dark font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 text-sm"
+              className="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 text-sm hover:scale-105 active:scale-95"
             >
               {t('nav.callUs')}
             </a>
             <button
-              className="md:hidden p-2 text-gray-300 hover:text-white"
+              className={`md:hidden p-2 transition-colors duration-200 ${scrolled ? 'text-ink' : 'text-gray-300'}`}
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
@@ -88,13 +95,13 @@ export default function Header({ lang, onSwitchLang }: Props) {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden bg-dark-card border-t border-dark-border">
+        <div className="md:hidden shadow-lg" style={{ backgroundColor: '#F7F4EF', borderTop: '1px solid #E4DECC' }}>
           <nav className="px-4 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
               <a
                 key={item.key}
                 href={item.href}
-                className="text-gray-300 hover:text-gold py-3 px-2 text-base font-medium border-b border-dark-border/50"
+                className="text-ink-mid hover:text-gold py-3 px-2 text-base font-medium border-b border-dark-border/60 transition-colors duration-200"
                 onClick={() => setMenuOpen(false)}
               >
                 {t(`nav.${item.key}`)}
@@ -102,7 +109,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
             ))}
             <a
               href={`/contact${langParam}`}
-              className="inline-flex items-center justify-center bg-gold text-dark font-semibold px-5 py-3 rounded-lg mt-3"
+              className="inline-flex items-center justify-center bg-gold hover:bg-gold-light text-ink font-semibold px-5 py-3 rounded-lg mt-3 transition-all duration-200"
               onClick={() => setMenuOpen(false)}
             >
               {t('nav.callUs')}

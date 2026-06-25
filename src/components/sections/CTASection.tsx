@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { CONTACT } from '../../data/services'
+import ParticleButton from '../ui/ParticleButton'
+import BlueprintLines from '../ui/BlueprintLines'
 
 export default function CTASection() {
   const { t } = useTranslation()
@@ -7,16 +9,15 @@ export default function CTASection() {
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(t('whatsapp.message'))}`
 
   return (
-    <section className="relative py-20 lg:py-28 bg-dark overflow-hidden">
-      <div
-        className="absolute inset-0 pointer-events-none"
-        aria-hidden="true"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(196,152,58,0.08) 0%, transparent 70%)',
-        }}
+    <section className="relative py-20 lg:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F1118 0%, #1A1620 50%, #0F1118 100%)' }}>
+      {/* Metallic shimmer */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true"
+        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(196,152,58,0.10) 0%, rgba(139,143,168,0.06) 50%, transparent 70%)' }}
       />
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
-      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+      <div className="absolute bottom-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-silver/30 to-transparent" />
+
+      <BlueprintLines />
 
       <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-5">
@@ -29,15 +30,15 @@ export default function CTASection() {
           {t('cta.subtitle')}
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a
+          <ParticleButton
             href="/contact"
-            className="inline-flex items-center justify-center gap-2 bg-gold hover:bg-gold-light text-dark font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-lg shadow-gold/20 hover:shadow-gold/40 hover:scale-105 active:scale-95"
+            className="inline-flex items-center justify-center gap-2 bg-gold hover:bg-gold-light text-[#111] font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base shadow-lg shadow-gold/25 hover:shadow-gold/45 hover:scale-105 active:scale-95"
           >
             {t('cta.primary')}
             <svg className="w-4 h-4 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
-          </a>
+          </ParticleButton>
           <a
             href={waHref}
             target="_blank"

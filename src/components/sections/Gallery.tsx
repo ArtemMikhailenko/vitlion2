@@ -79,10 +79,10 @@ export default function Gallery({ hideHeader }: { hideHeader?: boolean } = {}) {
             <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
               {t('gallery.badge')}
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
               {t('gallery.title')}
             </h2>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto">
+            <p className="text-ink-mid text-lg max-w-xl mx-auto">
               {t('gallery.subtitle')}
             </p>
           </div>

@@ -35,10 +35,10 @@ export default function AboutPage() {
             <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-5">
               {t('whyUs.badge')}
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink mb-6 leading-tight">
               {t('whyUs.title')}
             </h1>
-            <p className="text-gray-400 text-lg leading-relaxed max-w-2xl mx-auto">
+            <p className="text-ink-mid text-lg leading-relaxed max-w-2xl mx-auto">
               {t('whyUs.subtitle')}
             </p>
           </div>
@@ -66,10 +66,10 @@ export default function AboutPage() {
                     <div className="w-11 h-11 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-5 group-hover:bg-gold/20 group-hover:border-gold/40 transition-all duration-300">
                       <Icon className="w-5 h-5 text-gold" strokeWidth={1.5} />
                     </div>
-                    <h3 className="text-lg font-bold text-white mb-3 group-hover:text-gold transition-colors duration-200">
+                    <h3 className="text-lg font-bold text-ink mb-3 group-hover:text-gold transition-colors duration-200">
                       {item.title}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{item.text}</p>
+                    <p className="text-ink-mid text-sm leading-relaxed">{item.text}</p>
                   </div>
                 )
               })}
@@ -83,10 +83,10 @@ export default function AboutPage() {
               <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
                 {t('glass.badge')}
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
                 {t('glass.title')}
               </h2>
-              <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+              <p className="text-ink-mid text-lg max-w-2xl mx-auto leading-relaxed">
                 {t('glass.description')}
               </p>
             </div>
@@ -123,11 +123,11 @@ export default function AboutPage() {
                     <div className="w-9 h-9 rounded-lg bg-red-900/30 border border-red-900/50 flex items-center justify-center">
                       <AlertTriangle className="w-4 h-4 text-red-400" strokeWidth={2} />
                     </div>
-                    <h3 className="font-bold text-white">{t('glass.regularGlass')}</h3>
+                    <h3 className="font-bold text-ink">{t('glass.regularGlass')}</h3>
                   </div>
                   <ul className="space-y-3">
                     {Array.isArray(regularFeatures) && regularFeatures.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-gray-400">
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-ink-mid">
                         <X className="w-3.5 h-3.5 text-red-400 mt-0.5 shrink-0" strokeWidth={2.5} />
                         {f}
                       </li>
@@ -143,11 +143,11 @@ export default function AboutPage() {
                     <div className="w-9 h-9 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center">
                       <Shield className="w-4 h-4 text-gold" strokeWidth={2} />
                     </div>
-                    <h3 className="font-bold text-white">{t('glass.temperedGlass')}</h3>
+                    <h3 className="font-bold text-ink">{t('glass.temperedGlass')}</h3>
                   </div>
                   <ul className="space-y-3">
                     {Array.isArray(temperedFeatures) && temperedFeatures.map((f, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm text-gray-300">
+                      <li key={i} className="flex items-start gap-2.5 text-sm text-ink">
                         <Check className="w-3.5 h-3.5 text-gold mt-0.5 shrink-0" strokeWidth={2.5} />
                         {f}
                       </li>

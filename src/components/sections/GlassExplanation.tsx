@@ -24,13 +24,13 @@ export default function GlassExplanation() {
             {t('glass.badge')}
           </span>
           <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5"
             style={{ opacity: headInView ? 1 : 0, transform: headInView ? 'translateY(0)' : 'translateY(24px)', transition: 'opacity 0.7s ease, transform 0.7s ease', transitionDelay: '80ms' }}
           >
             {t('glass.title')}
           </h2>
           <p
-            className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed"
+            className="text-ink-mid text-lg max-w-2xl mx-auto leading-relaxed"
             style={{ opacity: headInView ? 1 : 0, transition: 'opacity 0.6s ease', transitionDelay: '160ms' }}
           >
             {t('glass.description')}
@@ -69,11 +69,11 @@ export default function GlassExplanation() {
                 <div className="w-9 h-9 rounded-lg bg-red-900/30 border border-red-900/50 flex items-center justify-center">
                   <AlertTriangle className="w-4 h-4 text-red-400" strokeWidth={2} />
                 </div>
-                <h3 className="font-bold text-white">{t('glass.regularGlass')}</h3>
+                <h3 className="font-bold text-ink">{t('glass.regularGlass')}</h3>
               </div>
               <ul className="space-y-3">
                 {Array.isArray(regularFeatures) && regularFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-gray-400">
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-ink-mid">
                     <X className="w-3.5 h-3.5 text-red-400 mt-0.5 shrink-0" strokeWidth={2.5} />
                     {f}
                   </li>
@@ -91,11 +91,11 @@ export default function GlassExplanation() {
                 <div className="w-9 h-9 rounded-lg bg-gold/15 border border-gold/30 flex items-center justify-center">
                   <Shield className="w-4 h-4 text-gold" strokeWidth={2} />
                 </div>
-                <h3 className="font-bold text-white">{t('glass.temperedGlass')}</h3>
+                <h3 className="font-bold text-ink">{t('glass.temperedGlass')}</h3>
               </div>
               <ul className="space-y-3">
                 {Array.isArray(temperedFeatures) && temperedFeatures.map((f, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-sm text-gray-300">
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-ink">
                     <Check className="w-3.5 h-3.5 text-gold mt-0.5 shrink-0" strokeWidth={2.5} />
                     {f}
                   </li>

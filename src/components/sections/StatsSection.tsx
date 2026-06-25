@@ -20,8 +20,7 @@ function Building({ fill, done }: { fill: number; done: boolean }) {
       {[3, 5, 7, 5, 3].map((height, col) => (
         <div key={col} className="flex flex-col-reverse gap-px" style={{ height: `${height * 8}px`, width: '10px' }}>
           {Array.from({ length: height }).map((_, row) => {
-            const globalFloor = row
-            const active = filledFloors > 0 && globalFloor < Math.ceil((filledFloors / FLOORS) * height)
+            const active = filledFloors > 0 && row < Math.ceil((filledFloors / FLOORS) * height)
             return (
               <div
                 key={row}
@@ -29,12 +28,12 @@ function Building({ fill, done }: { fill: number; done: boolean }) {
                 style={{
                   height: '6px',
                   background: active
-                    ? (done ? 'rgba(196,152,58,0.85)' : 'rgba(196,152,58,0.7)')
-                    : 'rgba(196,152,58,0.08)',
-                  border: active ? '1px solid rgba(196,152,58,0.6)' : '1px solid rgba(196,152,58,0.12)',
+                    ? (done ? 'rgba(196,152,58,0.9)' : 'rgba(196,152,58,0.7)')
+                    : 'rgba(196,152,58,0.10)',
+                  border: active ? '1px solid rgba(196,152,58,0.6)' : '1px solid rgba(196,152,58,0.15)',
                   transition: 'background 0.2s ease, border-color 0.2s ease',
                   transitionDelay: active ? `${row * 40}ms` : '0ms',
-                  boxShadow: active && done ? '0 0 4px rgba(196,152,58,0.4)' : undefined,
+                  boxShadow: active && done ? '0 0 6px rgba(196,152,58,0.5)' : undefined,
                 }}
               />
             )
@@ -72,20 +71,14 @@ function StatCounter({ target, suffix, delay, active }: {
       const lockedDigits = Math.floor(p * (targetStr.length + 0.9))
       let scrambled = ''
       for (let i = 0; i < targetStr.length; i++) {
-        if (i < lockedDigits) {
-          scrambled += targetStr[i]
-        } else {
-          scrambled += SCRAMBLE_CHARS[Math.floor(Math.random() * 10)]
-        }
+        scrambled += i < lockedDigits ? targetStr[i] : SCRAMBLE_CHARS[Math.floor(Math.random() * 10)]
       }
       setDisplay(scrambled)
 
       if (p < 1) {
         raf.current = requestAnimationFrame(tick)
       } else {
-        setDisplay(targetStr)
-        setFill(1)
-        setDone(true)
+        setDisplay(targetStr); setFill(1); setDone(true)
       }
     }
     raf.current = requestAnimationFrame(tick)
@@ -99,8 +92,8 @@ function StatCounter({ target, suffix, delay, active }: {
         className="text-5xl sm:text-6xl lg:text-7xl font-bold text-gold tabular-nums font-mono leading-none"
         style={{
           textShadow: done
-            ? '0 0 40px rgba(196,152,58,0.25)'
-            : `0 0 ${fill * 60}px rgba(196,152,58,${fill * 0.5})`,
+            ? '0 0 30px rgba(196,152,58,0.2)'
+            : `0 0 ${fill * 50}px rgba(196,152,58,${fill * 0.4})`,
         }}
       >
         {display}{suffix}
@@ -115,16 +108,18 @@ export default function StatsSection() {
 
   return (
     <section
-      className="relative bg-dark border-y border-gold/10 overflow-hidden"
+      className="relative border-y border-dark-border overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #1E2128 0%, #22252E 50%, #1E2128 100%)' }}
       aria-label="Statistics"
     >
+      {/* Blueprint grid — subtler on light bg */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(196,152,58,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(196,152,58,0.025) 1px, transparent 1px)
+            linear-gradient(rgba(196,152,58,0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(196,152,58,0.06) 1px, transparent 1px)
           `,
           backgroundSize: '40px 40px',
         }}
@@ -132,14 +127,14 @@ export default function StatsSection() {
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden="true"
-        style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 50%, rgba(196,152,58,0.04) 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(ellipse 70% 80% at 50% 50%, rgba(196,152,58,0.06) 0%, transparent 70%)' }}
       />
 
       <div
         ref={ref as React.RefObject<HTMLDivElement>}
         className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 lg:py-18"
       >
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-gold/10 rtl:divide-x-reverse">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-dark-border rtl:divide-x-reverse">
           {STATS.map(({ target, suffix, labelKey }, i) => (
             <div
               key={i}
@@ -152,7 +147,7 @@ export default function StatsSection() {
               }}
             >
               <StatCounter target={target} suffix={suffix} delay={i * 160} active={inView} />
-              <p className="mt-4 text-xs text-gray-500 uppercase tracking-widest">{t(labelKey)}</p>
+              <p className="mt-4 text-xs text-ink-soft uppercase tracking-widest">{t(labelKey)}</p>
             </div>
           ))}
         </div>

@@ -21,10 +21,10 @@ export default function ServicesPage() {
           <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
             {t('services.badge')}
           </span>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-5">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-ink mb-5">
             {t('services.title')}
           </h1>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('services.subtitle')}</p>
+          <p className="text-ink-mid text-lg max-w-2xl mx-auto">{t('services.subtitle')}</p>
         </div>
         <Services hideHeader />
       </main>

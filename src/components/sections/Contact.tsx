@@ -65,10 +65,10 @@ export default function Contact() {
           <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
             {t('contact.badge')}
           </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
             {t('contact.title')}
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">{t('contact.subtitle')}</p>
+          <p className="text-ink-mid text-lg max-w-2xl mx-auto">{t('contact.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
@@ -80,7 +80,7 @@ export default function Contact() {
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                   </svg>
                 </div>
-                <p className="text-white text-lg font-semibold mb-2">{t('contact.form.success')}</p>
+                <p className="text-ink text-lg font-semibold mb-2">{t('contact.form.success')}</p>
                 <button
                   onClick={() => { setFormState('idle'); setForm({ name: '', phone: '', city: '', service: '', message: '' }) }}
                   className="text-gold hover:text-gold-light text-sm font-medium transition-colors duration-200 mt-4"
@@ -92,38 +92,38 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t('contact.form.name')} *</label>
+                    <label className="block text-sm font-medium text-ink-mid mb-2">{t('contact.form.name')} *</label>
                     <input type="text" name="name" required value={form.name} onChange={handleChange}
                       placeholder={t('contact.form.namePlaceholder')}
-                      className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors duration-200 text-sm" />
+                      className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-ink placeholder-gray-400 outline-none transition-colors duration-200 text-sm" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t('contact.form.phone')} *</label>
+                    <label className="block text-sm font-medium text-ink-mid mb-2">{t('contact.form.phone')} *</label>
                     <input type="tel" name="phone" required value={form.phone} onChange={handleChange}
                       placeholder={t('contact.form.phonePlaceholder')}
-                      className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors duration-200 text-sm" />
+                      className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-ink placeholder-gray-400 outline-none transition-colors duration-200 text-sm" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t('contact.form.city')}</label>
+                    <label className="block text-sm font-medium text-ink-mid mb-2">{t('contact.form.city')}</label>
                     <input type="text" name="city" value={form.city} onChange={handleChange}
                       placeholder={t('contact.form.cityPlaceholder')}
-                      className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors duration-200 text-sm" />
+                      className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-ink placeholder-gray-400 outline-none transition-colors duration-200 text-sm" />
                   </div>
                   <div ref={dropRef}>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">{t('contact.form.service')}</label>
+                    <label className="block text-sm font-medium text-ink-mid mb-2">{t('contact.form.service')}</label>
                     <div className="relative">
                       <button
                         type="button"
                         onClick={() => setDropOpen(v => !v)}
                         className={`w-full bg-dark-elevated border rounded-xl px-4 py-3 text-sm text-start flex items-center justify-between gap-2 outline-none transition-colors duration-200 ${
                           dropOpen ? 'border-gold' : 'border-dark-border hover:border-gold/40'
-                        } ${form.service ? 'text-white' : 'text-gray-500'}`}
+                        } ${form.service ? 'text-ink' : 'text-ink-soft'}`}
                       >
                         <span className="truncate">{selectedServiceLabel}</span>
-                        <ChevronDown className={`w-4 h-4 text-gray-400 shrink-0 transition-transform duration-200 ${dropOpen ? 'rotate-180' : ''}`} strokeWidth={2} />
+                        <ChevronDown className={`w-4 h-4 text-ink-mid shrink-0 transition-transform duration-200 ${dropOpen ? 'rotate-180' : ''}`} strokeWidth={2} />
                       </button>
 
                       {dropOpen && (
@@ -133,7 +133,7 @@ export default function Contact() {
                               type="button"
                               onClick={() => { setForm(p => ({ ...p, service: '' })); setDropOpen(false) }}
                               className={`w-full text-start px-4 py-3 text-sm transition-colors duration-150 flex items-center justify-between ${
-                                !form.service ? 'text-gold bg-gold/5' : 'text-gray-400 hover:bg-dark-elevated hover:text-white'
+                                !form.service ? 'text-gold bg-gold/5' : 'text-ink-mid hover:bg-dark-elevated hover:text-ink'
                               }`}
                             >
                               {t('contact.form.servicePlaceholder')}
@@ -145,7 +145,7 @@ export default function Contact() {
                                 type="button"
                                 onClick={() => { setForm(p => ({ ...p, service: s.id })); setDropOpen(false) }}
                                 className={`w-full text-start px-4 py-3 text-sm transition-colors duration-150 flex items-center justify-between border-t border-dark-border/50 ${
-                                  form.service === s.id ? 'text-gold bg-gold/5' : 'text-gray-300 hover:bg-dark-elevated hover:text-white'
+                                  form.service === s.id ? 'text-gold bg-gold/5' : 'text-ink-mid hover:bg-dark-elevated hover:text-ink'
                                 }`}
                               >
                                 {t(s.nameKey)}
@@ -160,10 +160,10 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">{t('contact.form.message')}</label>
+                  <label className="block text-sm font-medium text-ink-mid mb-2">{t('contact.form.message')}</label>
                   <textarea name="message" rows={4} value={form.message} onChange={handleChange}
                     placeholder={t('contact.form.messagePlaceholder')}
-                    className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-white placeholder-gray-500 outline-none transition-colors duration-200 text-sm resize-none" />
+                    className="w-full bg-dark-elevated border border-dark-border focus:border-gold rounded-xl px-4 py-3 text-ink placeholder-gray-400 outline-none transition-colors duration-200 text-sm resize-none" />
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-4">
@@ -193,20 +193,20 @@ export default function Contact() {
 
           <div className="lg:col-span-2 space-y-4">
             {infoItems.map(({ Icon, label, value, href }, i) => (
-              <div key={i} className="bg-dark-card border border-dark-border rounded-xl p-5 flex items-start gap-4 hover:border-gold/20 transition-colors duration-200">
+              <div key={i} className="bg-dark-card border border-dark-border rounded-xl p-5 flex items-start gap-4 border-gold/10 shadow-sm">
                 <div className="w-9 h-9 rounded-lg bg-gold/10 border border-gold/20 flex items-center justify-center shrink-0">
                   <Icon className="w-4 h-4 text-gold" strokeWidth={1.5} />
                 </div>
                 <div className="min-w-0">
-                  <div className="text-gray-400 text-xs mb-1">{label}</div>
+                  <div className="text-ink-soft text-xs mb-1">{label}</div>
                   {href ? (
-                    <a href={href} className="text-white font-medium hover:text-gold transition-colors duration-200 text-sm break-all"
+                    <a href={href} className="text-ink font-semibold hover:text-gold transition-colors duration-200 text-sm break-all"
                       target={href.startsWith('http') ? '_blank' : undefined}
                       rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}>
                       {value}
                     </a>
                   ) : (
-                    <div className="text-white text-sm font-medium">{value}</div>
+                    <div className="text-ink text-sm font-semibold">{value}</div>
                   )}
                 </div>
               </div>

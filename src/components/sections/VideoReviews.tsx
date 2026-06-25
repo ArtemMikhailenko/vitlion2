@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import VideoModal from '../ui/VideoModal'
+import ScrambleText from '../ui/ScrambleText'
 
 const VIDEO_ITEMS = [
   {
@@ -48,10 +49,10 @@ export default function VideoReviews() {
             <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
               {t('videoReviews.badge')}
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
+            <ScrambleText className="block text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5" delay={150}>
               {t('videoReviews.title')}
-            </h2>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto">
+            </ScrambleText>
+            <p className="text-ink-mid text-lg max-w-xl mx-auto">
               {t('videoReviews.subtitle')}
             </p>
           </div>
@@ -114,8 +115,8 @@ export default function VideoReviews() {
                         </svg>
                       </div>
                       <div>
-                        <div className="text-white text-sm font-medium">{info.name}</div>
-                        <div className="text-gray-500 text-xs">{info.city}</div>
+                        <div className="text-ink text-sm font-medium">{info.name}</div>
+                        <div className="text-ink-soft text-xs">{info.city}</div>
                       </div>
                       <button
                         onClick={() => setActiveSrc(video.src)}
