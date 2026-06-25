@@ -53,7 +53,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               className="h-10 w-auto"
             />
             <div className="hidden sm:flex flex-col leading-none">
-              <span className={`font-bold tracking-[0.18em] text-[14px] uppercase transition-colors duration-200 group-hover:text-gold ${solid ? 'text-ink' : 'text-white'}`}>
+              <span className="font-bold tracking-[0.18em] text-[14px] uppercase transition-colors duration-200 group-hover:text-gold text-ink">
                 VITLION <span className="text-gold">GROUP</span>
               </span>
               <span className="text-gold/60 text-[9px] tracking-widest mt-0.5" dir="rtl">
@@ -67,9 +67,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               <a
                 key={item.key}
                 href={item.href}
-                className={`transition-colors duration-200 text-sm font-medium tracking-wide hover:text-gold ${
-                  solid ? 'text-ink' : 'text-gray-300'
-                }`}
+                className="transition-colors duration-200 text-sm font-medium tracking-wide text-ink hover:text-gold"
               >
                 {t(`nav.${item.key}`)}
               </a>
@@ -85,7 +83,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               {t('nav.callUs')}
             </a>
             <button
-              className={`md:hidden p-2 transition-colors duration-200 ${solid ? 'text-ink' : 'text-gray-300'}`}
+              className="md:hidden p-2 text-ink transition-colors duration-200 hover:text-gold"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >

@@ -13,7 +13,7 @@ export default function LanguageSwitcher({ lang, onSwitch }: Props) {
         className={`px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 ${
           lang === 'he'
             ? 'bg-gold text-dark font-bold'
-            : 'text-gray-400 hover:text-white'
+            : 'text-ink-mid hover:text-ink'
         }`}
         aria-label="Switch to Hebrew"
       >
@@ -24,7 +24,7 @@ export default function LanguageSwitcher({ lang, onSwitch }: Props) {
         className={`px-3 py-1 rounded-full text-sm font-medium transition-all duration-200 ${
           lang === 'ru'
             ? 'bg-gold text-dark font-bold'
-            : 'text-gray-400 hover:text-white'
+            : 'text-ink-mid hover:text-ink'
         }`}
         aria-label="Switch to Russian"
       >

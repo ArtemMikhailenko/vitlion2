@@ -49,11 +49,11 @@ export default function AccessibilityWidget() {
     <>
       <button
         onClick={() => setOpen(v => !v)}
-        className="fixed bottom-24 start-4 z-[90] w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-lg transition-all duration-200 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-dark"
+        className="fixed bottom-4 start-4 z-[90] flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 bg-dark-card/78 text-gold shadow-[0_10px_30px_rgba(15,17,23,0.10)] backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-gold/45 hover:bg-dark-card/92 hover:text-gold-dark focus:outline-none focus:ring-2 focus:ring-gold/45 focus:ring-offset-2 focus:ring-offset-dark"
         aria-label={t('accessibility.label')}
         aria-expanded={open}
       >
-        <svg viewBox="0 0 100 100" className="w-7 h-7" fill="white" aria-hidden="true">
+        <svg viewBox="0 0 100 100" className="h-6 w-6" fill="currentColor" aria-hidden="true">
           <circle cx="67" cy="11" r="10"/>
           <path d="M58 20 L44 48 L54 48 L68 20 Z"/>
           <path d="M53 31 L27 43 L30 51 L58 39 Z"/>
@@ -68,15 +68,15 @@ export default function AccessibilityWidget() {
 
       {open && (
         <div
-          className="fixed bottom-40 start-4 z-[91] w-72 bg-dark-card border border-dark-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden animate-fade-in"
+          className="fixed bottom-[72px] start-4 z-[91] w-72 bg-dark-card border border-dark-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden animate-fade-in"
           role="dialog"
           aria-label={t('accessibility.title')}
         >
-          <div className="flex items-center justify-between px-5 py-4 border-b border-dark-border bg-dark-elevated">
-            <span className="text-white font-semibold text-sm">{t('accessibility.title')}</span>
+          <div className="flex items-center justify-between px-5 py-4 border-b border-dark-border bg-dark-section">
+            <span className="text-ink font-semibold text-sm">{t('accessibility.title')}</span>
             <button
               onClick={() => setOpen(false)}
-              className="text-gray-400 hover:text-white transition-colors duration-150 p-1 rounded"
+              className="text-ink-soft hover:text-ink transition-colors duration-150 p-1 rounded"
               aria-label={t('accessibility.close')}
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -87,7 +87,7 @@ export default function AccessibilityWidget() {
 
           <div className="p-5 space-y-4">
             <div>
-              <p className="text-gray-400 text-xs mb-3">{t('accessibility.fontSize')}</p>
+              <p className="text-ink-soft text-xs mb-3">{t('accessibility.fontSize')}</p>
               <div className="flex gap-2">
                 {([0, 1, 2] as const).map(size => (
                   <button
@@ -96,7 +96,7 @@ export default function AccessibilityWidget() {
                     className={`flex-1 py-2 rounded-lg border text-sm font-bold transition-all duration-200 ${
                       settings.fontSize === size
                         ? 'bg-gold border-gold text-dark'
-                        : 'bg-dark-elevated border-dark-border text-white hover:border-gold/50'
+                        : 'bg-dark-section border-dark-border text-ink-mid hover:border-gold/50'
                     }`}
                     aria-pressed={settings.fontSize === size}
                   >
@@ -119,17 +119,17 @@ export default function AccessibilityWidget() {
                 onClick={() => toggle(key)}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl border text-sm font-medium transition-all duration-200 ${
                   settings[key]
-                    ? 'bg-gold/15 border-gold/50 text-gold'
-                    : 'bg-dark-elevated border-dark-border text-gray-300 hover:border-gold/30'
+                    ? 'bg-gold/12 border-gold/45 text-gold-dark'
+                    : 'bg-white border-dark-border text-ink-mid hover:border-gold/35'
                 }`}
                 aria-pressed={settings[key]}
               >
                 <span>{label}</span>
                 <div className={`w-10 h-5 rounded-full border-2 relative transition-all duration-200 ${
-                  settings[key] ? 'bg-gold border-gold' : 'bg-dark border-gray-600'
+                  settings[key] ? 'bg-gold border-gold' : 'bg-dark-section border-dark-border'
                 }`}>
                   <span className={`absolute top-0.5 w-3 h-3 rounded-full bg-white transition-all duration-200 ${
-                    settings[key] ? 'start-5' : 'start-0.5'
+                    settings[key] ? 'start-5 bg-white' : 'start-0.5 bg-ink-soft'
                   }`} />
                 </div>
               </button>
@@ -137,7 +137,7 @@ export default function AccessibilityWidget() {
 
             <button
               onClick={reset}
-              className="w-full py-2.5 rounded-xl border border-dark-border text-gray-400 hover:text-white hover:border-gray-500 text-sm transition-all duration-200"
+              className="w-full py-2.5 rounded-xl border border-dark-border text-ink-mid hover:text-ink hover:border-ink-mid text-sm transition-all duration-200"
             >
               {t('accessibility.reset')}
             </button>
