@@ -14,19 +14,11 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t('whatsapp.tooltip')}
-      className="fixed bottom-6 end-6 z-50 flex items-center overflow-hidden rounded-2xl shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200 hover:shadow-[#25D366]/20"
-      style={{ background: '#111827', border: '1px solid rgba(255,255,255,0.10)' }}
+      className="fixed bottom-6 end-6 z-50 w-14 h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:bg-[#20c05c] active:scale-95 transition-all duration-200"
     >
-      {/* Green icon block */}
-      <div className="flex items-center justify-center shrink-0 w-12 h-12 bg-[#25D366]">
-        <svg viewBox="0 0 24 24" className="w-6 h-6" aria-hidden="true">
-          <path fill="#ffffff" d={WA_PATH} />
-        </svg>
-      </div>
-      {/* White text block */}
-      <span className="px-3.5 text-sm font-semibold text-white whitespace-nowrap">
-        {t('whatsapp.tooltip')}
-      </span>
+      <svg viewBox="0 0 24 24" className="w-7 h-7" aria-hidden="true">
+        <path fill="#ffffff" d={WA_PATH} />
+      </svg>
     </a>
   )
 }
