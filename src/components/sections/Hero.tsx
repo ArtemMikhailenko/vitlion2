@@ -506,7 +506,7 @@ export default function Hero() {
         </div>
 
         <div className="relative z-10 flex min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] items-center">
-          <div className={`w-full px-4 pb-44 pt-12 sm:px-6 md:pt-16 lg:px-8 lg:pb-20 lg:pt-20 ${isHebrew ? 'lg:ml-auto lg:w-[58%]' : 'lg:w-[45%]'}`}>
+          <div className={`w-full px-4 pb-16 pt-10 sm:px-6 sm:pb-24 md:pt-16 lg:px-8 lg:pb-20 lg:pt-20 ${isHebrew ? 'lg:ml-auto lg:w-[58%]' : 'lg:w-[45%]'}`}>
             <div
               className={isHebrew ? 'mx-auto max-w-[980px] lg:ml-auto lg:mr-14' : 'mx-auto max-w-xl text-left lg:ml-16 lg:mr-auto'}
               dir="ltr"
@@ -523,7 +523,7 @@ export default function Hero() {
                   {t('hero.badge')}
                 </span>
 
-                <h1 className={`mb-6 font-bold tracking-tight text-white ${isHebrew ? 'max-w-[820px] text-[4.2rem] leading-[0.98] lg:text-[5.6rem] xl:text-[6.3rem]' : 'text-5xl leading-tight sm:text-6xl lg:text-7xl xl:text-8xl'}`}>
+                <h1 className={`mb-6 font-bold tracking-tight text-white ${isHebrew ? 'max-w-[820px] text-[2.2rem] leading-tight sm:text-[3rem] md:text-[4rem] lg:text-[5.6rem] xl:text-[6.3rem]' : 'text-4xl leading-tight sm:text-5xl lg:text-7xl xl:text-8xl'}`}>
                   {titleLines.map((line, i) => (
                     <span key={i} className="block">
                       {mounted && (
@@ -538,7 +538,7 @@ export default function Hero() {
                 </h1>
 
                 <p
-                  className={`mb-10 text-lg leading-relaxed sm:text-xl ${isHebrew ? 'max-w-2xl text-white/72' : 'max-w-lg text-white/72'}`}
+                  className={`mb-6 sm:mb-10 text-base leading-relaxed sm:text-lg lg:text-xl ${isHebrew ? 'max-w-2xl text-white/72' : 'max-w-lg text-white/72'}`}
                   style={{
                     opacity: mounted ? 1 : 0,
                     transform: mounted ? 'translateY(0)' : 'translateY(20px)',

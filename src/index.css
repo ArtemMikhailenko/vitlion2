@@ -43,7 +43,7 @@
 
 @layer components {
   .text-gradient-gold {
-    background: linear-gradient(135deg, #E8C568 0%, #C4983A 50%, #9B7420 100%);
+    background: linear-gradient(105deg, #F5E080 0%, #D4A830 22%, #8B6B0A 48%, #C4983A 72%, #F0D868 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -103,6 +103,11 @@
   10%  { opacity: 1; }
   to   { stroke-dashoffset: 0; opacity: 0.35; }
 }
+
+/* Metallic gold — override flat bg-gold with a shiny gradient */
+.bg-gold { background: linear-gradient(135deg, #ECC95E 0%, #C9962C 28%, #9B7420 52%, #C4983A 75%, #ECC95E 100%); }
+.hover\:bg-gold:hover,
+.hover\:bg-gold-light:hover { background: linear-gradient(135deg, #F5E07A 0%, #D4A83A 28%, #A8811F 52%, #D4A83A 75%, #F5E07A 100%); }
 
 /* Explicit light-theme overrides — Tailwind's 'dark' color name conflicts with dark: variant prefix */
 .bg-dark          { background-color: #F7F4EF; }
