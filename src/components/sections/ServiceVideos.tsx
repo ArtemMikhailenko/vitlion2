@@ -51,10 +51,10 @@ export default function ServiceVideos() {
             <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
               {t('serviceVideos.badge')}
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-5">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
               {t('serviceVideos.title')}
             </h2>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto">
+            <p className="text-ink text-lg max-w-xl mx-auto">
               {t('serviceVideos.subtitle')}
             </p>
           </div>
