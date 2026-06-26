@@ -51,7 +51,7 @@ export default function VideoReviews() {
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
               {t('videoReviews.title')}
             </h2>
-            <p className="text-ink-mid text-lg max-w-xl mx-auto">
+            <p className="text-ink text-lg max-w-xl mx-auto">
               {t('videoReviews.subtitle')}
             </p>
           </div>
