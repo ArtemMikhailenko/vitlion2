@@ -8,11 +8,11 @@ export default function Contact() {
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(t('whatsapp.message'))}`
 
   const infoItems = [
-    { Icon: Phone, label: t('contact.info.phone'), value: CONTACT.phone, href: `tel:${CONTACT.phone}` },
-    { Icon: MessageCircle, label: 'WhatsApp', value: CONTACT.whatsapp, href: waHref },
-    { Icon: Mail, label: t('contact.info.email'), value: CONTACT.email, href: `mailto:${CONTACT.email}` },
-    { Icon: Clock, label: t('contact.info.hours'), value: t('contact.info.hoursValue'), href: null },
-    { Icon: MapPin, label: t('contact.info.address'), value: t('contact.info.addressValue') || 'נתניה, ישראל', href: null },
+    { Icon: Phone,         label: t('contact.info.phone'),   value: CONTACT.phone,          href: `tel:${CONTACT.phone}`, ltr: true },
+    { Icon: MessageCircle, label: 'WhatsApp',                value: CONTACT.whatsapp,        href: waHref,                 ltr: true },
+    { Icon: Mail,          label: t('contact.info.email'),   value: CONTACT.email,           href: `mailto:${CONTACT.email}`, ltr: true },
+    { Icon: Clock,         label: t('contact.info.hours'),   value: t('contact.info.hoursValue'), href: null,             ltr: false },
+    { Icon: MapPin,        label: t('contact.info.addressLabel'), value: t('contact.info.address'), href: null,           ltr: false },
   ]
 
   return (
@@ -30,7 +30,7 @@ export default function Contact() {
 
         {/* Contact cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
-          {infoItems.map(({ Icon, label, value, href }, i) => (
+          {infoItems.map(({ Icon, label, value, href, ltr }, i) => (
             <div
               key={i}
               className="rounded-2xl p-6 border transition-all duration-200 hover:shadow-md"
@@ -45,11 +45,12 @@ export default function Contact() {
               <p className="text-xs font-semibold text-gold tracking-widest uppercase mb-1">{label}</p>
               {href ? (
                 <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"
+                  dir={ltr ? 'ltr' : undefined}
                   className="text-ink font-medium text-sm hover:text-gold transition-colors duration-200 break-all">
                   {value}
                 </a>
               ) : (
-                <p className="text-ink-mid text-sm">{value}</p>
+                <p dir={ltr ? 'ltr' : undefined} className="text-ink-mid text-sm">{value}</p>
               )}
             </div>
           ))}
@@ -63,7 +64,7 @@ export default function Contact() {
             style={{ color: '#1A1D24', boxShadow: '0 4px 20px rgba(196,152,58,0.3)' }}
           >
             <Phone className="w-4 h-4" strokeWidth={2} />
-            {CONTACT.phone}
+            <span dir="ltr">{CONTACT.phone}</span>
           </a>
           <a
             href={waHref}

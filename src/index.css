@@ -123,10 +123,28 @@
 /* Accessibility */
 html.acc-large  { font-size: 112% !important; }
 html.acc-larger { font-size: 126% !important; }
-html.acc-contrast  { filter: contrast(160%) brightness(1.05); }
 html.acc-grayscale { filter: grayscale(100%); }
 html.acc-no-anim * { animation-duration: 0ms !important; transition-duration: 0ms !important; }
 html.acc-links a, html.acc-links button { text-decoration: underline !important; outline: 2px solid #C4983A; outline-offset: 2px; }
+
+/* High contrast — targeted overrides instead of destructive filter */
+html.acc-contrast body { background-color: #FFFFFF !important; color: #000000 !important; }
+html.acc-contrast .bg-dark { background-color: #FFFFFF !important; }
+html.acc-contrast .bg-dark-section { background-color: #ECEAE4 !important; }
+html.acc-contrast .bg-dark-card { background-color: #FFFFFF !important; outline: 2px solid #000 !important; }
+html.acc-contrast .bg-dark-elevated { background-color: #F5F5F5 !important; }
+html.acc-contrast .text-ink { color: #000000 !important; }
+html.acc-contrast .text-ink-mid { color: #111111 !important; }
+html.acc-contrast .text-ink-soft { color: #333333 !important; }
+html.acc-contrast .text-gold { color: #6B4400 !important; }
+html.acc-contrast .text-gradient-gold { -webkit-text-fill-color: #6B4400 !important; background: none !important; color: #6B4400 !important; }
+html.acc-contrast .bg-gold { background: #6B4400 !important; }
+html.acc-contrast .border-dark-border { border-color: #555555 !important; }
+html.acc-contrast h1, html.acc-contrast h2, html.acc-contrast h3,
+html.acc-contrast h4, html.acc-contrast h5, html.acc-contrast h6 { color: #000000 !important; }
+html.acc-contrast p { color: #000000 !important; }
+html.acc-contrast .text-white { color: #FFFFFF !important; }
+html.acc-contrast *:focus-visible { outline: 3px solid #000 !important; outline-offset: 3px !important; }
 
 /* Russian typography */
 html[data-lang="ru"] body,
