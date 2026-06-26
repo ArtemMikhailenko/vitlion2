@@ -126,29 +126,6 @@ export default function ServiceModal({ service, onClose }: Props) {
             </>
           )}
 
-          {/* Thumbnails */}
-          {gallery.length > 1 && (
-            <div
-              className="absolute bottom-4 left-4 z-[2] inline-flex max-w-[calc(100%-2rem)] flex-wrap gap-1.5 rounded-2xl p-1.5 sm:bottom-5 sm:left-6"
-              style={{ background: 'rgba(10,12,16,0.5)', border: '1px solid rgba(255,255,255,0.16)', backdropFilter: 'blur(10px)' }}
-            >
-              {gallery.map((img, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveImg(i)}
-                  className="h-11 w-16 shrink-0 overflow-hidden rounded-lg bg-black transition-all duration-200 hover:opacity-100"
-                  style={{
-                    border: i === activeImg ? '2px solid #E8C568' : '1px solid rgba(255,255,255,0.28)',
-                    opacity: i === activeImg ? 1 : 0.68,
-                    boxShadow: i === activeImg ? '0 0 0 2px rgba(196,152,58,0.3)' : 'none',
-                  }}
-                  aria-label={`${i + 1} / ${gallery.length}`}
-                >
-                  <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
-                </button>
-              ))}
-            </div>
-          )}
         </div>
 
         {imageViewerOpen && (
@@ -216,9 +193,30 @@ export default function ServiceModal({ service, onClose }: Props) {
 
         {/* Content */}
         <div
-          className="flex min-h-0 flex-1 items-end px-4 pb-10 pt-0 sm:px-8 lg:px-12"
+          className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-10 pt-4 sm:px-8 lg:px-12"
           style={{ background: 'rgba(10,12,16,0.86)', backdropFilter: 'blur(18px)' }}
         >
+          {/* Thumbnails — moved here from image section to avoid iOS overflow:hidden/backdrop-filter bug */}
+          {gallery.length > 1 && (
+            <div className="mb-4 flex flex-wrap gap-1.5">
+              {gallery.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  className="h-11 w-16 shrink-0 overflow-hidden rounded-lg bg-black transition-all duration-200 hover:opacity-100"
+                  style={{
+                    border: i === activeImg ? '2px solid #E8C568' : '1px solid rgba(255,255,255,0.28)',
+                    opacity: i === activeImg ? 1 : 0.68,
+                    boxShadow: i === activeImg ? '0 0 0 2px rgba(196,152,58,0.3)' : 'none',
+                  }}
+                  aria-label={`${i + 1} / ${gallery.length}`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
+
           <div className="mx-auto grid w-full max-w-7xl gap-4 lg:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)] lg:gap-8">
             <div>
               <h2 className="mb-2 text-xl font-bold leading-tight text-white sm:text-2xl lg:text-3xl">{name}</h2>
