@@ -4,7 +4,6 @@ import SEOHead from './components/seo/SEOHead'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
 import Hero from './components/sections/Hero'
-import StatsSection from './components/sections/StatsSection'
 import Services from './components/sections/Services'
 import WhyUs from './components/sections/WhyUs'
 import ServiceVideos from './components/sections/ServiceVideos'
@@ -35,7 +34,6 @@ function LandingPage() {
       <Header lang={lang} onSwitchLang={switchLanguage} />
       <main id="main">
         <Hero />
-        <StatsSection />
         <Services />
         <ServiceVideos />
         <WhyUs />

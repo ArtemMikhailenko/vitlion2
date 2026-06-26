@@ -96,11 +96,11 @@ export default function Hero() {
       })()
     : titleText.split('\n')
   const primaryButtonClass = isHebrew
-    ? 'inline-flex items-center gap-2 rounded-xl bg-gold px-8 py-4 text-base font-bold text-[#111] shadow-lg shadow-gold/25 transition-all duration-200 hover:scale-105 hover:bg-gold-light hover:shadow-gold/45 active:scale-95'
-    : 'inline-flex min-h-11 items-center gap-2 rounded-lg bg-gold px-5 py-3 text-sm font-semibold text-[#111] transition-colors duration-200 hover:bg-gold-light active:scale-[0.98] sm:whitespace-nowrap'
+    ? 'inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-bold text-[#111] shadow-lg shadow-gold/25 transition-all duration-200 hover:scale-105 hover:bg-gold-light hover:shadow-gold/45 active:scale-95 sm:px-8 sm:py-4 sm:text-base'
+    : 'inline-flex w-full sm:w-auto justify-center min-h-11 items-center gap-2 rounded-lg bg-gold px-5 py-3 text-sm font-semibold text-[#111] transition-colors duration-200 hover:bg-gold-light active:scale-[0.98]'
   const secondaryButtonClass = isHebrew
-    ? 'inline-flex items-center gap-2 rounded-xl border border-dark-border bg-white px-8 py-4 text-base font-semibold text-ink shadow-sm transition-all duration-200 hover:border-gold/45 hover:text-gold active:scale-95'
-    : 'inline-flex min-h-11 items-center gap-2 rounded-lg border border-dark-border bg-white px-5 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:border-gold/45 hover:text-gold active:scale-[0.98] sm:whitespace-nowrap'
+    ? 'inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl border border-dark-border bg-white px-5 py-3 text-sm font-semibold text-ink shadow-sm transition-all duration-200 hover:border-gold/45 hover:text-gold active:scale-95 sm:px-8 sm:py-4 sm:text-base'
+    : 'inline-flex w-full sm:w-auto justify-center min-h-11 items-center gap-2 rounded-lg border border-dark-border bg-white px-5 py-3 text-sm font-medium text-ink transition-colors duration-200 hover:border-gold/45 hover:text-gold active:scale-[0.98]'
   const cursorRevealMask = cursorRevealState.progress > 0.01
     ? (cursorRevealTargetRef.current.mode === 'button'
         ? `linear-gradient(black, black), ${HERO_BUTTON_REVEAL_MASK}`
@@ -495,7 +495,7 @@ export default function Hero() {
         />
 
         <motion.div
-          className="absolute inset-0 bg-dark/85 backdrop-blur-xl lg:hidden"
+          className="absolute inset-0 bg-black/60 lg:hidden"
           initial={{ opacity: 0, scaleX: 0, originX: isHebrew ? 1 : 0 }}
           animate={mobilePanelControls}
           aria-hidden="true"
@@ -506,7 +506,7 @@ export default function Hero() {
         </div>
 
         <div className="relative z-10 flex min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-5rem)] items-center">
-          <div className={`w-full px-4 pb-44 pt-12 sm:px-6 md:pt-16 lg:px-8 lg:pb-20 lg:pt-20 ${isHebrew ? 'lg:ml-auto lg:w-[58%]' : 'lg:w-[45%]'}`}>
+          <div className={`w-full px-4 pb-16 pt-10 sm:px-6 sm:pb-24 md:pt-16 lg:px-8 lg:pb-20 lg:pt-20 ${isHebrew ? 'lg:ml-auto lg:w-[58%]' : 'lg:w-[45%]'}`}>
             <div
               className={isHebrew ? 'mx-auto max-w-[980px] lg:ml-auto lg:mr-14' : 'mx-auto max-w-xl text-left lg:ml-16 lg:mr-auto'}
               dir="ltr"
@@ -523,7 +523,7 @@ export default function Hero() {
                   {t('hero.badge')}
                 </span>
 
-                <h1 className={`mb-6 font-bold tracking-tight text-white ${isHebrew ? 'max-w-[820px] text-[4.2rem] leading-[0.98] lg:text-[5.6rem] xl:text-[6.3rem]' : 'text-5xl leading-tight sm:text-6xl lg:text-7xl xl:text-8xl'}`}>
+                <h1 className={`mb-6 font-bold tracking-tight text-white ${isHebrew ? 'max-w-[820px] text-[2.2rem] leading-tight sm:text-[3rem] md:text-[4rem] lg:text-[5.6rem] xl:text-[6.3rem]' : 'text-4xl leading-tight sm:text-5xl lg:text-7xl xl:text-8xl'}`}>
                   {titleLines.map((line, i) => (
                     <span key={i} className="block">
                       {mounted && (
@@ -538,7 +538,7 @@ export default function Hero() {
                 </h1>
 
                 <p
-                  className={`mb-10 text-lg leading-relaxed sm:text-xl ${isHebrew ? 'max-w-2xl text-white/72' : 'max-w-lg text-white/72'}`}
+                  className={`mb-6 sm:mb-10 text-base leading-relaxed sm:text-lg lg:text-xl ${isHebrew ? 'max-w-2xl text-white/72' : 'max-w-lg text-white/72'}`}
                   style={{
                     opacity: mounted ? 1 : 0,
                     transform: mounted ? 'translateY(0)' : 'translateY(20px)',
@@ -550,7 +550,7 @@ export default function Hero() {
                 </p>
 
                 <div
-                  className={`relative -m-4 inline-flex flex-col gap-4 p-4 sm:flex-row ${isHebrew ? 'items-end sm:justify-start' : 'items-start sm:justify-start'}`}
+                  className="relative -m-4 inline-flex flex-col sm:flex-row gap-3 p-4 items-stretch sm:items-center"
                   onMouseEnter={handleButtonGroupRevealMove}
                   onMouseMove={handleButtonGroupRevealMove}
                   onMouseLeave={handleButtonGroupRevealLeave}

@@ -335,6 +335,7 @@ const ru = {
       email: 'Email',
       hours: 'Часы работы',
       hoursValue: 'Вс–Чт 08:30–17:00',
+      addressLabel: 'Адрес',
       address: 'ул. Авраам Бума Шавит, 1, офис В103, Ришон-ле-Цион',
     },
   },
