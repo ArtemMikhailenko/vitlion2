@@ -19,7 +19,7 @@ function ServiceCard({ service, index, inView, onClick }: {
   return (
     <button
       type="button"
-      className="group relative bg-dark-card border border-dark-border rounded-2xl overflow-hidden text-start transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+      className="group relative bg-dark-card border border-dark-border rounded-2xl overflow-hidden text-start transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-0 appearance-none flex flex-col"
       style={{
         opacity: inView ? 1 : 0,
         boxShadow: '0 2px 12px rgba(196,152,58,0.06)',
@@ -28,11 +28,11 @@ function ServiceCard({ service, index, inView, onClick }: {
       }}
       onClick={onClick}
     >
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-52 overflow-hidden">
         <img
           src={service.image}
           alt={name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="block w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
           loading="lazy"
           onError={(e) => { e.currentTarget.style.display = 'none' }}
         />
