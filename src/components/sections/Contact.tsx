@@ -34,7 +34,7 @@ export default function Contact() {
             <div
               key={i}
               className="rounded-2xl p-6 border transition-all duration-200 hover:shadow-md"
-              style={{ backgroundColor: '#FFFFFF', borderColor: '#E4DECC' }}
+              style={{ backgroundColor: '#13161F', borderColor: '#23263A' }}
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
