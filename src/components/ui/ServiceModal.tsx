@@ -72,7 +72,7 @@ export default function ServiceModal({ service, onClose }: Props) {
       >
         {/* Image */}
         <div
-          className="relative h-[58dvh] min-h-[340px] shrink-0 overflow-hidden sm:h-[64dvh] lg:h-[66dvh]"
+          className="relative h-[52dvh] min-h-[300px] shrink-0 overflow-hidden sm:h-[58dvh] lg:h-[54dvh]"
           style={{ boxShadow: '0 34px 90px rgba(0,0,0,0.34)' }}
         >
           <img
@@ -126,6 +126,28 @@ export default function ServiceModal({ service, onClose }: Props) {
             </>
           )}
 
+          {/* Thumbnails in image corner — solid bg (no backdrop-filter = no iOS overflow:hidden bug) */}
+          {gallery.length > 1 && (
+            <div
+              className="absolute bottom-3 start-3 z-[2] inline-flex max-w-[calc(100%-1.5rem)] flex-wrap gap-1.5 rounded-xl p-1.5 sm:bottom-4 sm:start-4"
+              style={{ background: 'rgba(6,8,12,0.88)', border: '1px solid rgba(255,255,255,0.12)' }}
+            >
+              {gallery.map((img, i) => (
+                <button
+                  key={i}
+                  onClick={e => { e.stopPropagation(); setActiveImg(i) }}
+                  className="h-10 w-14 shrink-0 overflow-hidden rounded-lg bg-black transition-all duration-200 hover:opacity-100 sm:h-11 sm:w-16"
+                  style={{
+                    border: i === activeImg ? '2px solid #E8C568' : '1px solid rgba(255,255,255,0.25)',
+                    opacity: i === activeImg ? 1 : 0.65,
+                  }}
+                  aria-label={`${i + 1} / ${gallery.length}`}
+                >
+                  <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         {imageViewerOpen && (
@@ -193,30 +215,9 @@ export default function ServiceModal({ service, onClose }: Props) {
 
         {/* Content */}
         <div
-          className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-10 pt-4 sm:px-8 lg:px-12"
+          className="flex min-h-0 flex-1 flex-col overflow-y-auto lg:overflow-y-hidden px-4 pb-8 pt-5 sm:px-8 lg:px-12"
           style={{ background: 'rgba(10,12,16,0.86)', backdropFilter: 'blur(18px)' }}
         >
-          {/* Thumbnails — moved here from image section to avoid iOS overflow:hidden/backdrop-filter bug */}
-          {gallery.length > 1 && (
-            <div className="mb-4 flex flex-wrap gap-1.5">
-              {gallery.map((img, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveImg(i)}
-                  className="h-11 w-16 shrink-0 overflow-hidden rounded-lg bg-black transition-all duration-200 hover:opacity-100"
-                  style={{
-                    border: i === activeImg ? '2px solid #E8C568' : '1px solid rgba(255,255,255,0.28)',
-                    opacity: i === activeImg ? 1 : 0.68,
-                    boxShadow: i === activeImg ? '0 0 0 2px rgba(196,152,58,0.3)' : 'none',
-                  }}
-                  aria-label={`${i + 1} / ${gallery.length}`}
-                >
-                  <img src={img} alt="" className="w-full h-full object-cover" loading="lazy" />
-                </button>
-              ))}
-            </div>
-          )}
-
           <div className="mx-auto grid w-full max-w-7xl gap-4 lg:grid-cols-[minmax(0,1.18fr)_minmax(340px,0.82fr)] lg:gap-8">
             <div>
               <h2 className="mb-2 text-xl font-bold leading-tight text-white sm:text-2xl lg:text-3xl">{name}</h2>
