@@ -13,8 +13,11 @@ export default function BeforeAfterSlider({ before, after }: Props) {
   const [dragging, setDragging] = useState(false)
   const [interacted, setInteracted] = useState(false)
   const animRef = useRef<number | null>(null)
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const dragMovedRef = useRef(false)
   const startXRef = useRef(0)
+  const posRef = useRef(50)
+  const firstMountRef = useRef(true)
 
   const getPos = (clientX: number) => {
     const el = containerRef.current
@@ -24,12 +27,13 @@ export default function BeforeAfterSlider({ before, after }: Props) {
   }
 
   // Continuous slow oscillation: 25 ↔ 75, 5 seconds per half-cycle
+  // Starts from current posRef so resuming after interaction feels smooth
   useEffect(() => {
     if (interacted) return
 
     const STEP_MS = 5000
-    let fromPos = 50
-    let target = 25
+    let fromPos = posRef.current
+    let target = fromPos < 50 ? 75 : 25
     let startTime: number | null = null
 
     const tick = (ts: number) => {
@@ -37,7 +41,9 @@ export default function BeforeAfterSlider({ before, after }: Props) {
       const elapsed = ts - startTime
       const t = Math.min(elapsed / STEP_MS, 1)
       const eased = (1 - Math.cos(t * Math.PI)) / 2
-      setPos(fromPos + (target - fromPos) * eased)
+      const next = fromPos + (target - fromPos) * eased
+      posRef.current = next
+      setPos(next)
 
       if (t >= 1) {
         fromPos = target
@@ -48,32 +54,46 @@ export default function BeforeAfterSlider({ before, after }: Props) {
       animRef.current = requestAnimationFrame(tick)
     }
 
+    const delay = firstMountRef.current ? 800 : 0
+    firstMountRef.current = false
     const timer = setTimeout(() => {
       animRef.current = requestAnimationFrame(tick)
-    }, 800)
+    }, delay)
 
     return () => {
       clearTimeout(timer)
       if (animRef.current) cancelAnimationFrame(animRef.current)
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     }
   }, [interacted])
 
   const startDrag = useCallback((clientX: number) => {
     if (animRef.current) cancelAnimationFrame(animRef.current)
+    if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     startXRef.current = clientX
     dragMovedRef.current = false
     setInteracted(true)
     setDragging(true)
-    setPos(getPos(clientX))
+    const p = getPos(clientX)
+    posRef.current = p
+    setPos(p)
   }, [])
 
   const moveDrag = useCallback((clientX: number) => {
     if (!dragging) return
     if (Math.abs(clientX - startXRef.current) > 5) dragMovedRef.current = true
-    setPos(getPos(clientX))
+    const p = getPos(clientX)
+    posRef.current = p
+    setPos(p)
   }, [dragging])
 
-  const endDrag = useCallback(() => setDragging(false), [])
+  const endDrag = useCallback(() => {
+    setDragging(false)
+    // Resume auto-animation after 3 seconds of inactivity
+    resumeTimerRef.current = setTimeout(() => {
+      setInteracted(false)
+    }, 3000)
+  }, [])
 
   useEffect(() => {
     if (!dragging) return
@@ -97,7 +117,9 @@ export default function BeforeAfterSlider({ before, after }: Props) {
       onTouchMove={e => {
         if (!dragging) return
         dragMovedRef.current = true
-        setPos(getPos(e.touches[0].clientX))
+        const p = getPos(e.touches[0].clientX)
+        posRef.current = p
+        setPos(p)
       }}
       onTouchEnd={endDrag}
       onClick={e => { if (dragMovedRef.current) e.stopPropagation() }}

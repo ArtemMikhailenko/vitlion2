@@ -55,10 +55,6 @@ function ServiceCard({ service, index, inView, onClick }: {
             onError={(e) => { e.currentTarget.style.display = 'none' }}
           />
         )}
-        {/* Gold index badge */}
-        <div className="absolute top-3 end-3 z-20 w-7 h-7 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold text-xs font-bold pointer-events-none">
-          {String(index + 1).padStart(2, '0')}
-        </div>
       </div>
 
       <div className="p-6">
