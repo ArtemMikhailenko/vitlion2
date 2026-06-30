@@ -4,7 +4,20 @@ import { SERVICES } from '../../data/services'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
 import ServiceModal from '../ui/ServiceModal'
+import BeforeAfterSlider from '../ui/BeforeAfterSlider'
 import type { Service } from '../../types'
+
+const BEFORE_AFTER: Record<string, { before: string; after: string }> = {
+  'pergola-electric':    { before: '/media/before-after/pergola-electric-after.png',    after: '/media/before-after/pergola-electric-before.png' },
+  'pergola-static':     { before: '/media/before-after/pergola-static-before.png',     after: '/media/before-after/pergola-static-after.jpg' },
+  'zip-pvc':            { before: '/media/before-after/zip-pvc-after.png',             after: '/media/before-after/zip-pvc-before.jpg' },
+  'frameless-glazing':  { before: '/media/before-after/frameless-glazing-before.png',  after: '/media/before-after/frameless-glazing-after.jpg' },
+  'guillotine-electric':{ before: '/media/before-after/guillotine-electric-after.png', after: '/media/before-after/guillotine-electric-before.png' },
+  'sliding-systems':    { before: '/media/before-after/sliding-systems-after.png',     after: '/media/before-after/sliding-systems-before.jpeg' },
+  'swing-doors':        { before: '/media/before-after/swing-doors-after.png',         after: '/media/before-after/swing-doors-before.png' },
+  'pivot-windows':      { before: '/media/before-after/pivot-windows-after.png',       after: '/media/before-after/pivot-windows-before.png' },
+  'fixed-glazing':      { before: '/media/before-after/fixed-glazing-after.png',       after: '/media/before-after/fixed-glazing-before.png' },
+}
 
 function ServiceCard({ service, index, inView, onClick }: {
   service: typeof SERVICES[0]
@@ -15,6 +28,7 @@ function ServiceCard({ service, index, inView, onClick }: {
   const { t } = useTranslation()
   const name = t(service.nameKey)
   const shortDesc = t(service.shortKey)
+  const pair = BEFORE_AFTER[service.slug]
 
   return (
     <button
@@ -28,15 +42,21 @@ function ServiceCard({ service, index, inView, onClick }: {
       }}
       onClick={onClick}
     >
+      {/* Image / before-after area */}
       <div className="relative h-52 overflow-hidden">
-        <img
-          src={service.image}
-          alt={name}
-          className="block w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-          loading="lazy"
-          onError={(e) => { e.currentTarget.style.display = 'none' }}
-        />
-        <div className="absolute top-4 end-4 w-7 h-7 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold text-xs font-bold">
+        {pair ? (
+          <BeforeAfterSlider before={pair.before} after={pair.after} />
+        ) : (
+          <img
+            src={service.image}
+            alt={name}
+            className="block w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+            loading="lazy"
+            onError={(e) => { e.currentTarget.style.display = 'none' }}
+          />
+        )}
+        {/* Gold index badge */}
+        <div className="absolute top-3 end-3 z-20 w-7 h-7 rounded-full bg-gold/15 border border-gold/40 flex items-center justify-center text-gold text-xs font-bold pointer-events-none">
           {String(index + 1).padStart(2, '0')}
         </div>
       </div>
