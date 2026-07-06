@@ -8,7 +8,9 @@ export default function FloatingVideo() {
   const [visible, setVisible] = useState(!sessionStorage.getItem('dominika-dismissed'))
   const [muted, setMuted] = useState(true)
   const [ended, setEnded] = useState(false)
+  const [expanded, setExpanded] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
+  const expandedVideoRef = useRef<HTMLVideoElement>(null)
 
   const dismiss = () => {
     setVisible(false)
@@ -17,16 +19,23 @@ export default function FloatingVideo() {
 
   const toggleMute = () => {
     setMuted(v => {
-      if (videoRef.current) videoRef.current.muted = !v
-      return !v
+      const next = !v
+      if (videoRef.current) videoRef.current.muted = next
+      if (expandedVideoRef.current) expandedVideoRef.current.muted = next
+      return next
     })
   }
 
-  const openFullscreen = () => {
-    const v = videoRef.current
-    if (!v) return
-    if (v.requestFullscreen) v.requestFullscreen()
-    else if ((v as any).webkitEnterFullscreen) (v as any).webkitEnterFullscreen()
+  const openExpanded = () => {
+    setExpanded(true)
+  }
+
+  const closeExpanded = () => {
+    setExpanded(false)
+    // sync playback time back from expanded video to mini
+    if (expandedVideoRef.current && videoRef.current) {
+      videoRef.current.currentTime = expandedVideoRef.current.currentTime
+    }
   }
 
   if (!visible) return null
@@ -38,85 +47,128 @@ export default function FloatingVideo() {
   const ctaBtn = lang === 'ru' ? 'Оставить заявку' : 'השאירו פרטים'
 
   return (
-    <div
-      className="fixed bottom-44 end-4 z-[80] w-36 sm:w-52 rounded-2xl overflow-hidden shadow-2xl"
-      style={{
-        backgroundColor: '#13161F',
-        border: '1px solid #23263A',
-        boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
-        animation: 'fadeInUp 0.4s ease both',
-      }}
-    >
-      <style>{`
-        @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(16px); }
-          to   { opacity: 1; transform: translateY(0); }
-        }
-      `}</style>
-
-      {/* Video area */}
-      <div
-        className="relative w-full cursor-pointer"
-        style={{ aspectRatio: '3/4' }}
-        onClick={openFullscreen}
-      >
-        <video
-          ref={videoRef}
-          src={src}
-          className="w-full h-full object-cover object-top"
-          playsInline
-          autoPlay
-          muted
-          onEnded={() => setEnded(true)}
-        />
-
-        {/* Mute toggle */}
-        {!ended && (
-          <button
-            onClick={e => { e.stopPropagation(); toggleMute() }}
-            className="absolute bottom-2 left-2 flex h-6 w-6 items-center justify-center rounded-full text-white transition-all hover:scale-110"
-            style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.2)' }}
-            aria-label={muted ? 'Unmute' : 'Mute'}
-          >
-            {muted ? <VolumeX className="h-3 w-3" strokeWidth={2.5} /> : <Volume2 className="h-3 w-3" strokeWidth={2.5} />}
-          </button>
-        )}
-
-        {/* CTA overlay after video ends */}
-        {ended && (
+    <>
+      {/* Expanded fullscreen overlay */}
+      {expanded && (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-black/90"
+          onClick={closeExpanded}
+        >
           <div
-            className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-3 text-center"
-            style={{ background: 'rgba(12,14,20,0.88)' }}
+            className="relative w-full max-w-sm mx-4 rounded-2xl overflow-hidden"
+            style={{ aspectRatio: '9/16', maxHeight: '90dvh' }}
             onClick={e => e.stopPropagation()}
           >
-            <p className="text-xs font-semibold text-white leading-snug">{ctaText}</p>
-            <a
-              href="#contact"
-              onClick={dismiss}
-              className="mt-1 rounded-lg px-4 py-2 text-[11px] font-bold transition-all hover:scale-105"
-              style={{ background: 'linear-gradient(135deg, #C4983A, #E8C568)', color: '#1C1F26' }}
+            <video
+              ref={expandedVideoRef}
+              src={src}
+              className="w-full h-full object-cover"
+              playsInline
+              autoPlay
+              muted={muted}
+              onEnded={() => setEnded(true)}
+            />
+            <button
+              onClick={closeExpanded}
+              className="absolute end-3 top-3 flex h-9 w-9 items-center justify-center rounded-full text-white transition-all hover:scale-110"
+              style={{ background: 'rgba(0,0,0,0.7)', border: '1px solid rgba(255,255,255,0.25)' }}
+              aria-label="Close"
             >
-              {ctaBtn}
-            </a>
+              <X className="h-4 w-4" strokeWidth={2.5} />
+            </button>
+            <button
+              onClick={toggleMute}
+              className="absolute bottom-3 start-3 flex h-9 w-9 items-center justify-center rounded-full text-white transition-all hover:scale-110"
+              style={{ background: 'rgba(0,0,0,0.7)', border: '1px solid rgba(255,255,255,0.25)' }}
+              aria-label={muted ? 'Unmute' : 'Mute'}
+            >
+              {muted ? <VolumeX className="h-4 w-4" strokeWidth={2.5} /> : <Volume2 className="h-4 w-4" strokeWidth={2.5} />}
+            </button>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Close button */}
-        <button
-          onClick={e => { e.stopPropagation(); dismiss() }}
-          className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full text-white transition-all hover:scale-110"
-          style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.2)' }}
-          aria-label="Close"
+      {/* Mini floating card */}
+      <div
+        className="fixed bottom-44 end-4 z-[80] w-36 sm:w-52 rounded-2xl overflow-hidden shadow-2xl"
+        style={{
+          backgroundColor: '#13161F',
+          border: '1px solid #23263A',
+          boxShadow: '0 8px 40px rgba(0,0,0,0.6)',
+          animation: 'fadeInUp 0.4s ease both',
+        }}
+      >
+        <style>{`
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+          }
+        `}</style>
+
+        {/* Video area */}
+        <div
+          className="relative w-full cursor-pointer"
+          style={{ aspectRatio: '3/4' }}
+          onClick={openExpanded}
         >
-          <X className="h-3 w-3" strokeWidth={2.5} />
-        </button>
-      </div>
+          <video
+            ref={videoRef}
+            src={src}
+            className="w-full h-full object-cover object-top"
+            playsInline
+            autoPlay
+            muted
+            onEnded={() => setEnded(true)}
+          />
 
-      {/* Name / title */}
-      <div className="px-2.5 py-2 sm:px-3 sm:py-2.5" style={{ borderTop: '1px solid #23263A' }}>
-        <p className="text-[11px] sm:text-[13px] font-bold text-ink">{name}</p>
-        <p className="text-[9px] sm:text-[11px] text-ink-mid">{title}</p>
+          {/* Mute toggle */}
+          {!ended && (
+            <button
+              onClick={e => { e.stopPropagation(); toggleMute() }}
+              className="absolute bottom-2 left-2 flex h-6 w-6 items-center justify-center rounded-full text-white transition-all hover:scale-110"
+              style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.2)' }}
+              aria-label={muted ? 'Unmute' : 'Mute'}
+            >
+              {muted ? <VolumeX className="h-3 w-3" strokeWidth={2.5} /> : <Volume2 className="h-3 w-3" strokeWidth={2.5} />}
+            </button>
+          )}
+
+          {/* CTA overlay after video ends */}
+          {ended && (
+            <div
+              className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-3 text-center"
+              style={{ background: 'rgba(12,14,20,0.88)' }}
+              onClick={e => e.stopPropagation()}
+            >
+              <p className="text-xs font-semibold text-white leading-snug">{ctaText}</p>
+              <a
+                href="#contact"
+                onClick={dismiss}
+                className="mt-1 rounded-lg px-4 py-2 text-[11px] font-bold transition-all hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #C4983A, #E8C568)', color: '#1C1F26' }}
+              >
+                {ctaBtn}
+              </a>
+            </div>
+          )}
+
+          {/* Close button */}
+          <button
+            onClick={e => { e.stopPropagation(); dismiss() }}
+            className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full text-white transition-all hover:scale-110"
+            style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.2)' }}
+            aria-label="Close"
+          >
+            <X className="h-3 w-3" strokeWidth={2.5} />
+          </button>
+        </div>
+
+        {/* Name / title */}
+        <div className="px-2.5 py-2 sm:px-3 sm:py-2.5" style={{ borderTop: '1px solid #23263A' }}>
+          <p className="text-[11px] sm:text-[13px] font-bold text-ink">{name}</p>
+          <p className="text-[9px] sm:text-[11px] text-ink-mid">{title}</p>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
