@@ -5,7 +5,6 @@ import Services from '../components/sections/Services'
 import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
-import AccessibilityWidget from '../components/ui/AccessibilityWidget'
 import { useLanguage } from '../hooks/useLanguage'
 
 export default function ServicesPage() {
@@ -31,7 +30,6 @@ export default function ServicesPage() {
       <CTASection />
       <Footer />
       <WhatsAppButton />
-      <AccessibilityWidget />
     </>
   )
 }

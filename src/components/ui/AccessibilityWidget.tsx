@@ -46,14 +46,15 @@ export default function AccessibilityWidget() {
   const fontSizeLabels = ['A', 'A+', 'A++']
 
   return (
-    <>
+    <div className="relative">
       <button
         onClick={() => setOpen(v => !v)}
-        className="fixed bottom-4 start-4 z-[90] flex h-12 w-12 items-center justify-center rounded-full border border-gold/25 bg-dark-card/78 text-gold shadow-[0_10px_30px_rgba(15,17,23,0.10)] backdrop-blur-md transition-all duration-200 hover:scale-105 hover:border-gold/45 hover:bg-dark-card/92 hover:text-gold-dark focus:outline-none focus:ring-2 focus:ring-gold/45 focus:ring-offset-2 focus:ring-offset-dark"
+        className="flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-gold/40 focus:ring-offset-1 focus:ring-offset-dark"
+        style={{ background: 'rgba(196,152,58,0.12)', border: '1.5px solid rgba(196,152,58,0.45)', color: '#C4983A' }}
         aria-label={t('accessibility.label')}
         aria-expanded={open}
       >
-        <svg viewBox="0 0 100 100" className="h-6 w-6" fill="currentColor" aria-hidden="true">
+        <svg viewBox="0 0 100 100" className="h-5 w-5" fill="currentColor" aria-hidden="true">
           <circle cx="67" cy="11" r="10"/>
           <path d="M58 20 L44 48 L54 48 L68 20 Z"/>
           <path d="M53 31 L27 43 L30 51 L58 39 Z"/>
@@ -68,7 +69,7 @@ export default function AccessibilityWidget() {
 
       {open && (
         <div
-          className="fixed bottom-[72px] start-4 z-[91] w-72 bg-dark-card border border-dark-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden animate-fade-in"
+          className="absolute end-0 top-full mt-2 z-[91] w-72 bg-dark-card border border-dark-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden animate-fade-in"
           role="dialog"
           aria-label={t('accessibility.title')}
         >
@@ -144,6 +145,6 @@ export default function AccessibilityWidget() {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }

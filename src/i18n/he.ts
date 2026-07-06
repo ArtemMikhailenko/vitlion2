@@ -333,8 +333,10 @@ const he = {
       email: 'אימייל',
       hours: 'שעות עבודה',
       hoursValue: 'א׳–ה׳ 08:30–17:00',
-      addressLabel: 'כתובת',
+      addressLabel: 'ראשון לציון',
       address: 'רח׳ אברהם בומה שביט 1, משרד B103, ראשון לציון',
+      address2Label: 'חיפה',
+      address2: 'מרכז מסחרי סיטי מול, ההסתדרות 25, חיפה',
     },
   },
 
@@ -358,6 +360,20 @@ const he = {
     },
     rights: '© 2024 Vitlion Group. כל הזכויות שמורות.',
     madeWith: 'נעשה עם אהבה למרחבים שלכם',
+  },
+
+  beforeAfter: {
+    labelBefore: 'לפני',
+    labelAfter: 'אחרי',
+    badge: 'לפני ואחרי',
+    title: 'הטרנספורמציה שאנחנו יוצרים',
+    subtitle: 'גררו את המחוון וראו את ההבדל — לפני ואחרי ההתקנה שלנו',
+    items: [
+      { label: 'פרגולות חשמליות' },
+      { label: 'גיליוטינות חשמליות' },
+      { label: 'פרגולה' },
+      { label: 'זיגוג' },
+    ],
   },
 
   whatsapp: {

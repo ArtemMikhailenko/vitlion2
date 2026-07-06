@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { SERVICES, CONTACT } from '../../data/services'
+import { CATEGORIES, CONTACT } from '../../data/services'
 import { useLanguage } from '../../hooks/useLanguage'
 
 export default function Footer() {
@@ -51,24 +51,17 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4 text-sm tracking-wide">{t('footer.services')}</h3>
             <ul className="space-y-2.5">
-              {SERVICES.slice(0, 5).map(s => (
-                <li key={s.id}>
-                  <a href={`/services${lp}`} className="text-gray-400 hover:text-gold text-sm transition-colors duration-200">{t(s.nameKey)}</a>
+              {CATEGORIES.map(cat => (
+                <li key={cat.id}>
+                  <a href={`/services${lp}`} className="text-gray-400 hover:text-gold text-sm transition-colors duration-200">
+                    {cat.name[lang === 'ru' ? 'ru' : 'he']}
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm tracking-wide invisible">{t('footer.services')}</h3>
-            <ul className="space-y-2.5">
-              {SERVICES.slice(5).map(s => (
-                <li key={s.id}>
-                  <a href={`/services${lp}`} className="text-gray-400 hover:text-gold text-sm transition-colors duration-200">{t(s.nameKey)}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <div />
 
           <div>
             <h3 className="text-white font-semibold mb-4 text-sm tracking-wide">{t('footer.company')}</h3>

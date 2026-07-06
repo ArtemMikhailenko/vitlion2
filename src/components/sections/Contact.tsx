@@ -13,6 +13,7 @@ export default function Contact() {
     { Icon: Mail,          label: t('contact.info.email'),   value: CONTACT.email,           href: `mailto:${CONTACT.email}`, ltr: true },
     { Icon: Clock,         label: t('contact.info.hours'),   value: t('contact.info.hoursValue'), href: null,             ltr: false },
     { Icon: MapPin,        label: t('contact.info.addressLabel'), value: t('contact.info.address'), href: null,           ltr: false },
+    { Icon: MapPin,        label: t('contact.info.address2Label'), value: t('contact.info.address2'), href: null,          ltr: false },
   ]
 
   return (
@@ -34,7 +35,7 @@ export default function Contact() {
             <div
               key={i}
               className="rounded-2xl p-6 border transition-all duration-200 hover:shadow-md"
-              style={{ backgroundColor: '#FFFFFF', borderColor: '#E4DECC' }}
+              style={{ backgroundColor: '#13161F', borderColor: '#23263A' }}
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"

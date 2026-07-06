@@ -7,7 +7,6 @@ import Hero from './components/sections/Hero'
 import Services from './components/sections/Services'
 import WhyUs from './components/sections/WhyUs'
 import ServiceVideos from './components/sections/ServiceVideos'
-import PromoVideo from './components/sections/PromoVideo'
 import Gallery from './components/sections/Gallery'
 import VideoReviews from './components/sections/VideoReviews'
 import Testimonials from './components/sections/Testimonials'
@@ -15,7 +14,8 @@ import Contact from './components/sections/Contact'
 import CTASection from './components/sections/CTASection'
 import WhatsAppButton from './components/ui/WhatsAppButton'
 import ScrollProgress from './components/ui/ScrollProgress'
-import AccessibilityWidget from './components/ui/AccessibilityWidget'
+import FloatingVideo from './components/ui/FloatingVideo'
+import CostQuiz from './components/ui/CostQuiz'
 import ServicesPage from './pages/ServicesPage'
 import ProjectsPage from './pages/ProjectsPage'
 import ContactPage from './pages/ContactPage'
@@ -37,7 +37,6 @@ function LandingPage() {
         <Services />
         <ServiceVideos />
         <WhyUs />
-        <PromoVideo lang={lang} />
         <Gallery />
         <VideoReviews />
         <Testimonials />
@@ -46,7 +45,8 @@ function LandingPage() {
       <CTASection />
       <Footer />
       <WhatsAppButton />
-      <AccessibilityWidget />
+      <FloatingVideo />
+      <CostQuiz />
     </>
   )
 }

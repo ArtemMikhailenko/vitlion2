@@ -17,8 +17,8 @@
   }
 
   body {
-    background-color: #F7F4EF;
-    color: #1A1D24;
+    background-color: #0C0E14;
+    color: #E4E0D8;
     font-family: var(--font-russian);
   }
 
@@ -27,11 +27,11 @@
   }
 
   ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: #F1EDE5; }
-  ::-webkit-scrollbar-thumb { background: #C4B896; border-radius: 3px; }
+  ::-webkit-scrollbar-track { background: #0F1118; }
+  ::-webkit-scrollbar-thumb { background: #2E3245; border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: #C4983A; }
 
-  ::selection { background: rgba(196, 152, 58, 0.25); color: #1A1D24; }
+  ::selection { background: rgba(196, 152, 58, 0.35); color: #E4E0D8; }
 
   :focus-visible {
     outline: 2px solid var(--color-gold);
@@ -108,16 +108,16 @@
 .hover\:bg-gold:hover,
 .hover\:bg-gold-light:hover { background: linear-gradient(135deg, #F5E07A 0%, #D4A83A 28%, #A8811F 52%, #D4A83A 75%, #F5E07A 100%); }
 
-/* Explicit light-theme overrides — Tailwind's 'dark' color name conflicts with dark: variant prefix */
-.bg-dark          { background-color: #F7F4EF; }
-.bg-dark-card     { background-color: #FFFFFF; }
-.bg-dark-section  { background-color: #F1EDE5; }
-.bg-dark-elevated { background-color: #FAFAF8; }
-.border-dark-border { border-color: #E4DECC; }
-.divide-dark-border > :not([hidden]) ~ :not([hidden]) { border-color: #E4DECC; }
-.text-ink         { color: #1A1D24; }
-.text-ink-mid     { color: #52566B; }
-.text-ink-soft    { color: #7A7F94; }
+/* Dark theme — explicit overrides (Tailwind's 'dark' color key conflicts with dark: variant prefix) */
+.bg-dark          { background-color: #0C0E14; }
+.bg-dark-card     { background-color: #13161F; }
+.bg-dark-section  { background-color: #0F1118; }
+.bg-dark-elevated { background-color: #1A1D28; }
+.border-dark-border { border-color: #23263A; }
+.divide-dark-border > :not([hidden]) ~ :not([hidden]) { border-color: #23263A; }
+.text-ink         { color: #E4E0D8; }
+.text-ink-mid     { color: #8C90A8; }
+.text-ink-soft    { color: #585C78; }
 
 /* Accessibility */
 html.acc-large  { font-size: 112% !important; }
@@ -127,14 +127,14 @@ html.acc-no-anim * { animation-duration: 0ms !important; transition-duration: 0m
 html.acc-links a, html.acc-links button { text-decoration: underline !important; outline: 2px solid #C4983A; outline-offset: 2px; }
 
 /* High contrast — targeted overrides instead of destructive filter */
-html.acc-contrast body { background-color: #FFFFFF !important; color: #000000 !important; }
-html.acc-contrast .bg-dark { background-color: #FFFFFF !important; }
-html.acc-contrast .bg-dark-section { background-color: #ECEAE4 !important; }
-html.acc-contrast .bg-dark-card { background-color: #FFFFFF !important; outline: 2px solid #000 !important; }
-html.acc-contrast .bg-dark-elevated { background-color: #F5F5F5 !important; }
-html.acc-contrast .text-ink { color: #000000 !important; }
-html.acc-contrast .text-ink-mid { color: #111111 !important; }
-html.acc-contrast .text-ink-soft { color: #333333 !important; }
+html.acc-contrast body { background-color: #000000 !important; color: #FFFFFF !important; }
+html.acc-contrast .bg-dark { background-color: #000000 !important; }
+html.acc-contrast .bg-dark-section { background-color: #0A0A0A !important; }
+html.acc-contrast .bg-dark-card { background-color: #0D0D0D !important; outline: 2px solid #555 !important; }
+html.acc-contrast .bg-dark-elevated { background-color: #111111 !important; }
+html.acc-contrast .text-ink { color: #FFFFFF !important; }
+html.acc-contrast .text-ink-mid { color: #DDDDDD !important; }
+html.acc-contrast .text-ink-soft { color: #AAAAAA !important; }
 html.acc-contrast .text-gold { color: #6B4400 !important; }
 html.acc-contrast .text-gradient-gold { -webkit-text-fill-color: #6B4400 !important; background: none !important; color: #6B4400 !important; }
 html.acc-contrast .bg-gold { background: #6B4400 !important; }

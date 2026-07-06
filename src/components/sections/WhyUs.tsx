@@ -44,15 +44,15 @@ export default function WhyUs() {
                 key={i}
                 className="group rounded-2xl p-7 border transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                 style={{
-                  backgroundColor: '#FFFFFF',
-                  borderColor: '#E4DECC',
+                  backgroundColor: '#13161F',
+                  borderColor: '#23263A',
                   opacity: inView ? 1 : 0,
                   transform: inView ? 'translateY(0)' : 'translateY(32px)',
                   transition: `opacity 0.6s ease ${i * 80}ms, transform 0.6s ease ${i * 80}ms, box-shadow 0.3s, border-color 0.3s`,
-                  boxShadow: '0 1px 8px rgba(196,152,58,0.06)',
+                  boxShadow: '0 1px 8px rgba(0,0,0,0.2)',
                 }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = 'rgba(196,152,58,0.45)')}
-                onMouseLeave={e => (e.currentTarget.style.borderColor = '#E4DECC')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = '#23263A')}
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5"

@@ -3,7 +3,6 @@ import Footer from '../components/layout/Footer'
 import Contact from '../components/sections/Contact'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
-import AccessibilityWidget from '../components/ui/AccessibilityWidget'
 import { useLanguage } from '../hooks/useLanguage'
 
 export default function ContactPage() {
@@ -18,7 +17,6 @@ export default function ContactPage() {
       </main>
       <Footer />
       <WhatsAppButton />
-      <AccessibilityWidget />
     </>
   )
 }

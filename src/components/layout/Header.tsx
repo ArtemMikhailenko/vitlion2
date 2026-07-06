@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
+import AccessibilityWidget from '../ui/AccessibilityWidget'
 import type { Language } from '../../types'
 
 interface Props {
@@ -37,11 +38,11 @@ export default function Header({ lang, onSwitchLang }: Props) {
     <header
       className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
       style={solid ? {
-        backgroundColor: 'rgba(247, 244, 239, 0.97)',
+        backgroundColor: 'rgba(13, 15, 22, 0.97)',
         backdropFilter: 'blur(12px)',
         WebkitBackdropFilter: 'blur(12px)',
-        borderBottom: '1px solid #E4DECC',
-        boxShadow: '0 2px 20px rgba(196,152,58,0.08), 0 1px 0 rgba(196,152,58,0.12)',
+        borderBottom: '1px solid #23263A',
+        boxShadow: '0 2px 20px rgba(0,0,0,0.3), 0 1px 0 rgba(196,152,58,0.10)',
       } : undefined}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,7 +75,8 @@ export default function Header({ lang, onSwitchLang }: Props) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <AccessibilityWidget />
             <LanguageSwitcher lang={lang} onSwitch={onSwitchLang} />
             <a
               href={`/contact${langParam}`}
@@ -98,7 +100,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
       </div>
 
       {menuOpen && (
-        <div className="md:hidden shadow-lg" style={{ backgroundColor: '#F7F4EF', borderTop: '1px solid #E4DECC' }}>
+        <div className="md:hidden shadow-lg" style={{ backgroundColor: '#13161F', borderTop: '1px solid #23263A' }}>
           <nav className="px-4 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
               <a
