@@ -22,6 +22,13 @@ export default function FloatingVideo() {
     })
   }
 
+  const openFullscreen = () => {
+    const v = videoRef.current
+    if (!v) return
+    if (v.requestFullscreen) v.requestFullscreen()
+    else if ((v as any).webkitEnterFullscreen) (v as any).webkitEnterFullscreen()
+  }
+
   if (!visible) return null
 
   const src = lang === 'ru' ? '/media/dominika-ru.mp4' : '/media/dominika-he.mp4'
@@ -48,7 +55,11 @@ export default function FloatingVideo() {
       `}</style>
 
       {/* Video area */}
-      <div className="relative w-full" style={{ aspectRatio: '3/4' }}>
+      <div
+        className="relative w-full cursor-pointer"
+        style={{ aspectRatio: '3/4' }}
+        onClick={openFullscreen}
+      >
         <video
           ref={videoRef}
           src={src}
@@ -62,7 +73,7 @@ export default function FloatingVideo() {
         {/* Mute toggle */}
         {!ended && (
           <button
-            onClick={toggleMute}
+            onClick={e => { e.stopPropagation(); toggleMute() }}
             className="absolute bottom-2 left-2 flex h-6 w-6 items-center justify-center rounded-full text-white transition-all hover:scale-110"
             style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.2)' }}
             aria-label={muted ? 'Unmute' : 'Mute'}
@@ -76,6 +87,7 @@ export default function FloatingVideo() {
           <div
             className="absolute inset-0 flex flex-col items-center justify-center gap-2 px-3 text-center"
             style={{ background: 'rgba(12,14,20,0.88)' }}
+            onClick={e => e.stopPropagation()}
           >
             <p className="text-xs font-semibold text-white leading-snug">{ctaText}</p>
             <a
@@ -91,7 +103,7 @@ export default function FloatingVideo() {
 
         {/* Close button */}
         <button
-          onClick={dismiss}
+          onClick={e => { e.stopPropagation(); dismiss() }}
           className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full text-white transition-all hover:scale-110"
           style={{ background: 'rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.2)' }}
           aria-label="Close"
