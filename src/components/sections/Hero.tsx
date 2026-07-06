@@ -99,8 +99,8 @@ export default function Hero() {
     ? 'inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-bold text-[#111] shadow-lg shadow-gold/25 transition-all duration-200 hover:scale-105 hover:bg-gold-light hover:shadow-gold/45 active:scale-95 sm:px-8 sm:py-4 sm:text-base'
     : 'inline-flex w-full sm:w-auto justify-center min-h-11 items-center gap-2 rounded-lg bg-gold px-5 py-3 text-sm font-semibold text-[#111] transition-colors duration-200 hover:bg-gold-light active:scale-[0.98]'
   const secondaryButtonClass = isHebrew
-    ? 'inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-gold/50 hover:bg-white/15 hover:text-gold active:scale-95 sm:px-8 sm:py-4 sm:text-base'
-    : 'inline-flex w-full sm:w-auto justify-center min-h-11 items-center gap-2 rounded-lg border border-white/30 bg-white/10 backdrop-blur-sm px-5 py-3 text-sm font-medium text-white transition-colors duration-200 hover:border-gold/50 hover:bg-white/15 hover:text-gold active:scale-[0.98]'
+    ? 'inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-xl border border-white/60 bg-white/85 backdrop-blur-sm px-5 py-3 text-sm font-semibold text-[#1C1F26] transition-all duration-200 hover:bg-white hover:border-white active:scale-95 sm:px-8 sm:py-4 sm:text-base'
+    : 'inline-flex w-full sm:w-auto justify-center min-h-11 items-center gap-2 rounded-lg border border-white/60 bg-white/85 backdrop-blur-sm px-5 py-3 text-sm font-medium text-[#1C1F26] transition-colors duration-200 hover:bg-white hover:border-white active:scale-[0.98]'
   const cursorRevealMask = cursorRevealState.progress > 0.01
     ? (cursorRevealTargetRef.current.mode === 'button'
         ? `linear-gradient(black, black), ${HERO_BUTTON_REVEAL_MASK}`

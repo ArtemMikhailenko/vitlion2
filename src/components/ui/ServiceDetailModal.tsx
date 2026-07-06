@@ -51,7 +51,7 @@ export default function ServiceDetailModal({ service, onClose, relatedServices, 
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-stretch justify-center overflow-hidden p-0"
+      className="fixed inset-0 z-[90] flex items-stretch justify-center overflow-hidden p-0"
       role="dialog"
       aria-modal="true"
       aria-label={name}

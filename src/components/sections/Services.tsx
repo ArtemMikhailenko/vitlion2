@@ -90,20 +90,34 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
             </div>
           )}
 
-          <div
-            ref={gridRef as React.RefObject<HTMLDivElement>}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {CATEGORIES.map((category, index) => (
-              <CategoryCard
-                key={category.id}
-                category={category}
-                index={index}
-                inView={inView}
-                lang={lang}
-                onClick={() => setActiveCategory(category)}
-              />
-            ))}
+          <div ref={gridRef as React.RefObject<HTMLDivElement>}>
+            {/* Top row: 3 columns */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {CATEGORIES.slice(0, 3).map((category, index) => (
+                <CategoryCard
+                  key={category.id}
+                  category={category}
+                  index={index}
+                  inView={inView}
+                  lang={lang}
+                  onClick={() => setActiveCategory(category)}
+                />
+              ))}
+            </div>
+            {/* Bottom row: 2 columns centered under the 3 above */}
+            <div className="mt-6 flex flex-col sm:flex-row sm:justify-center gap-6">
+              {CATEGORIES.slice(3).map((category, index) => (
+                <div key={category.id} className="w-full sm:max-w-[calc((100%-3rem)/3)]">
+                  <CategoryCard
+                    category={category}
+                    index={index + 3}
+                    inView={inView}
+                    lang={lang}
+                    onClick={() => setActiveCategory(category)}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

@@ -87,7 +87,7 @@ export default function CostQuiz() {
       {/* Floating trigger button */}
       <button
         onClick={() => setOpen(true)}
-        className="fixed bottom-28 right-4 z-[79] flex items-center gap-2 rounded-full sm:px-4 sm:py-2.5 text-[13px] font-bold shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 w-11 h-11 sm:w-auto sm:h-auto justify-center"
+        className="fixed bottom-28 end-4 z-[79] flex items-center gap-2 rounded-full sm:px-4 sm:py-2.5 text-[13px] font-bold shadow-lg transition-all duration-200 hover:scale-105 active:scale-95 w-11 h-11 sm:w-auto sm:h-auto justify-center"
         style={{ background: 'linear-gradient(135deg, #C4983A, #E8C568)', color: '#1C1F26', boxShadow: '0 4px 20px rgba(196,152,58,0.4)' }}
         aria-label={t.trigger}
       >

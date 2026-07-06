@@ -4,4 +4,3 @@ dist/
 *.local
 .env
 .env.*
-public/media/dominika-*.mp4
