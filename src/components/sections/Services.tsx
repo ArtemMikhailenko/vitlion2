@@ -28,7 +28,7 @@ function CategoryCard({ category, index, inView, onClick, lang }: {
   return (
     <button
       type="button"
-      className="group relative bg-dark-card border border-dark-border rounded-2xl overflow-hidden text-start transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-0 appearance-none flex flex-col"
+      className="group relative w-full bg-dark-card border border-dark-border rounded-2xl overflow-hidden text-start transition-all duration-300 hover:shadow-xl hover:-translate-y-1 p-0 appearance-none flex flex-col"
       style={{
         opacity: inView ? 1 : 0,
         boxShadow: '0 2px 12px rgba(196,152,58,0.06)',
@@ -107,7 +107,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
             {/* Bottom row: 2 columns centered under the 3 above */}
             <div className="mt-6 flex flex-col sm:flex-row sm:justify-center gap-6">
               {CATEGORIES.slice(3).map((category, index) => (
-                <div key={category.id} className="w-full sm:max-w-[calc((100%-3rem)/3)]">
+                <div key={category.id} className="w-full sm:w-[calc((100%-3rem)/3)]">
                   <CategoryCard
                     category={category}
                     index={index + 3}

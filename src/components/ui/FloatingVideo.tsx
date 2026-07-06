@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { X, Volume2, VolumeX } from 'lucide-react'
 
@@ -25,6 +25,18 @@ export default function FloatingVideo() {
       return next
     })
   }
+
+  // Pause when any video modal opens, resume when it closes
+  useEffect(() => {
+    const onOpen  = () => { videoRef.current?.pause(); expandedVideoRef.current?.pause() }
+    const onClose = () => { if (!expanded && !ended) videoRef.current?.play().catch(() => {}) }
+    window.addEventListener('ext-video-open',  onOpen)
+    window.addEventListener('ext-video-close', onClose)
+    return () => {
+      window.removeEventListener('ext-video-open',  onOpen)
+      window.removeEventListener('ext-video-close', onClose)
+    }
+  }, [expanded, ended])
 
   const openExpanded = () => {
     if (videoRef.current) videoRef.current.pause()
