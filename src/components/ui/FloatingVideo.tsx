@@ -27,14 +27,15 @@ export default function FloatingVideo() {
   }
 
   const openExpanded = () => {
+    if (videoRef.current) videoRef.current.pause()
     setExpanded(true)
   }
 
   const closeExpanded = () => {
     setExpanded(false)
-    // sync playback time back from expanded video to mini
     if (expandedVideoRef.current && videoRef.current) {
       videoRef.current.currentTime = expandedVideoRef.current.currentTime
+      videoRef.current.play().catch(() => {})
     }
   }
 
