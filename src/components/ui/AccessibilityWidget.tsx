@@ -19,6 +19,9 @@ function applySettings(s: Settings) {
   html.classList.toggle('acc-grayscale', s.grayscale)
   html.classList.toggle('acc-links', s.links)
   html.classList.toggle('acc-no-anim', s.noAnim)
+  document.querySelectorAll<HTMLVideoElement>('video').forEach(v => {
+    s.noAnim ? v.pause() : v.play().catch(() => {})
+  })
 }
 
 export default function AccessibilityWidget() {
@@ -69,7 +72,7 @@ export default function AccessibilityWidget() {
 
       {open && (
         <div
-          className="absolute end-0 top-full mt-2 z-[91] w-72 bg-dark-card border border-dark-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden animate-fade-in"
+          className="fixed left-2 right-2 top-16 sm:absolute sm:left-auto sm:right-auto sm:end-0 sm:top-full sm:mt-2 sm:w-72 z-[91] bg-dark-card border border-dark-border rounded-2xl shadow-2xl shadow-black/60 overflow-hidden animate-fade-in"
           role="dialog"
           aria-label={t('accessibility.title')}
         >

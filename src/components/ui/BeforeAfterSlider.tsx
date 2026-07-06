@@ -12,6 +12,17 @@ export default function BeforeAfterSlider({ before, after }: Props) {
   const [pos, setPos] = useState(50)
   const [dragging, setDragging] = useState(false)
   const [interacted, setInteracted] = useState(false)
+  const [animPaused, setAnimPaused] = useState(() =>
+    document.documentElement.classList.contains('acc-no-anim')
+  )
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setAnimPaused(document.documentElement.classList.contains('acc-no-anim'))
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+    return () => observer.disconnect()
+  }, [])
   const animRef = useRef<number | null>(null)
   const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const dragMovedRef = useRef(false)
@@ -29,7 +40,7 @@ export default function BeforeAfterSlider({ before, after }: Props) {
   // Continuous slow oscillation: 25 ↔ 75, 5 seconds per half-cycle
   // Starts from current posRef so resuming after interaction feels smooth
   useEffect(() => {
-    if (interacted) return
+    if (interacted || animPaused) return
 
     const STEP_MS = 5000
     let fromPos = posRef.current
@@ -65,7 +76,7 @@ export default function BeforeAfterSlider({ before, after }: Props) {
       if (animRef.current) cancelAnimationFrame(animRef.current)
       if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
     }
-  }, [interacted])
+  }, [interacted, animPaused])
 
   const startDrag = useCallback((clientX: number) => {
     if (animRef.current) cancelAnimationFrame(animRef.current)

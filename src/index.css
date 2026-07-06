@@ -124,6 +124,7 @@ html.acc-large  { font-size: 112% !important; }
 html.acc-larger { font-size: 126% !important; }
 html.acc-grayscale { filter: grayscale(100%); }
 html.acc-no-anim * { animation-duration: 0ms !important; transition-duration: 0ms !important; }
+html.acc-no-anim video { display: none !important; }
 html.acc-links a, html.acc-links button { text-decoration: underline !important; outline: 2px solid #C4983A; outline-offset: 2px; }
 
 /* High contrast — targeted overrides instead of destructive filter */

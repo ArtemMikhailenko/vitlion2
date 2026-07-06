@@ -32,7 +32,7 @@ export default function FloatingVideo() {
 
   return (
     <div
-      className="fixed bottom-6 left-4 z-[80] w-36 sm:w-52 rounded-2xl overflow-hidden shadow-2xl"
+      className="fixed bottom-44 end-4 z-[80] w-36 sm:w-52 rounded-2xl overflow-hidden shadow-2xl"
       style={{
         backgroundColor: '#13161F',
         border: '1px solid #23263A',
