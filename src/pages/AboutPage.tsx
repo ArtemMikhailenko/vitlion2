@@ -6,7 +6,6 @@ import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
-import AccessibilityWidget from '../components/ui/AccessibilityWidget'
 import { useInView } from '../hooks/useInView'
 import { useLanguage } from '../hooks/useLanguage'
 
@@ -170,7 +169,6 @@ export default function AboutPage() {
       <CTASection />
       <Footer />
       <WhatsAppButton />
-      <AccessibilityWidget />
     </>
   )
 }

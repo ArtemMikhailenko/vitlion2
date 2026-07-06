@@ -13,6 +13,7 @@ export default function Contact() {
     { Icon: Mail,          label: t('contact.info.email'),   value: CONTACT.email,           href: `mailto:${CONTACT.email}`, ltr: true },
     { Icon: Clock,         label: t('contact.info.hours'),   value: t('contact.info.hoursValue'), href: null,             ltr: false },
     { Icon: MapPin,        label: t('contact.info.addressLabel'), value: t('contact.info.address'), href: null,           ltr: false },
+    { Icon: MapPin,        label: t('contact.info.address2Label'), value: t('contact.info.address2'), href: null,          ltr: false },
   ]
 
   return (

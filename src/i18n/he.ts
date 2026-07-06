@@ -333,8 +333,10 @@ const he = {
       email: 'אימייל',
       hours: 'שעות עבודה',
       hoursValue: 'א׳–ה׳ 08:30–17:00',
-      addressLabel: 'כתובת',
+      addressLabel: 'ראשון לציון',
       address: 'רח׳ אברהם בומה שביט 1, משרד B103, ראשון לציון',
+      address2Label: 'חיפה',
+      address2: 'מרכז מסחרי סיטי מול, ההסתדרות 25, חיפה',
     },
   },
 

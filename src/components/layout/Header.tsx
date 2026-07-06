@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router-dom'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
+import AccessibilityWidget from '../ui/AccessibilityWidget'
 import type { Language } from '../../types'
 
 interface Props {
@@ -74,7 +75,8 @@ export default function Header({ lang, onSwitchLang }: Props) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <AccessibilityWidget />
             <LanguageSwitcher lang={lang} onSwitch={onSwitchLang} />
             <a
               href={`/contact${langParam}`}

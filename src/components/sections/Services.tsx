@@ -1,34 +1,29 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { SERVICES } from '../../data/services'
+import { CATEGORIES } from '../../data/services'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
-import ServiceModal from '../ui/ServiceModal'
+import CategoryModal from '../ui/CategoryModal'
 import BeforeAfterSlider from '../ui/BeforeAfterSlider'
-import type { Service } from '../../types'
+import type { ServiceCategory } from '../../types'
 
-const BEFORE_AFTER: Record<string, { before: string; after: string }> = {
-  'pergola-electric':    { before: '/media/before-after/pergola-electric-after.png',    after: '/media/before-after/pergola-electric-before.png' },
-  'pergola-static':     { before: '/media/before-after/pergola-static-before.png',     after: '/media/before-after/pergola-static-after.jpg' },
-  'zip-pvc':            { before: '/media/before-after/zip-pvc-after.png',             after: '/media/before-after/zip-pvc-before.jpg' },
-  'frameless-glazing':  { before: '/media/before-after/frameless-glazing-before.png',  after: '/media/before-after/frameless-glazing-after.jpg' },
-  'guillotine-electric':{ before: '/media/before-after/guillotine-electric-after.png', after: '/media/before-after/guillotine-electric-before.png' },
-  'sliding-systems':    { before: '/media/before-after/sliding-systems-after.png',     after: '/media/before-after/sliding-systems-before.jpeg' },
-  'swing-doors':        { before: '/media/before-after/swing-doors-after.png',         after: '/media/before-after/swing-doors-before.png' },
-  'pivot-windows':      { before: '/media/before-after/pivot-windows-after.png',       after: '/media/before-after/pivot-windows-before.png' },
-  'fixed-glazing':      { before: '/media/before-after/fixed-glazing-after.png',       after: '/media/before-after/fixed-glazing-before.png' },
+const CATEGORY_BA: Record<string, { before: string; after: string }> = {
+  'electric-pergolas': { before: '/media/before-after/pergola-electric-after.png',    after: '/media/before-after/pergola-electric-before.png' },
+  'static-pergolas':   { before: '/media/before-after/pergola-static-before.png',     after: '/media/before-after/pergola-static-after.jpg' },
+  'zip-shutters':      { before: '/media/before-after/sliding-systems-after.png',     after: '/media/before-after/sliding-systems-before.jpeg' },
+  'glass-roofs':       { before: '/media/before-after/guillotine-electric-after.png', after: '/media/before-after/guillotine-electric-before.png' },
+  'glazing':           { before: '/media/before-after/frameless-glazing-before.png',  after: '/media/before-after/frameless-glazing-after.jpg' },
 }
 
-function ServiceCard({ service, index, inView, onClick }: {
-  service: typeof SERVICES[0]
+function CategoryCard({ category, index, inView, onClick, lang }: {
+  category: ServiceCategory
   index: number
   inView: boolean
   onClick: () => void
+  lang: 'he' | 'ru'
 }) {
   const { t } = useTranslation()
-  const name = t(service.nameKey)
-  const shortDesc = t(service.shortKey)
-  const pair = BEFORE_AFTER[service.slug]
+  const pair = CATEGORY_BA[category.slug]
 
   return (
     <button
@@ -38,7 +33,7 @@ function ServiceCard({ service, index, inView, onClick }: {
         opacity: inView ? 1 : 0,
         boxShadow: '0 2px 12px rgba(196,152,58,0.06)',
         ...(inView ? {} : { transform: 'translateY(36px)' }),
-        transition: `opacity 0.6s ease ${index * 75}ms, transform 0.4s ease ${index * 75}ms, box-shadow 0.3s, border-color 0.3s`,
+        transition: `opacity 0.6s ease ${index * 100}ms, transform 0.4s ease ${index * 100}ms, box-shadow 0.3s, border-color 0.3s`,
       }}
       onClick={onClick}
     >
@@ -48,20 +43,20 @@ function ServiceCard({ service, index, inView, onClick }: {
           <BeforeAfterSlider before={pair.before} after={pair.after} />
         ) : (
           <img
-            src={service.image}
-            alt={name}
-            className="block w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
-            loading="lazy"
-            onError={(e) => { e.currentTarget.style.display = 'none' }}
+            src={category.mainImage}
+            alt={category.name[lang]}
+            className="block w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+            loading={index < 2 ? 'eager' : 'lazy'}
+            onError={e => { e.currentTarget.style.display = 'none' }}
           />
         )}
       </div>
 
       <div className="p-6">
         <h3 className="text-lg font-bold text-ink mb-2 group-hover:text-gold transition-colors duration-200">
-          {name}
+          {category.name[lang]}
         </h3>
-        <p className="text-ink-mid text-sm leading-relaxed mb-4">{shortDesc}</p>
+        <p className="text-ink-mid text-sm leading-relaxed mb-4">{category.short[lang]}</p>
         <span className="text-gold text-sm font-semibold flex items-center gap-1.5 group-hover:gap-3 transition-all duration-200">
           {t('services.learnMore')}
           <svg className="w-4 h-4 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -74,9 +69,10 @@ function ServiceCard({ service, index, inView, onClick }: {
 }
 
 export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) {
-  const { t } = useTranslation()
-  const [activeService, setActiveService] = useState<Service | null>(null)
+  const { t, i18n } = useTranslation()
+  const [activeCategory, setActiveCategory] = useState<ServiceCategory | null>(null)
   const [gridRef, inView] = useInView({ threshold: 0.05 })
+  const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
 
   return (
     <>
@@ -98,20 +94,21 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
             ref={gridRef as React.RefObject<HTMLDivElement>}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           >
-            {SERVICES.map((service, index) => (
-              <ServiceCard
-                key={service.id}
-                service={service}
+            {CATEGORIES.map((category, index) => (
+              <CategoryCard
+                key={category.id}
+                category={category}
                 index={index}
                 inView={inView}
-                onClick={() => setActiveService(service)}
+                lang={lang}
+                onClick={() => setActiveCategory(category)}
               />
             ))}
           </div>
         </div>
       </section>
 
-      <ServiceModal service={activeService} onClose={() => setActiveService(null)} />
+      <CategoryModal category={activeCategory} onClose={() => setActiveCategory(null)} />
     </>
   )
 }

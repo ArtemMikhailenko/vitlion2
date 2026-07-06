@@ -335,8 +335,10 @@ const ru = {
       email: 'Email',
       hours: 'Часы работы',
       hoursValue: 'Вс–Чт 08:30–17:00',
-      addressLabel: 'Адрес',
+      addressLabel: 'Ришон-ле-Цион',
       address: 'ул. Авраам Бума Шавит, 1, офис В103, Ришон-ле-Цион',
+      address2Label: 'Хайфа',
+      address2: 'ТЦ Сити Мол, ул. ха-Хистадрут 25, Хайфа',
     },
   },
 
