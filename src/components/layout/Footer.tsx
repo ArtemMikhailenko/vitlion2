@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
 import { CATEGORIES, CONTACT } from '../../data/services'
 import { useLanguage } from '../../hooks/useLanguage'
 
