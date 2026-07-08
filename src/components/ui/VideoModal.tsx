@@ -19,7 +19,11 @@ export default function VideoModal({ src, onClose }: Props) {
   }, [onClose])
 
   useEffect(() => {
+    window.dispatchEvent(new CustomEvent('ext-video-open'))
     videoRef.current?.play()
+    return () => {
+      window.dispatchEvent(new CustomEvent('ext-video-close'))
+    }
   }, [])
 
   return (
