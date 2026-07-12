@@ -103,7 +103,7 @@ export default function FloatingVideo() {
 
       {/* Mini floating card */}
       <div
-        className="fixed bottom-44 end-4 z-[80] w-36 sm:w-52 rounded-2xl overflow-hidden shadow-2xl"
+        className="fixed bottom-36 end-4 z-[80] w-32 sm:w-44 rounded-2xl overflow-hidden shadow-2xl"
         style={{
           backgroundColor: '#13161F',
           border: '1px solid #23263A',

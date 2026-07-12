@@ -3,6 +3,7 @@ import { X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { ServiceCategory, ServiceItem } from '../../types'
 import ServiceDetailModal from './ServiceDetailModal'
+import { CATEGORIES, CROSS_SUGGESTIONS } from '../../data/services'
 
 interface Props {
   category: ServiceCategory | null
@@ -14,9 +15,14 @@ export default function CategoryModal({ category, onClose }: Props) {
   const [activeService, setActiveService] = useState<ServiceItem | null>(null)
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
 
-  const relatedServices = activeService && category
-    ? category.services.filter(s => s.id !== activeService.id)
-    : []
+  const relatedServices: ServiceItem[] = (() => {
+    if (!activeService || !category) return []
+    const allServices = CATEGORIES.flatMap(c => c.services)
+    const crossIds = CROSS_SUGGESTIONS[activeService.id] ?? []
+    const cross = allServices.filter(s => crossIds.includes(s.id) && s.id !== activeService.id)
+    const inCat = category.services.filter(s => s.id !== activeService.id)
+    return [...cross, ...inCat].slice(0, 4)
+  })()
 
   useEffect(() => {
     if (!category) return

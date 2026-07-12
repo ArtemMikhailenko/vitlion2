@@ -14,7 +14,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t('whatsapp.tooltip')}
-      className="fixed bottom-6 end-4 z-50 w-11 h-11 sm:w-14 sm:h-14 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:bg-[#20c05c] active:scale-95 transition-all duration-200"
+      className="fixed bottom-6 end-4 z-50 w-10 h-10 sm:w-12 sm:h-12 bg-[#25D366] rounded-full flex items-center justify-center shadow-lg hover:scale-110 hover:bg-[#20c05c] active:scale-95 transition-all duration-200"
     >
       <svg viewBox="0 0 24 24" className="w-7 h-7" aria-hidden="true">
         <path fill="#ffffff" d={WA_PATH} />
