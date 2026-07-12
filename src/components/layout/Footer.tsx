@@ -150,11 +150,11 @@ export default function Footer() {
                 <div className="flex items-start gap-2.5 text-sm">
                   <span className="text-gold/60 mt-0.5 shrink-0"><PinIcon /></span>
                   <div className="space-y-1.5">
-                    <a href="https://waze.com/ul?q=אברהם+בומה+שביט+1+ראשון+לציון" target="_blank" rel="noopener noreferrer"
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=אברהם+בומה+שביט+1,ראשון+לציון" target="_blank" rel="noopener noreferrer"
                       className="block leading-snug text-gray-400 hover:text-gold transition-colors duration-200">
                       {t('footer.addressRishon')}
                     </a>
-                    <a href="https://waze.com/ul?q=ההסתדרות+25+חיפה" target="_blank" rel="noopener noreferrer"
+                    <a href="https://www.google.com/maps/dir/?api=1&destination=ההסתדרות+25,חיפה" target="_blank" rel="noopener noreferrer"
                       className="block leading-snug text-gray-400 hover:text-gold transition-colors duration-200">
                       {t('footer.addressHaifa')}
                     </a>

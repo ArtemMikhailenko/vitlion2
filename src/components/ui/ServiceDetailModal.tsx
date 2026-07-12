@@ -2,15 +2,17 @@ import { useEffect, useState } from 'react'
 import { X, Check, ChevronLeft, ChevronRight, ArrowRight, MessageCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { ServiceItem } from '../../types'
+import { CONTACT } from '../../data/services'
 
 interface Props {
   service: ServiceItem | null
   onClose: () => void
-  relatedServices?: ServiceItem[]
+  categoryServices?: ServiceItem[]
   onSelectService?: (s: ServiceItem) => void
+  categoryName?: string
 }
 
-export default function ServiceDetailModal({ service, onClose, relatedServices, onSelectService }: Props) {
+export default function ServiceDetailModal({ service, onClose, categoryServices, onSelectService, categoryName }: Props) {
   const { t, i18n } = useTranslation()
   const [activeImg, setActiveImg] = useState(0)
   const [imageViewerOpen, setImageViewerOpen] = useState(false)
@@ -20,8 +22,6 @@ export default function ServiceDetailModal({ service, onClose, relatedServices, 
     if (!service) return
     setActiveImg(0)
     setImageViewerOpen(false)
-    document.body.style.overflow = 'hidden'
-    return () => { document.body.style.overflow = '' }
   }, [service])
 
   useEffect(() => {
@@ -198,35 +198,47 @@ export default function ServiceDetailModal({ service, onClose, relatedServices, 
           className="flex min-h-0 flex-1 flex-col overflow-y-auto px-4 pb-8 pt-5 sm:px-8 lg:px-12"
           style={{ background: 'rgba(10,12,16,0.86)', backdropFilter: 'blur(18px)' }}
         >
-          {/* Похожие решения */}
-          {relatedServices && relatedServices.length > 0 && (
+          {/* Category nav — all services, current highlighted */}
+          {categoryServices && categoryServices.length > 0 && (
             <div className="mx-auto w-full max-w-7xl mb-5">
-              <p className="mb-2.5 text-[11px] font-semibold uppercase tracking-widest text-white/45">
-                {lang === 'ru' ? 'Похожие решения' : 'פתרונות דומים'}
-              </p>
+              <div className="mb-2.5 flex items-center gap-2">
+                {categoryName && (
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-white/45">
+                    {categoryName}
+                  </p>
+                )}
+                {categoryName && <ChevronRight className="w-3 h-3 text-white/25 shrink-0 rtl:rotate-180" strokeWidth={2} />}
+                <p className="text-[11px] font-semibold text-white/65 truncate">{name}</p>
+              </div>
               <div className="flex gap-3 overflow-x-auto pb-1" style={{ scrollbarWidth: 'none' }}>
-                {relatedServices.slice(0, 4).map(s => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => onSelectService?.(s)}
-                    className="group flex w-36 shrink-0 flex-col overflow-hidden rounded-xl text-start transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
-                    style={{ backgroundColor: '#13161F', border: '1px solid #23263A' }}
-                  >
-                    <div className="h-20 w-full overflow-hidden">
-                      <img
-                        src={s.mainImage}
-                        alt={s.name[lang]}
-                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                        onError={e => { e.currentTarget.style.display = 'none' }}
-                      />
-                    </div>
-                    <p className="px-2.5 py-2 text-[11px] font-semibold leading-snug text-ink group-hover:text-gold transition-colors duration-200 line-clamp-2">
-                      {s.name[lang]}
-                    </p>
-                  </button>
-                ))}
+                {categoryServices.map(s => {
+                  const isActive = s.id === service?.id
+                  return (
+                    <button
+                      key={s.id}
+                      type="button"
+                      onClick={() => !isActive && onSelectService?.(s)}
+                      className={`group flex w-32 shrink-0 flex-col overflow-hidden rounded-xl text-start transition-all duration-200 ${isActive ? 'cursor-default' : 'hover:-translate-y-0.5 hover:shadow-md cursor-pointer'}`}
+                      style={{
+                        backgroundColor: '#13161F',
+                        border: isActive ? '2px solid #C4983A' : '1px solid #23263A',
+                      }}
+                    >
+                      <div className="h-[4.5rem] w-full overflow-hidden">
+                        <img
+                          src={s.mainImage}
+                          alt={s.name[lang]}
+                          className={`h-full w-full object-cover transition-transform duration-300 ${!isActive ? 'group-hover:scale-105' : ''}`}
+                          loading="lazy"
+                          onError={e => { e.currentTarget.style.display = 'none' }}
+                        />
+                      </div>
+                      <p className={`px-2 py-1.5 text-[10px] font-semibold leading-snug line-clamp-2 transition-colors duration-200 ${isActive ? 'text-gold' : 'text-ink group-hover:text-gold'}`}>
+                        {s.name[lang]}
+                      </p>
+                    </button>
+                  )
+                })}
               </div>
             </div>
           )}
@@ -262,7 +274,7 @@ export default function ServiceDetailModal({ service, onClose, relatedServices, 
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" strokeWidth={2.5} />
                 </a>
                 <a
-                  href="https://wa.me/972522324036"
+                  href={`https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-[13px] font-bold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"

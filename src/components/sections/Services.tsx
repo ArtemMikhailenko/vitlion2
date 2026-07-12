@@ -1,5 +1,5 @@
-import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import { CATEGORIES } from '../../data/services'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
@@ -70,9 +70,30 @@ function CategoryCard({ category, index, inView, onClick, lang }: {
 
 export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) {
   const { t, i18n } = useTranslation()
-  const [activeCategory, setActiveCategory] = useState<ServiceCategory | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
   const [gridRef, inView] = useInView({ threshold: 0.05 })
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
+
+  const catSlug = searchParams.get('category')
+  const activeCategory = catSlug ? (CATEGORIES.find(c => c.slug === catSlug) ?? null) : null
+
+  const openCategory = (category: ServiceCategory) => {
+    setSearchParams(prev => {
+      const p = new URLSearchParams(prev)
+      p.set('category', category.slug)
+      p.delete('service')
+      return p
+    })
+  }
+
+  const closeCategory = () => {
+    setSearchParams(prev => {
+      const p = new URLSearchParams(prev)
+      p.delete('category')
+      p.delete('service')
+      return p
+    })
+  }
 
   return (
     <>
@@ -100,7 +121,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
                   index={index}
                   inView={inView}
                   lang={lang}
-                  onClick={() => setActiveCategory(category)}
+                  onClick={() => openCategory(category)}
                 />
               ))}
             </div>
@@ -113,7 +134,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
                     index={index + 3}
                     inView={inView}
                     lang={lang}
-                    onClick={() => setActiveCategory(category)}
+                    onClick={() => openCategory(category)}
                   />
                 </div>
               ))}
@@ -122,7 +143,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
         </div>
       </section>
 
-      <CategoryModal category={activeCategory} onClose={() => setActiveCategory(null)} />
+      <CategoryModal category={activeCategory} onClose={closeCategory} />
     </>
   )
 }

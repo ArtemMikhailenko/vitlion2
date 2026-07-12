@@ -8,7 +8,6 @@ import Services from './components/sections/Services'
 import WhyUs from './components/sections/WhyUs'
 import ServiceVideos from './components/sections/ServiceVideos'
 import Gallery from './components/sections/Gallery'
-import VideoReviews from './components/sections/VideoReviews'
 import Testimonials from './components/sections/Testimonials'
 import Contact from './components/sections/Contact'
 import CTASection from './components/sections/CTASection'
@@ -38,7 +37,6 @@ function LandingPage() {
         <ServiceVideos />
         <WhyUs />
         <Gallery />
-        <VideoReviews />
         <Testimonials />
         <Contact />
       </main>

@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import type { ServiceCategory, ServiceItem } from '../../types'
 import ServiceDetailModal from './ServiceDetailModal'
-import { CATEGORIES, CROSS_SUGGESTIONS } from '../../data/services'
+import { CATEGORIES } from '../../data/services'
 
 interface Props {
   category: ServiceCategory | null
@@ -12,21 +13,39 @@ interface Props {
 
 export default function CategoryModal({ category, onClose }: Props) {
   const { t, i18n } = useTranslation()
-  const [activeService, setActiveService] = useState<ServiceItem | null>(null)
+  const [searchParams, setSearchParams] = useSearchParams()
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
 
-  const relatedServices: ServiceItem[] = (() => {
-    if (!activeService || !category) return []
-    const allServices = CATEGORIES.flatMap(c => c.services)
-    const crossIds = CROSS_SUGGESTIONS[activeService.id] ?? []
-    const cross = allServices.filter(s => crossIds.includes(s.id) && s.id !== activeService.id)
-    const inCat = category.services.filter(s => s.id !== activeService.id)
-    return [...cross, ...inCat].slice(0, 4)
-  })()
+  const serviceSlug = category ? searchParams.get('service') : null
+  const allServices = CATEGORIES.flatMap(c => c.services)
+  const activeService: ServiceItem | null = serviceSlug
+    ? (allServices.find(s => s.slug === serviceSlug) ?? null)
+    : null
+
+  const activeServiceCategory = activeService
+    ? (CATEGORIES.find(c => c.services.some(s => s.id === activeService.id)) ?? category)
+    : category
+
+  const categoryServices = activeServiceCategory?.services ?? category?.services ?? []
+
+  const openService = (service: ServiceItem) => {
+    setSearchParams(prev => {
+      const p = new URLSearchParams(prev)
+      p.set('service', service.slug)
+      return p
+    })
+  }
+
+  const closeService = () => {
+    setSearchParams(prev => {
+      const p = new URLSearchParams(prev)
+      p.delete('service')
+      return p
+    })
+  }
 
   useEffect(() => {
     if (!category) return
-    setActiveService(null)
     document.body.style.overflow = 'hidden'
     return () => { document.body.style.overflow = '' }
   }, [category])
@@ -34,11 +53,14 @@ export default function CategoryModal({ category, onClose }: Props) {
   useEffect(() => {
     if (!category) return
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        if (activeService) closeService()
+        else onClose()
+      }
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [category, onClose])
+  }, [category, activeService, onClose])
 
   if (!category) return null
 
@@ -82,7 +104,7 @@ export default function CategoryModal({ category, onClose }: Props) {
                 <button
                   key={service.id}
                   type="button"
-                  onClick={() => setActiveService(service)}
+                  onClick={() => openService(service)}
                   className="group flex flex-col overflow-hidden rounded-2xl text-start transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                   style={{ backgroundColor: '#0C0E14', border: '1px solid #23263A' }}
                 >
@@ -116,9 +138,10 @@ export default function CategoryModal({ category, onClose }: Props) {
 
       <ServiceDetailModal
         service={activeService}
-        onClose={() => setActiveService(null)}
-        relatedServices={relatedServices}
-        onSelectService={s => setActiveService(s)}
+        onClose={closeService}
+        categoryServices={categoryServices}
+        onSelectService={openService}
+        categoryName={activeServiceCategory?.name[lang]}
       />
     </>
   )
