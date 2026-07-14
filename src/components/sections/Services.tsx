@@ -1,11 +1,12 @@
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { CATEGORIES } from '../../data/services'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
 import CategoryModal from '../ui/CategoryModal'
 import BeforeAfterSlider from '../ui/BeforeAfterSlider'
 import type { ServiceCategory } from '../../types'
+import { useLanguage } from '../../hooks/useLanguage'
 
 const CATEGORY_BA: Record<string, { before: string; after: string }> = {
   'electric-pergolas': { before: '/media/before-after/pergola-electric-after.png',    after: '/media/before-after/pergola-electric-before.png' },
@@ -70,29 +71,21 @@ function CategoryCard({ category, index, inView, onClick, lang }: {
 
 export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) {
   const { t, i18n } = useTranslation()
-  const [searchParams, setSearchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const { lang } = useLanguage()
+  const { categorySlug } = useParams<{ categorySlug?: string }>()
   const [gridRef, inView] = useInView({ threshold: 0.05 })
-  const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
+  const displayLang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
+  const prefix = lang === 'he' ? '' : `/${lang}`
 
-  const catSlug = searchParams.get('category')
-  const activeCategory = catSlug ? (CATEGORIES.find(c => c.slug === catSlug) ?? null) : null
+  const activeCategory = categorySlug ? (CATEGORIES.find(c => c.slug === categorySlug) ?? null) : null
 
   const openCategory = (category: ServiceCategory) => {
-    setSearchParams(prev => {
-      const p = new URLSearchParams(prev)
-      p.set('category', category.slug)
-      p.delete('service')
-      return p
-    })
+    navigate(`${prefix}/category/${category.slug}`)
   }
 
   const closeCategory = () => {
-    setSearchParams(prev => {
-      const p = new URLSearchParams(prev)
-      p.delete('category')
-      p.delete('service')
-      return p
-    })
+    navigate(prefix || '/')
   }
 
   return (
@@ -120,7 +113,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
                   category={category}
                   index={index}
                   inView={inView}
-                  lang={lang}
+                  lang={displayLang}
                   onClick={() => openCategory(category)}
                 />
               ))}
@@ -133,7 +126,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
                     category={category}
                     index={index + 3}
                     inView={inView}
-                    lang={lang}
+                    lang={displayLang}
                     onClick={() => openCategory(category)}
                   />
                 </div>

@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { X } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import type { ServiceCategory, ServiceItem } from '../../types'
 import ServiceDetailModal from './ServiceDetailModal'
 import { CATEGORIES } from '../../data/services'
+import { useLanguage } from '../../hooks/useLanguage'
 
 interface Props {
   category: ServiceCategory | null
@@ -13,13 +14,16 @@ interface Props {
 
 export default function CategoryModal({ category, onClose }: Props) {
   const { t, i18n } = useTranslation()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
+  const navigate = useNavigate()
+  const { lang } = useLanguage()
+  const { serviceSlug } = useParams<{ serviceSlug?: string }>()
+  const displayLang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
+  const prefix = lang === 'he' ? '' : `/${lang}`
 
-  const serviceSlug = category ? searchParams.get('service') : null
+  const activeServiceSlug = category ? serviceSlug : null
   const allServices = CATEGORIES.flatMap(c => c.services)
-  const activeService: ServiceItem | null = serviceSlug
-    ? (allServices.find(s => s.slug === serviceSlug) ?? null)
+  const activeService: ServiceItem | null = activeServiceSlug
+    ? (allServices.find(s => s.slug === activeServiceSlug) ?? null)
     : null
 
   const activeServiceCategory = activeService
@@ -29,19 +33,13 @@ export default function CategoryModal({ category, onClose }: Props) {
   const categoryServices = activeServiceCategory?.services ?? category?.services ?? []
 
   const openService = (service: ServiceItem) => {
-    setSearchParams(prev => {
-      const p = new URLSearchParams(prev)
-      p.set('service', service.slug)
-      return p
-    })
+    if (!category) return
+    navigate(`${prefix}/category/${category.slug}/service/${service.slug}`)
   }
 
   const closeService = () => {
-    setSearchParams(prev => {
-      const p = new URLSearchParams(prev)
-      p.delete('service')
-      return p
-    })
+    if (!category) return
+    navigate(`${prefix}/category/${category.slug}`)
   }
 
   useEffect(() => {
@@ -70,7 +68,7 @@ export default function CategoryModal({ category, onClose }: Props) {
         className="fixed inset-0 z-[85] flex items-end sm:items-center justify-center p-0 sm:p-4"
         role="dialog"
         aria-modal="true"
-        aria-label={category.name[lang]}
+        aria-label={category.name[displayLang]}
       >
         <div className="absolute inset-0 bg-black/70 backdrop-blur-md" onClick={onClose} />
 
@@ -84,8 +82,8 @@ export default function CategoryModal({ category, onClose }: Props) {
             style={{ borderBottom: '1px solid #23263A' }}
           >
             <div>
-              <h2 className="text-xl font-bold text-ink">{category.name[lang]}</h2>
-              <p className="text-ink-mid text-sm mt-0.5">{category.short[lang]}</p>
+              <h2 className="text-xl font-bold text-ink">{category.name[displayLang]}</h2>
+              <p className="text-ink-mid text-sm mt-0.5">{category.short[displayLang]}</p>
             </div>
             <button
               onClick={onClose}
@@ -111,7 +109,7 @@ export default function CategoryModal({ category, onClose }: Props) {
                   <div className="relative h-36 sm:h-44 overflow-hidden">
                     <img
                       src={service.mainImage}
-                      alt={service.name[lang]}
+                      alt={service.name[displayLang]}
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                       onError={e => { e.currentTarget.style.display = 'none' }}
@@ -123,10 +121,10 @@ export default function CategoryModal({ category, onClose }: Props) {
                   </div>
                   <div className="px-3 py-3">
                     <p className="text-[13px] font-semibold text-ink leading-snug group-hover:text-gold transition-colors duration-200 line-clamp-2">
-                      {service.name[lang]}
+                      {service.name[displayLang]}
                     </p>
                     <p className="text-[11px] text-ink-mid mt-1 leading-snug line-clamp-2">
-                      {service.short[lang]}
+                      {service.short[displayLang]}
                     </p>
                   </div>
                 </button>
@@ -141,7 +139,7 @@ export default function CategoryModal({ category, onClose }: Props) {
         onClose={closeService}
         categoryServices={categoryServices}
         onSelectService={openService}
-        categoryName={activeServiceCategory?.name[lang]}
+        categoryName={activeServiceCategory?.name[displayLang]}
       />
     </>
   )

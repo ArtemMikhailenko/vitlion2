@@ -55,6 +55,8 @@ export default function App() {
       <Routes>
         {/* Hebrew — default, no prefix */}
         <Route path="/" element={<LandingPage />} />
+        <Route path="/category/:categorySlug" element={<LandingPage />} />
+        <Route path="/category/:categorySlug/service/:serviceSlug" element={<LandingPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
@@ -62,6 +64,8 @@ export default function App() {
 
         {/* Russian */}
         <Route path="/ru" element={<LandingPage />} />
+        <Route path="/ru/category/:categorySlug" element={<LandingPage />} />
+        <Route path="/ru/category/:categorySlug/service/:serviceSlug" element={<LandingPage />} />
         <Route path="/ru/services" element={<ServicesPage />} />
         <Route path="/ru/projects" element={<ProjectsPage />} />
         <Route path="/ru/contact" element={<ContactPage />} />
@@ -69,6 +73,8 @@ export default function App() {
 
         {/* English */}
         <Route path="/en" element={<LandingPage />} />
+        <Route path="/en/category/:categorySlug" element={<LandingPage />} />
+        <Route path="/en/category/:categorySlug/service/:serviceSlug" element={<LandingPage />} />
         <Route path="/en/services" element={<ServicesPage />} />
         <Route path="/en/projects" element={<ProjectsPage />} />
         <Route path="/en/contact" element={<ContactPage />} />
