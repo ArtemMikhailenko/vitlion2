@@ -53,11 +53,26 @@ export default function App() {
   return (
     <HelmetProvider>
       <Routes>
+        {/* Hebrew — default, no prefix */}
         <Route path="/" element={<LandingPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutPage />} />
+
+        {/* Russian */}
+        <Route path="/ru" element={<LandingPage />} />
+        <Route path="/ru/services" element={<ServicesPage />} />
+        <Route path="/ru/projects" element={<ProjectsPage />} />
+        <Route path="/ru/contact" element={<ContactPage />} />
+        <Route path="/ru/about" element={<AboutPage />} />
+
+        {/* English */}
+        <Route path="/en" element={<LandingPage />} />
+        <Route path="/en/services" element={<ServicesPage />} />
+        <Route path="/en/projects" element={<ProjectsPage />} />
+        <Route path="/en/contact" element={<ContactPage />} />
+        <Route path="/en/about" element={<AboutPage />} />
       </Routes>
     </HelmetProvider>
   )

@@ -3,24 +3,15 @@ import { initReactI18next } from 'react-i18next'
 import ru from './ru'
 import he from './he'
 
-export type Language = 'he' | 'ru'
-export const SUPPORTED_LANGUAGES: Language[] = ['he', 'ru']
+export type Language = 'he' | 'ru' | 'en'
+export const SUPPORTED_LANGUAGES: Language[] = ['he', 'ru', 'en']
 export const DEFAULT_LANGUAGE: Language = 'he'
 
 export function getLanguageFromUrl(): Language {
-  const params = new URLSearchParams(window.location.search)
-  const lang = params.get('lang') as Language
-  if (SUPPORTED_LANGUAGES.includes(lang)) return lang
-  const url = new URL(window.location.href)
-  url.searchParams.set('lang', DEFAULT_LANGUAGE)
-  window.history.replaceState({}, '', url.toString())
-  return DEFAULT_LANGUAGE
-}
-
-export function setLanguageInUrl(lang: Language) {
-  const url = new URL(window.location.href)
-  url.searchParams.set('lang', lang)
-  window.history.replaceState({}, '', url.toString())
+  const path = window.location.pathname
+  if (path.startsWith('/ru')) return 'ru'
+  if (path.startsWith('/en')) return 'en'
+  return 'he'
 }
 
 i18n.use(initReactI18next).init({

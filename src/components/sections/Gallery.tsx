@@ -13,8 +13,6 @@ const GALLERY_IMAGES = [
   { src: '/media/gallery/08.png', alt: 'Swing doors' },
   { src: '/media/gallery/09.png', alt: 'Pergola installation' },
   { src: '/media/gallery/10.png', alt: 'Glass system' },
-  { src: '/media/gallery/11.jpg', alt: 'Aluminum structure' },
-  { src: '/media/gallery/12.jpg', alt: 'Terrace glazing' },
   { src: '/media/gallery/13.jpg', alt: 'Winter garden' },
   { src: '/media/gallery/14.png', alt: 'Pergola with PVC' },
   { src: '/media/gallery/15.png', alt: 'Pivot windows' },

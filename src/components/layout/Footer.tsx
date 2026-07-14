@@ -38,7 +38,7 @@ export default function Footer() {
   const { t } = useTranslation()
   const { lang } = useLanguage()
   const year = new Date().getFullYear()
-  const lp = `?lang=${lang}`
+  const prefix = lang === 'he' ? '' : `/${lang}`
   const catLang = lang === 'ru' ? 'ru' : 'he'
 
   return (
@@ -50,7 +50,7 @@ export default function Footer() {
 
           {/* Col 1: Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <a href={`/${lp}`} className="inline-flex items-center gap-3 mb-4 group">
+            <a href={`${prefix}/`} className="inline-flex items-center gap-3 mb-4 group">
               <img src="/vitlion-without-background.png" alt="Vitlion Group" className="h-10 w-auto" />
               <div className="flex flex-col leading-none">
                 <span className="text-white font-bold tracking-[0.18em] text-[14px] uppercase group-hover:text-gold transition-colors duration-200">
@@ -89,7 +89,7 @@ export default function Footer() {
               {CATEGORIES.map(cat => (
                 <li key={cat.id}>
                   <a
-                    href={`/services${lp}`}
+                    href={`${prefix}/services`}
                     className="text-gray-400 hover:text-gold text-sm transition-colors duration-200 flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-gold/40 group-hover:bg-gold transition-colors duration-200 shrink-0" />
@@ -108,9 +108,9 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
-                { key: 'about',   href: `/about${lp}` },
-                { key: 'gallery', href: `/projects${lp}` },
-                { key: 'contact', href: `/contact${lp}` },
+                { key: 'about',   href: `${prefix}/about` },
+                { key: 'gallery', href: `${prefix}/projects` },
+                { key: 'contact', href: `${prefix}/contact` },
               ].map(item => (
                 <li key={item.key}>
                   <a

@@ -15,8 +15,9 @@ export default function Header({ lang, onSwitchLang }: Props) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
-  const isHome = location.pathname === '/'
-  // On subpages there's no dark hero — always show solid header
+  const prefix = lang === 'he' ? '' : `/${lang}`
+  const basePath = location.pathname.replace(/^\/(ru|en)/, '') || '/'
+  const isHome = basePath === '/'
   const solid = scrolled || !isHome
 
   useEffect(() => {
@@ -24,14 +25,12 @@ export default function Header({ lang, onSwitchLang }: Props) {
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
-
-  const langParam = `?lang=${lang}`
   const navItems = [
-    { key: 'home',     href: `/${langParam}` },
-    { key: 'services', href: `/services${langParam}` },
-    { key: 'about',    href: `/about${langParam}` },
-    { key: 'gallery',  href: `/projects${langParam}` },
-    { key: 'contact',  href: `/contact${langParam}` },
+    { key: 'home',     href: `${prefix}/` },
+    { key: 'services', href: `${prefix}/services` },
+    { key: 'about',    href: `${prefix}/about` },
+    { key: 'gallery',  href: `${prefix}/projects` },
+    { key: 'contact',  href: `${prefix}/contact` },
   ]
 
   return (
@@ -47,7 +46,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href={`/${langParam}`} className="flex items-center gap-3 group">
+          <a href={`${prefix}/`} className="flex items-center gap-3 group">
             <img
               src="/vitlion-without-background.png"
               alt="Vitlion Group"
@@ -79,7 +78,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
             <AccessibilityWidget />
             <LanguageSwitcher lang={lang} onSwitch={onSwitchLang} />
             <a
-              href={`/contact${langParam}`}
+              href={`${prefix}/contact`}
               className="hidden md:inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-semibold px-5 py-2.5 rounded-lg transition-all duration-200 text-sm hover:scale-105 active:scale-95"
             >
               {t('nav.callUs')}
@@ -113,7 +112,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
               </a>
             ))}
             <a
-              href={`/contact${langParam}`}
+              href={`${prefix}/contact`}
               className="inline-flex items-center justify-center bg-gold hover:bg-gold-light text-ink font-semibold px-5 py-3 rounded-lg mt-3 transition-all duration-200"
               onClick={() => setMenuOpen(false)}
             >

@@ -10,8 +10,9 @@ interface Props {
 export default function SEOHead({ lang }: Props) {
   const { t } = useTranslation()
 
-  const canonicalUrl = `${SITE_URL}/?lang=${lang}`
-  const altUrl = (l: Language) => `${SITE_URL}/?lang=${l}`
+  const prefix = lang === 'he' ? '' : `/${lang}`
+  const canonicalUrl = `${SITE_URL}${prefix}/`
+  const altUrl = (l: Language) => l === 'he' ? `${SITE_URL}/` : `${SITE_URL}/${l}/`
 
   const schemaOrg = {
     '@context': 'https://schema.org',
@@ -70,7 +71,7 @@ export default function SEOHead({ lang }: Props) {
           '@type': 'SearchAction',
           target: {
             '@type': 'EntryPoint',
-            urlTemplate: `${SITE_URL}/?search={search_term_string}&lang=${lang}`,
+            urlTemplate: `${SITE_URL}${prefix}/?search={search_term_string}`,
           },
           'query-input': 'required name=search_term_string',
         },

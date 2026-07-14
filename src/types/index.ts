@@ -1,4 +1,4 @@
-export type Language = 'he' | 'ru'
+export type Language = 'he' | 'ru' | 'en'
 
 export interface ServiceFeature {
   icon: string

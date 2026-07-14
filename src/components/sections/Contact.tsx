@@ -12,8 +12,8 @@ export default function Contact() {
     { Icon: MessageCircle, label: 'WhatsApp',                value: CONTACT.whatsapp,        href: waHref,                 ltr: true },
     { Icon: Mail,          label: t('contact.info.email'),   value: CONTACT.email,           href: `mailto:${CONTACT.email}`, ltr: true },
     { Icon: Clock,         label: t('contact.info.hours'),   value: t('contact.info.hoursValue'), href: null,             ltr: false },
-    { Icon: MapPin,        label: t('contact.info.addressLabel'), value: t('contact.info.address'), href: null,           ltr: false },
-    { Icon: MapPin,        label: t('contact.info.address2Label'), value: t('contact.info.address2'), href: null,          ltr: false },
+    { Icon: MapPin,        label: t('contact.info.addressLabel'), value: t('contact.info.address'), href: 'https://www.google.com/maps/dir/?api=1&destination=אברהם+בומה+שביט+1,ראשון+לציון', ltr: false },
+    { Icon: MapPin,        label: t('contact.info.address2Label'), value: t('contact.info.address2'), href: 'https://www.google.com/maps/dir/?api=1&destination=ההסתדרות+25,חיפה', ltr: false },
   ]
 
   return (
