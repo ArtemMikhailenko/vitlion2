@@ -11,8 +11,8 @@ import { useLanguage } from '../../hooks/useLanguage'
 const CATEGORY_BA: Record<string, { before: string; after: string }> = {
   'electric-pergolas': { before: '/media/before-after/pergola-electric-after.png',    after: '/media/before-after/pergola-electric-before.png' },
   'static-pergolas':   { before: '/media/before-after/pergola-static-before.png',     after: '/media/before-after/pergola-static-after.jpg' },
-  'zip-shutters':      { before: '/media/before-after/sliding-systems-after.png',     after: '/media/before-after/sliding-systems-before.jpeg' },
-  'glass-roofs':       { before: '/media/before-after/guillotine-electric-after.png', after: '/media/before-after/guillotine-electric-before.png' },
+  'zip-shutters':      { before: '/media/before-after/zip-shutters-before.png',       after: '/media/before-after/zip-shutters-after.png' },
+  'glass-roofs':       { before: '/media/before-after/glass-roofs-before.png', after: '/media/before-after/glass-roofs-after.png' },
   'glazing':           { before: '/media/before-after/frameless-glazing-before.png',  after: '/media/before-after/frameless-glazing-after.jpg' },
 }
 

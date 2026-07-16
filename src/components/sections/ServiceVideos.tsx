@@ -17,7 +17,7 @@ const VIDEO_ITEMS = [
   },
   {
     src: '/media/services-video/pergola-pvc.mp4',
-    poster: '/media/services/zip-pvc/main.jpg',
+    poster: '/media/services-video/pergola-pvc-poster.png',
   },
 ]
 
