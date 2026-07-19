@@ -5,6 +5,7 @@ import Gallery from '../components/sections/Gallery'
 import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
+import SEOHead from '../components/seo/SEOHead'
 import { useLanguage } from '../hooks/useLanguage'
 
 export default function ProjectsPage() {
@@ -14,6 +15,7 @@ export default function ProjectsPage() {
   return (
     <>
       <ScrollProgress />
+      <SEOHead lang={lang} path="projects" />
       <Header lang={lang} onSwitchLang={switchLanguage} />
       <main id="main" className="pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">

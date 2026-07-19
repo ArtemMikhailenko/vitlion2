@@ -10,16 +10,55 @@ type QuizData = {
   phone: string
 }
 
+// Solid tone used for the "closed" (building-wall) side faces of each isometric floor plan icon.
+const WALL_FILL = '#2B2F3F'
+
+// Mini isometric floor-plan illustrations: gold = open/glazed side, dark = wall/building side.
+const SHAPE_ICONS: Record<string, { viewBox: string; node: JSX.Element }> = {
+  straight: {
+    viewBox: '-9 -2 32 24',
+    node: (
+      <g style={{ filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.35))' }}>
+        <polygon points="21,12 14,16 14,20 21,16" fill={WALL_FILL} />
+        <polygon points="14,16 -7,4 -7,8 14,20" fill="currentColor" fillOpacity="0.85" />
+        <polygon points="0,0 21,12 14,16 -7,4" fill="currentColor" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
+      </g>
+    ),
+  },
+  corner: {
+    viewBox: '-9 -2 25 24',
+    node: (
+      <g style={{ filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.35))' }}>
+        <polygon points="14,8 0,16 0,20 14,12" fill={WALL_FILL} />
+        <polygon points="-7,4 0,8 0,12 -7,8" fill="currentColor" fillOpacity="0.85" />
+        <polygon points="-7,12 0,16 0,20 -7,16" fill="currentColor" fillOpacity="0.85" />
+        <polygon points="0,0 14,8 0,16 -7,12 0,8 -7,4" fill="currentColor" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
+      </g>
+    ),
+  },
+  'u-shape': {
+    viewBox: '-16 -2 39 28',
+    node: (
+      <g style={{ filter: 'drop-shadow(0 2px 2px rgba(0,0,0,0.35))' }}>
+        <polygon points="7,4 0,8 0,12 7,8" fill={WALL_FILL} />
+        <polygon points="21,12 7,20 7,24 21,16" fill={WALL_FILL} />
+        <polygon points="-14,8 7,20 7,24 -14,12" fill="currentColor" fillOpacity="0.85" />
+        <polygon points="0,0 7,4 0,8 7,12 14,8 21,12 7,20 -14,8" fill="currentColor" fillOpacity="0.18" stroke="currentColor" strokeWidth="1.1" strokeLinejoin="round" />
+      </g>
+    ),
+  },
+}
+
 const SHAPES = {
   ru: [
-    { id: 'straight', label: 'Прямой', svg: <rect x="4" y="8" width="16" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" fill="none" /> },
-    { id: 'corner',   label: 'Угловой', svg: <path d="M4 4h8v8h8v8H12v-8H4V4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" /> },
-    { id: 'u-shape',  label: 'П-образный', svg: <path d="M4 4h4v16h8V4h4v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" /> },
+    { id: 'straight', label: 'Прямой' },
+    { id: 'corner',   label: 'Угловой' },
+    { id: 'u-shape',  label: 'П-образный' },
   ],
   he: [
-    { id: 'straight', label: 'ישר',    svg: <rect x="4" y="8" width="16" height="8" rx="1" stroke="currentColor" strokeWidth="1.5" fill="none" /> },
-    { id: 'corner',   label: 'פינתי',  svg: <path d="M4 4h8v8h8v8H12v-8H4V4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" /> },
-    { id: 'u-shape',  label: 'פרסה',   svg: <path d="M4 4h4v16h8V4h4v16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" /> },
+    { id: 'straight', label: 'ישר' },
+    { id: 'corner',   label: 'פינתי' },
+    { id: 'u-shape',  label: 'פרסה' },
   ],
 }
 
@@ -27,6 +66,7 @@ const AREAS = {
   ru: ['до 10 м²', '10–20 м²', '20–40 м²', '40+ м²'],
   he: ['עד 10 מ"ר', '10–20 מ"ר', '20–40 מ"ר', '40+ מ"ר'],
 }
+
 
 const SERVICES_OPTS = {
   ru: ['Пергола', 'Остекление', 'Пергола + остекление'],
@@ -151,10 +191,20 @@ export default function CostQuiz() {
                         className="flex flex-col items-center gap-2 rounded-xl p-4 text-center transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md"
                         style={{ backgroundColor: '#0C0E14', border: '1px solid #23263A', color: '#C4983A' }}
                       >
-                        <svg viewBox="0 0 24 24" className="h-10 w-10">{shape.svg}</svg>
+                        <svg viewBox={SHAPE_ICONS[shape.id].viewBox} className="h-11 w-11">{SHAPE_ICONS[shape.id].node}</svg>
                         <span className="text-[12px] font-semibold text-ink">{shape.label}</span>
                       </button>
                     ))}
+                  </div>
+                  <div className="mt-4 flex items-center justify-center gap-4 text-[11px] text-ink-mid">
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: '#C4983A' }} />
+                      {lang === 'ru' ? 'открытая сторона' : 'צד פתוח'}
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="h-2.5 w-2.5 rounded-sm" style={{ backgroundColor: WALL_FILL }} />
+                      {lang === 'ru' ? 'стена здания' : 'קיר הבניין'}
+                    </span>
                   </div>
                 </>
               ) : step === 2 ? (

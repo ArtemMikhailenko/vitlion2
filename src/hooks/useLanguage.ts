@@ -8,9 +8,7 @@ export function useLanguage() {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const lang: Language = location.pathname.startsWith('/ru') ? 'ru'
-    : location.pathname.startsWith('/en') ? 'en'
-    : 'he'
+  const lang: Language = location.pathname.startsWith('/ru') ? 'ru' : 'he'
 
   useEffect(() => {
     if (lang !== i18n.resolvedLanguage) {
@@ -26,7 +24,7 @@ export function useLanguage() {
 
   const switchLanguage = useCallback(
     (newLang: Language) => {
-      const cleanPath = location.pathname.replace(/^\/(ru|en)/, '') || '/'
+      const cleanPath = location.pathname.replace(/^\/ru/, '') || '/'
       const newPath = newLang === 'he' ? cleanPath : `/${newLang}${cleanPath}`
       navigate(newPath + location.search)
       i18n.changeLanguage(newLang)

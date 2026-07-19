@@ -6,6 +6,7 @@ import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
+import SEOHead from '../components/seo/SEOHead'
 import { useInView } from '../hooks/useInView'
 import { useLanguage } from '../hooks/useLanguage'
 
@@ -24,6 +25,7 @@ export default function AboutPage() {
   return (
     <>
       <ScrollProgress />
+      <SEOHead lang={lang} path="about" />
       <Header lang={lang} onSwitchLang={switchLanguage} />
 
       <main id="main" className="pt-20">

@@ -3,6 +3,7 @@ import Footer from '../components/layout/Footer'
 import Contact from '../components/sections/Contact'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
+import SEOHead from '../components/seo/SEOHead'
 import { useLanguage } from '../hooks/useLanguage'
 
 export default function ContactPage() {
@@ -11,6 +12,7 @@ export default function ContactPage() {
   return (
     <>
       <ScrollProgress />
+      <SEOHead lang={lang} path="contact" />
       <Header lang={lang} onSwitchLang={switchLanguage} />
       <main id="main" className="pt-20">
         <Contact />

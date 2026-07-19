@@ -63,7 +63,7 @@ export default function ServiceDetailModal({ service, onClose, categoryServices,
   const navigateToCross = (s: ServiceItem) => {
     const cat = CATEGORIES.find(c => c.services.some(cs => cs.id === s.id))
     if (!cat) return
-    navigate(`${prefix}/category/${cat.slug}/service/${s.slug}`)
+    navigate(`${prefix}/${cat.slug}`, { state: { openService: s.slug } })
   }
 
   return (

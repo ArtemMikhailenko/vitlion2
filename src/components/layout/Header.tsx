@@ -16,7 +16,7 @@ export default function Header({ lang, onSwitchLang }: Props) {
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
   const prefix = lang === 'he' ? '' : `/${lang}`
-  const basePath = location.pathname.replace(/^\/(ru|en)/, '') || '/'
+  const basePath = location.pathname.replace(/^\/ru/, '') || '/'
   const isHome = basePath === '/'
   const solid = scrolled || !isHome
 

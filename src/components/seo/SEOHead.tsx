@@ -5,14 +5,25 @@ import type { Language } from '../../types'
 
 interface Props {
   lang: Language
+  /** Overrides the i18n meta.title key for this specific page. */
+  title?: string
+  /** Overrides the i18n meta.description key for this specific page. */
+  description?: string
+  /** Path segment (no leading slash, no language prefix), e.g. "services" or "electric-pergolas". Omit for the homepage. */
+  path?: string
+  /** Set true only for pages that should be indexed (per VitlionSEO/03_Robots.md). Closed pages omit the robots meta entirely. */
+  indexable?: boolean
 }
 
-export default function SEOHead({ lang }: Props) {
+export default function SEOHead({ lang, title, description, path = '', indexable = false }: Props) {
   const { t } = useTranslation()
 
   const prefix = lang === 'he' ? '' : `/${lang}`
-  const canonicalUrl = `${SITE_URL}${prefix}/`
-  const altUrl = (l: Language) => l === 'he' ? `${SITE_URL}/` : `${SITE_URL}/${l}/`
+  const cleanPath = path ? `/${path}` : '/'
+  const canonicalUrl = `${SITE_URL}${prefix}${cleanPath}`
+  const altUrl = (l: Language) => `${SITE_URL}${l === 'he' ? '' : `/${l}`}${cleanPath}`
+  const pageTitle = title ?? t('meta.title')
+  const pageDescription = description ?? t('meta.description')
 
   const schemaOrg = {
     '@context': 'https://schema.org',
@@ -94,25 +105,25 @@ export default function SEOHead({ lang }: Props) {
   return (
     <Helmet>
       <html lang={lang === 'he' ? 'he' : 'ru'} dir={lang === 'he' ? 'rtl' : 'ltr'} />
-      <title>{t('meta.title')}</title>
-      <meta name="description" content={t('meta.description')} />
-      <meta name="robots" content="index, follow" />
+      <title>{pageTitle}</title>
+      <meta name="description" content={pageDescription} />
+      {indexable && <meta name="robots" content="index, follow" />}
       <link rel="canonical" href={canonicalUrl} />
       <link rel="alternate" hrefLang="he" href={altUrl('he')} />
       <link rel="alternate" hrefLang="ru" href={altUrl('ru')} />
       <link rel="alternate" hrefLang="x-default" href={altUrl('he')} />
       <meta property="og:type" content="website" />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:title" content={t('meta.ogTitle')} />
-      <meta property="og:description" content={t('meta.ogDescription')} />
+      <meta property="og:title" content={title ?? t('meta.ogTitle')} />
+      <meta property="og:description" content={description ?? t('meta.ogDescription')} />
       <meta property="og:image" content={`${SITE_URL}/og-image.jpg`} />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content={lang === 'he' ? 'he_IL' : 'ru_IL'} />
       <meta property="og:site_name" content="Vitlion Group" />
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={t('meta.ogTitle')} />
-      <meta name="twitter:description" content={t('meta.ogDescription')} />
+      <meta name="twitter:title" content={title ?? t('meta.ogTitle')} />
+      <meta name="twitter:description" content={description ?? t('meta.ogDescription')} />
       <meta name="twitter:image" content={`${SITE_URL}/og-image.jpg`} />
       <script type="application/ld+json">{JSON.stringify(schemaOrg)}</script>
     </Helmet>

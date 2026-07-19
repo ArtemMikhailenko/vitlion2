@@ -4,21 +4,101 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
 >
   <url>
-    <loc>https://vitlion.com/?lang=he</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/?lang=he"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/?lang=he"/>
-    <lastmod>2024-01-01</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://vitlion.com/services</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/services"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/services"/>
     <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
   </url>
   <url>
-    <loc>https://vitlion.com/?lang=ru</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/?lang=he"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/?lang=he"/>
-    <lastmod>2024-01-01</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://vitlion.com/static-pergolas</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/static-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/static-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/static-pergolas"/>
     <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/glazing</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/glazing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/glazing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/glazing"/>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/electric-pergolas</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/electric-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/electric-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/electric-pergolas"/>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/zip-shutters</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/zip-shutters"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/zip-shutters"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/zip-shutters"/>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/glass-roofs</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/glass-roofs"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/glass-roofs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/glass-roofs"/>
+    <priority>0.2</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+
+  <url>
+    <loc>https://vitlion.com/ru/services</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/services"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/services"/>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/ru/glazing</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/glazing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/glazing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/glazing"/>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/ru/static-pergolas</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/static-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/static-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/static-pergolas"/>
+    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/ru/electric-pergolas</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/electric-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/electric-pergolas"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/electric-pergolas"/>
+    <priority>0.4</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/ru/zip-shutters</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/zip-shutters"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/zip-shutters"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/zip-shutters"/>
+    <priority>0.4</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://vitlion.com/ru/glass-roofs</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://vitlion.com/glass-roofs"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://vitlion.com/ru/glass-roofs"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://vitlion.com/glass-roofs"/>
+    <priority>0.1</priority>
+    <changefreq>yearly</changefreq>
   </url>
 </urlset>
+

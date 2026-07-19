@@ -3,14 +3,13 @@ import { initReactI18next } from 'react-i18next'
 import ru from './ru'
 import he from './he'
 
-export type Language = 'he' | 'ru' | 'en'
-export const SUPPORTED_LANGUAGES: Language[] = ['he', 'ru', 'en']
+export type Language = 'he' | 'ru'
+export const SUPPORTED_LANGUAGES: Language[] = ['he', 'ru']
 export const DEFAULT_LANGUAGE: Language = 'he'
 
 export function getLanguageFromUrl(): Language {
   const path = window.location.pathname
   if (path.startsWith('/ru')) return 'ru'
-  if (path.startsWith('/en')) return 'en'
   return 'he'
 }
 

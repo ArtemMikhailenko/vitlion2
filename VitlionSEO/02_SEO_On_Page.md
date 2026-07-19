@@ -6,23 +6,26 @@ CTA-ссылка для всех кнопок "Связаться": `https://wa.
 
 Основной язык - иврит (корень сайта). Русская и английская версии - с префиксами /ru/ и /en/.
 
-Каждая категория - отдельная посадочная страница с собственным Title, H1 и текстом (см. 01_Architecture). Главная (`/`), `/about`, `/projects` и `/contact` закрыты от индексации, поэтому их SEO-тексты не приоритетны.
+Каждая категория - отдельная посадочная страница с собственным Title, H1 и текстом (см. 01\_Architecture). Главная (`/`), `/about`, `/projects` и `/contact` закрыты от индексации, поэтому их SEO-тексты не приоритетны.
 
 Итого 6 посадочных страниц: каталог + 5 категорий (Электрические перголы, Статичные перголы, ZIP-роллеты, Остекление, Стеклянные крыши). Гильотина - карточка внутри страницы "Остекление", отдельной страницы не имеет.
 
----
+\---
 
 # Каталог (все продукты)
-URL: `/product`
+
+URL: `/services`
 
 ## Иврит (HE)
 
 **Title**
+
 ```
 פרגולות אלומיניום | חשמליות, קבועות וזכוכית | Vitlion
 ```
 
 **Meta description**
+
 ```
 פרגולות אלומיניום יוקרתיות: פרגולות חשמליות ביוקלימטיות, פרגולות קבועות,
 תריסי ZIP, זכוכיות נאספות, גיליוטינות וגגות זכוכית. תכנון, ייצור והתקנה
@@ -30,6 +33,7 @@ URL: `/product`
 ```
 
 **H1**
+
 ```
 פרגולות אלומיניום - פתרונות הצללה וסגירה יוקרתיים
 ```
@@ -89,17 +93,20 @@ URL: `/product`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Русский (RU)
-URL: `/ru/product`
+
+URL: `/ru/servies`
 
 **Title**
+
 ```
 Алюминиевые перголы, остекление и ZIP | Vitlion
 ```
 
 **Meta description**
+
 ```
 Алюминиевые перголы премиум-класса: биоклиматические электрические перголы,
 статичные перголы, ZIP-роллеты, безрамное остекление, гильотины и стеклянные
@@ -107,6 +114,7 @@ URL: `/ru/product`
 ```
 
 **H1**
+
 ```
 Алюминиевые перголы - премиальные решения для навеса и остекления
 ```
@@ -169,17 +177,20 @@ URL: `/ru/product`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Английский (EN)
-URL: `/en/product`
+
+URL: `/en/services`
 
 **Title**
+
 ```
-Aluminum Pergolas, Glazing & ZIP | Vitlion
+Aluminum Pergolas, Glazing \\\& ZIP | Vitlion
 ```
 
 **Meta description**
+
 ```
 Premium aluminum pergolas: bioclimatic electric pergolas, fixed pergolas,
 ZIP screens, frameless balcony glazing, guillotine windows and glass roofs.
@@ -187,6 +198,7 @@ Design, manufacturing and installation in Israel. Get a quote. Vitlion Group.
 ```
 
 **H1**
+
 ```
 Aluminum Pergolas - Premium Shading and Enclosure Solutions
 ```
@@ -249,26 +261,30 @@ Aluminum Pergolas - Premium Shading and Enclosure Solutions
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 # פרגולות חשמליות (Электрические перголы)
+
 Карточки: ביוקלימטיק, ביוקלימטיק Bio Rolling, ביוקלימטיק רפרפה, ביוקלימטיק שלבי זכוכית, פרגולת PVC, פרגולת PVC קשתית
-URL: `/electric`
+URL: `/electric-pergolas`
 
 ## Иврит (HE)
 
 **Title**
+
 ```
 פרגולה חשמלית | ביוקלימטית עם שלבים מתכווננים | Vitlion
 ```
 
 **Meta description**
+
 ```
 פרגולה חשמלית ביוקלימטית עם שלבים מתכווננים 0-90°. שליטה בשלט או באפליקציה,
 אטימות מלאה לגשם וחיבור לבית חכם. ייצור והתקנה מקצועית בישראל. הצעת מחיר. Vitlion.
 ```
 
 **H1**
+
 ```
 פרגולה חשמלית ביוקלימטית - שליטה מלאה באור ובצל
 ```
@@ -328,17 +344,20 @@ URL: `/electric`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Русский (RU)
-URL: `/ru/electric`
+
+URL: `/ru/electric-pergolas`
 
 **Title**
+
 ```
 Биоклиматическая пергола с ламелями | Vitlion
 ```
 
 **Meta description**
+
 ```
 Электрическая биоклиматическая пергола с поворотными ламелями 0-90°. Управление
 пультом или приложением, полная защита от дождя и умный дом. Производство
@@ -346,6 +365,7 @@ URL: `/ru/electric`
 ```
 
 **H1**
+
 ```
 Электрическая биоклиматическая пергола - полный контроль света и тени
 ```
@@ -409,17 +429,20 @@ URL: `/ru/electric`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Английский (EN)
-URL: `/en/electric`
+
+URL: `/en/electric-pergolas`
 
 **Title**
+
 ```
 Bioclimatic Pergola with Adjustable Louvers | Vitlion
 ```
 
 **Meta description**
+
 ```
 Electric bioclimatic pergola with adjustable louvers 0-90°. Remote or app
 control, full rain protection and smart home ready. Manufacturing and
@@ -427,6 +450,7 @@ installation in Israel. Get a quote. Vitlion.
 ```
 
 **H1**
+
 ```
 Electric Bioclimatic Pergola - Full Control of Light and Shade
 ```
@@ -488,26 +512,30 @@ Electric Bioclimatic Pergola - Full Control of Light and Shade
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 # פרגולות קבועות (Статичные перголы)
+
 Карточки: פרגולה קלאסית, פרגולה מפנל מבודד, פרגולה הייטק פס ישר, פרגולה הייטק פסים מעוצבים
-URL: `/fixed`
+URL: `/static-pergolas`
 
 ## Иврит (HE)
 
 **Title**
+
 ```
 פרגולת אלומיניום קבועה | הייטק וקלאסית | Vitlion
 ```
 
 **Meta description**
+
 ```
 פרגולה קבועה מאלומיניום בעיצוב הייטק או קלאסי. מבנה חזק ועמיד לשנים, קירוי סנטף BH,
 הגנה מלאה משמש וגשם. ייצור לפי מידה והתקנה בכל הארץ. הצעת מחיר. Vitlion.
 ```
 
 **H1**
+
 ```
 פרגולת אלומיניום קבועה - עיצוב הייטק וקלאסי
 ```
@@ -567,17 +595,20 @@ URL: `/fixed`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Русский (RU)
-URL: `/ru/fixed`
+
+URL: `/ru/static-pergolas`
 
 **Title**
+
 ```
 Стационарная алюминиевая пергола | Vitlion
 ```
 
 **Meta description**
+
 ```
 Стационарная алюминиевая пергола в стиле хай-тек или классика. Прочная конструкция
 на годы, кровля Сантеф BH, полная защита от солнца и дождя. Производство по размеру
@@ -585,6 +616,7 @@ URL: `/ru/fixed`
 ```
 
 **H1**
+
 ```
 Стационарная алюминиевая пергола - дизайн хай-тек и классика
 ```
@@ -648,17 +680,20 @@ URL: `/ru/fixed`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Английский (EN)
-URL: `/en/fixed`
+
+URL: `/en/static-pergolas`
 
 **Title**
+
 ```
 Fixed Aluminum Pergola | Vitlion
 ```
 
 **Meta description**
+
 ```
 Fixed aluminum pergola in hi-tech or classic design. Strong build for years,
 Santaf BH roofing, full sun and rain protection. Custom manufacturing and
@@ -666,6 +701,7 @@ installation across Israel. Get a quote. Vitlion.
 ```
 
 **H1**
+
 ```
 Fixed Aluminum Pergola - Hi-Tech and Classic Design
 ```
@@ -728,26 +764,30 @@ Fixed Aluminum Pergola - Hi-Tech and Classic Design
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 # תריסי ZIP (ZIP-роллеты)
+
 Карточки: מסכי ZIP, ZIP אופקי
-URL: `/zip`
+URL: `/zip-shutters`
 
 ## Иврит (HE)
 
 **Title**
+
 ```
 מסך זיפ חשמלי | תריסי ZIP להגנה משמש ורוח | Vitlion
 ```
 
 **Meta description**
+
 ```
 מסכי ZIP חשמליים ו-ZIP אופקי עם בד מתוח במסילות. הגנה משמש, רוח, אבק וחרקים,
 שליטה בשלט או אפליקציה. מתאים לפרגולות, מרפסות וטרסות. הצעת מחיר. Vitlion.
 ```
 
 **H1**
+
 ```
 תריסי ZIP חשמליים - הגנה מלאה בלחיצת כפתור
 ```
@@ -804,17 +844,20 @@ URL: `/zip`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Русский (RU)
-URL: `/ru/zip`
+
+URL: `/ru/zip-shutters`
 
 **Title**
+
 ```
 Электрические ZIP-роллеты | Vitlion
 ```
 
 **Meta description**
+
 ```
 Электрические ZIP-роллеты (вертикальные и горизонтальные) с натянутым полотном
 в направляющих. Защита от солнца, ветра, пыли и насекомых. Для пергол, балконов
@@ -822,6 +865,7 @@ URL: `/ru/zip`
 ```
 
 **H1**
+
 ```
 Электрические ZIP-роллеты - полная защита одним нажатием
 ```
@@ -882,17 +926,20 @@ URL: `/ru/zip`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Английский (EN)
-URL: `/en/zip`
+
+URL: `/en/zip-shutters`
 
 **Title**
+
 ```
 Electric ZIP Screens | Vitlion
 ```
 
 **Meta description**
+
 ```
 Electric ZIP screens (vertical and horizontal) with taut fabric in tracks.
 Protection from sun, wind, dust and insects. For pergolas, balconies and
@@ -900,6 +947,7 @@ terraces. Get a quote. Vitlion.
 ```
 
 **H1**
+
 ```
 Electric ZIP Screens - Full Protection at the Touch of a Button
 ```
@@ -959,26 +1007,30 @@ Electric ZIP Screens - Full Protection at the Touch of a Button
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 # זכוכיות נאספות (Остекление)
+
 Карточки: זכוכיות נאספות (основной блок), זכוכיות נאספות עם צלון קלוע, גיליוטינה
 URL: `/glazing`
 
 ## Иврит (HE)
 
 **Title**
+
 ```
 סגירת מרפסת זכוכית | זכוכיות נאספות וגיליוטינה | Vitlion
 ```
 
 **Meta description**
+
 ```
 סגירת מרפסת בזכוכיות נאספות ללא מסגרת או בגיליוטינה חשמלית. מקסימום נוף, זכוכית
 מחוסמת ובטיחותית. ייצור והתקנה מקצועית בישראל. הצעת מחיר. Vitlion.
 ```
 
 **H1**
+
 ```
 סגירת מרפסת בזכוכית - זכוכיות נאספות וגיליוטינה
 ```
@@ -1051,17 +1103,20 @@ URL: `/glazing`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Русский (RU)
+
 URL: `/ru/glazing`
 
 **Title**
+
 ```
 Безрамное остекление и гильотина | Vitlion
 ```
 
 **Meta description**
+
 ```
 Безрамное остекление балкона или электрическая гильотина. Максимум обзора,
 закалённое безопасное стекло. Производство и монтаж в Израиле. Получите
@@ -1069,6 +1124,7 @@ URL: `/ru/glazing`
 ```
 
 **H1**
+
 ```
 Остекление балкона - безрамное остекление и гильотина
 ```
@@ -1143,17 +1199,20 @@ URL: `/ru/glazing`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Английский (EN)
+
 URL: `/en/glazing`
 
 **Title**
+
 ```
-Frameless Glazing & Guillotine Window | Vitlion
+Frameless Glazing \\\& Guillotine Window | Vitlion
 ```
 
 **Meta description**
+
 ```
 Frameless balcony glazing or electric guillotine window. Maximum view,
 tempered safety glass. Manufacturing and installation in Israel. Get a
@@ -1161,6 +1220,7 @@ quote. Vitlion.
 ```
 
 **H1**
+
 ```
 Balcony Glazing - Frameless Glazing and Guillotine Window
 ```
@@ -1235,26 +1295,30 @@ Balcony Glazing - Frameless Glazing and Guillotine Window
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 # גגות זכוכית (Стеклянные крыши)
+
 Карточки: סקיילייט חשמלי, גג זכוכית קבוע
-URL: `/skylight`
+URL: `/glass-roofs`
 
 ## Иврит (HE)
 
 **Title**
+
 ```
 גג זכוכית קבוע וסקיילייט חשמלי | Vitlion
 ```
 
 **Meta description**
+
 ```
 גג זכוכית קבוע וסקיילייט חשמלי - אור טבעי מקסימלי וחיבור מושלם בין פנים לחוץ.
 שליטה חשמלית באוורור וצל, זכוכית איכותית ועיצוב אדריכלי יוקרתי. הצעת מחיר. Vitlion.
 ```
 
 **H1**
+
 ```
 גגות זכוכית - אור טבעי וחיבור מושלם בין פנים לחוץ
 ```
@@ -1313,17 +1377,20 @@ URL: `/skylight`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Русский (RU)
-URL: `/ru/skylight`
+
+URL: `/ru/glass-roofs`
 
 **Title**
+
 ```
 Стационарная стеклянная крыша и скайлайт | Vitlion
 ```
 
 **Meta description**
+
 ```
 Стационарная стеклянная крыша и электрический скайлайт - максимум естественного
 света и идеальная связь между домом и улицей. Электрическое управление вентиляцией
@@ -1331,6 +1398,7 @@ URL: `/ru/skylight`
 ```
 
 **H1**
+
 ```
 Стеклянные крыши - естественный свет и связь дома с улицей
 ```
@@ -1393,17 +1461,20 @@ URL: `/ru/skylight`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
----
+\---
 
 ## Английский (EN)
-URL: `/en/skylight`
+
+URL: `/en/glass-roofs`
 
 **Title**
+
 ```
-Fixed Glass Roof & Electric Skylight | Vitlion
+Fixed Glass Roof \\\& Electric Skylight | Vitlion
 ```
 
 **Meta description**
+
 ```
 Fixed glass roof and electric skylight - maximum natural light and a perfect
 connection between indoors and outdoors. Electric control of ventilation and
@@ -1411,6 +1482,7 @@ shade, quality glass. Get a quote. Vitlion.
 ```
 
 **H1**
+
 ```
 Glass Roofs - Natural Light and a Seamless Indoor-Outdoor Connection
 ```
@@ -1471,3 +1543,4 @@ Glass Roofs - Natural Light and a Seamless Indoor-Outdoor Connection
 **CTA**
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
+

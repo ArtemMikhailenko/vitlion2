@@ -1,9 +1,8 @@
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { CATEGORIES } from '../../data/services'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
-import CategoryModal from '../ui/CategoryModal'
 import BeforeAfterSlider from '../ui/BeforeAfterSlider'
 import type { ServiceCategory } from '../../types'
 import { useLanguage } from '../../hooks/useLanguage'
@@ -73,19 +72,12 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
   const { t, i18n } = useTranslation()
   const navigate = useNavigate()
   const { lang } = useLanguage()
-  const { categorySlug } = useParams<{ categorySlug?: string }>()
   const [gridRef, inView] = useInView({ threshold: 0.05 })
   const displayLang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
   const prefix = lang === 'he' ? '' : `/${lang}`
 
-  const activeCategory = categorySlug ? (CATEGORIES.find(c => c.slug === categorySlug) ?? null) : null
-
   const openCategory = (category: ServiceCategory) => {
-    navigate(`${prefix}/category/${category.slug}`)
-  }
-
-  const closeCategory = () => {
-    navigate(prefix || '/')
+    navigate(`${prefix}/${category.slug}`)
   }
 
   return (
@@ -135,8 +127,6 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
           </div>
         </div>
       </section>
-
-      <CategoryModal category={activeCategory} onClose={closeCategory} />
     </>
   )
 }

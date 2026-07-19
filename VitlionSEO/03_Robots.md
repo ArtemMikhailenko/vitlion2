@@ -10,22 +10,22 @@ robots.txt -> https://www.vitlion.co.il/robots.txt
 
 ## Логика
 
-- **Главная `/`** - закрыта от индексации (промо-страница, не каталог).
-- **`/about`** - закрыта от индексации (страница о компании).
-- **`/projects`** - закрыта от индексации (портфолио/проекты).
-- **`/contact`** - закрыта от индексации (контакты).
-- **`/product` и все 5 категорий** - открыты для индексации, это посадочные страницы под собранную семантику.
+* **Главная `/`** - закрыта от индексации (промо-страница, не каталог).
+* **`/about`** - закрыта от индексации (страница о компании).
+* **`/projects`** - закрыта от индексации (портфолио/проекты).
+* **`/contact`** - закрыта от индексации (контакты).
+* **`/services` и все 5 категорий** - открыты для индексации, это посадочные страницы под собранную семантику.
 
 ## Содержимое robots.txt
 
 ```
-User-agent: *
-Allow: /product
-Allow: /electric
-Allow: /fixed
-Allow: /zip
+User-agent: \*
+Allow: /services
+Allow: /electric-pergolas
+Allow: /static-pergolas
+Allow: /zip-shutters
 Allow: /glazing
-Allow: /skylight
+Allow: /glass-roofs
 
 Disallow: /$
 Disallow: /about
@@ -45,4 +45,5 @@ Sitemap: https://www.vitlion.co.il/sitemap.xml
 
 1. Открыть `https://www.vitlion.co.il/robots.txt` в браузере - убедиться, что файл отдаётся.
 2. В Google Search Console -> Настройки -> robots.txt - проверить, что Google корректно читает файл.
-3. Проверить через инструмент проверки URL, что `/product`, `/electric`, `/fixed`, `/zip`, `/glazing`, `/skylight` открыты (Allowed), а `/`, `/about`, `/projects`, `/contact` закрыты (Disallowed).
+3. Проверить через инструмент проверки URL, что `/product`, `/electric-pergolas`, `/static-pergolas`, `/zip-shutters`, `/glazing`, `/glass-roofs` открыты (Allowed), а `/`, `/about`, `/projects`, `/contact` закрыты (Disallowed).
+
