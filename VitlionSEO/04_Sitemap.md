@@ -16,36 +16,36 @@ sitemap.xml -> https://www.vitlion.co.il/sitemap.xml
 
 ### Иврит (HE) - основной рынок
 
-|URL|priority|changefreq|Частота/мес|
-|-|:-:|:-:|-:|
-|/services|1.0|weekly|22 990|
-|/static-pergolas|0.9|weekly|10 130|
-|/glazing|0.8|weekly|5 920|
-|/electric-pergolas|0.7|weekly|4 420|
-|/zip-shutters|0.5|monthly|1 120|
-|/glass-roofs|0.2|monthly|130|
+| URL | priority | changefreq | Частота/мес |
+|-----|:--------:|:----------:|------------:|
+| /services | 1.0 | weekly | 22 990 |
+| /static-pergolas | 0.9 | weekly | 10 130 |
+| /glazing | 0.8 | weekly | 5 920 |
+| /electric-pergolas | 0.7 | weekly | 4 420 |
+| /zip-shutters | 0.5 | monthly | 1 120 |
+| /glass-roofs | 0.2 | monthly | 130 |
 
 ### Русский (RU)
 
-|URL|priority|changefreq|Частота/мес|
-|-|:-:|:-:|-:|
-|/ru/services|0.8|weekly|160|
-|/ru/glazing|0.5|monthly|40|
-|/ru/static-pergolas|0.5|monthly|20|
-|/ru/electric-pergolas|0.4|monthly|10|
-|/ru/zip-shutters|0.4|monthly|10|
-|/ru/glass-roofs|0.1|yearly|0|
+| URL | priority | changefreq | Частота/мес |
+|-----|:--------:|:----------:|------------:|
+| /ru/services | 0.8 | weekly | 160 |
+| /ru/glazing | 0.5 | monthly | 40 |
+| /ru/static-pergolas | 0.5 | monthly | 20 |
+| /ru/electric-pergolas | 0.4 | monthly | 10 |
+| /ru/zip-shutters | 0.4 | monthly | 10 |
+| /ru/glass-roofs | 0.1 | yearly | 0 |
 
 ### Английский (EN)
 
-|URL|priority|changefreq|Частота/мес|
-|-|:-:|:-:|-:|
-|/en/services|0.8|weekly|650|
-|/en/electric-pergolas|0.5|monthly|50|
-|/en/static-pergolas|0.5|monthly|50|
-|/en/zip-shutters|0.5|monthly|50|
-|/en/glazing|0.4|monthly|60|
-|/en/glass-roofs|0.1|yearly|0|
+| URL | priority | changefreq | Частота/мес |
+|-----|:--------:|:----------:|------------:|
+| /en/services | 0.8 | weekly | 650 |
+| /en/electric-pergolas | 0.5 | monthly | 50 |
+| /en/static-pergolas | 0.5 | monthly | 50 |
+| /en/zip-shutters | 0.5 | monthly | 50 |
+| /en/glazing | 0.4 | monthly | 60 |
+| /en/glass-roofs | 0.1 | yearly | 0 |
 
 ## hreflang
 
@@ -106,4 +106,3 @@ sitemap.xml -> https://www.vitlion.co.il/sitemap.xml
 ## После публикации
 
 Отправить sitemap в Google Search Console - Файлы Sitemap - добавить https://www.vitlion.co.il/sitemap.xml
-

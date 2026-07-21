@@ -66,7 +66,7 @@ https://www.vitlion.co.il
 ├── /about               (О компании - закрыта от индексации)
 ├── /projects            (Проекты - закрыта от индексации)
 ├── /contact             (Контакты - закрыта от индексации)
-└── /services           (Каталог - открыт)
+└── /services            (Каталог - открыт)
     ├── /electric-pergolas    Электрические перголы
     ├── /static-pergolas      Статичные перголы
     ├── /zip-shutters         ZIP-роллеты
@@ -80,36 +80,33 @@ https://www.vitlion.co.il
 
 ### Иврит (основной рынок)
 
-|Страница|Трафик/мес|Приоритет|
-|-|-:|:-:|
-|/services (общий каталог)|22 990|10|
-|/static-pergolas|10 130|9|
-|/glazing|5 920|8|
-|/electric-pergolas|4 420|7|
-|/zip-shutters|1 120|5|
-|/glass-roofs|130|2|
+| Страница | Трафик/мес | Приоритет |
+|----------|-----------:|:---------:|
+| /services (общий каталог) | 22 990 | 10 |
+| /static-pergolas | 10 130 | 9 |
+| /glazing | 5 920 | 8 |
+| /electric-pergolas | 4 420 | 7 |
+| /zip-shutters | 1 120 | 5 |
+| /glass-roofs | 130 | 2 |
 
 ### Английский
 
-|Страница|Трафик/мес|Приоритет|
-|-|-:|:-:|
-|/services (общий каталог)|650|10|
-|/electric-pergolas|50|5|
-|/static-pergolas|50|5|
-|/zip-shutters|50|5|
-|/glazing|60|4|
-|/glass-roofs|0|1|
+| Страница | Трафик/мес | Приоритет |
+|----------|-----------:|:---------:|
+| /services (общий каталог) | 650 | 10 |
+| /electric-pergolas | 50 | 5 |
+| /static-pergolas | 50 | 5 |
+| /zip-shutters | 50 | 5 |
+| /glazing | 60 | 4 |
+| /glass-roofs | 0 | 1 |
 
 ### Русский
 
-|Страница|Трафик/мес|Приоритет|
-|-|-:|:-:|
-|/services (общий каталог)|160|10|
-|/glazing|40|5|
-|/static-pergolas|20|5|
-|/electric-pergolas|10|4|
-|/zip-shutters|10|4|
-|/glass-roofs|0|1|
-
-
-
+| Страница | Трафик/мес | Приоритет |
+|----------|-----------:|:---------:|
+| /services (общий каталог) | 160 | 10 |
+| /glazing | 40 | 5 |
+| /static-pergolas | 20 | 5 |
+| /electric-pergolas | 10 | 4 |
+| /zip-shutters | 10 | 4 |
+| /glass-roofs | 0 | 1 |

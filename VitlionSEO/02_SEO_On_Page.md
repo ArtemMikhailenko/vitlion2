@@ -6,26 +6,23 @@ CTA-ссылка для всех кнопок "Связаться": `https://wa.
 
 Основной язык - иврит (корень сайта). Русская и английская версии - с префиксами /ru/ и /en/.
 
-Каждая категория - отдельная посадочная страница с собственным Title, H1 и текстом (см. 01\_Architecture). Главная (`/`), `/about`, `/projects` и `/contact` закрыты от индексации, поэтому их SEO-тексты не приоритетны.
+Каждая категория - отдельная посадочная страница с собственным Title, H1 и текстом (см. 01_Architecture). Главная (`/`), `/about`, `/projects` и `/contact` закрыты от индексации, поэтому их SEO-тексты не приоритетны.
 
 Итого 6 посадочных страниц: каталог + 5 категорий (Электрические перголы, Статичные перголы, ZIP-роллеты, Остекление, Стеклянные крыши). Гильотина - карточка внутри страницы "Остекление", отдельной страницы не имеет.
 
-\---
+---
 
 # Каталог (все продукты)
-
 URL: `/services`
 
 ## Иврит (HE)
 
 **Title**
-
 ```
 פרגולות אלומיניום | חשמליות, קבועות וזכוכית | Vitlion
 ```
 
 **Meta description**
-
 ```
 פרגולות אלומיניום יוקרתיות: פרגולות חשמליות ביוקלימטיות, פרגולות קבועות,
 תריסי ZIP, זכוכיות נאספות, גיליוטינות וגגות זכוכית. תכנון, ייצור והתקנה
@@ -33,7 +30,6 @@ URL: `/services`
 ```
 
 **H1**
-
 ```
 פרגולות אלומיניום - פתרונות הצללה וסגירה יוקרתיים
 ```
@@ -47,8 +43,7 @@ URL: `/services`
   <li>פרגולות חשמליות ביוקלימטיות עם שלבים מתכווננים</li>
   <li>פרגולות קבועות בעיצוב הייטק וקלאסי</li>
   <li>תריסי ZIP להגנה משמש, רוח וחרקים</li>
-  <li>זכוכיות נאספות לסגירת מרפסת ללא מסגרת</li>
-  <li>גיליוטינות חשמליות עם תנועה אנכית חלקה</li>
+  <li>זכוכיות נאספות לסגירת מרפסת וגיליוטינות חשמליות</li>
   <li>גגות זכוכית וסקיילייט חשמלי</li>
 </ul>
 
@@ -93,20 +88,17 @@ URL: `/services`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Русский (RU)
-
-URL: `/ru/servies`
+URL: `/ru/services`
 
 **Title**
-
 ```
 Алюминиевые перголы, остекление и ZIP | Vitlion
 ```
 
 **Meta description**
-
 ```
 Алюминиевые перголы премиум-класса: биоклиматические электрические перголы,
 статичные перголы, ZIP-роллеты, безрамное остекление, гильотины и стеклянные
@@ -114,7 +106,6 @@ URL: `/ru/servies`
 ```
 
 **H1**
-
 ```
 Алюминиевые перголы - премиальные решения для навеса и остекления
 ```
@@ -128,8 +119,7 @@ URL: `/ru/servies`
   <li>Электрические биоклиматические перголы с поворотными ламелями</li>
   <li>Статичные перголы в стиле хай-тек и классика</li>
   <li>ZIP-роллеты для защиты от солнца, ветра и насекомых</li>
-  <li>Безрамное остекление балкона</li>
-  <li>Электрические гильотины с плавным вертикальным ходом</li>
+  <li>Безрамное остекление балкона и электрические гильотины</li>
   <li>Стеклянные крыши и электрический скайлайт</li>
 </ul>
 
@@ -177,20 +167,17 @@ URL: `/ru/servies`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Английский (EN)
-
 URL: `/en/services`
 
 **Title**
-
 ```
-Aluminum Pergolas, Glazing \\\& ZIP | Vitlion
+Aluminum Pergolas, Glazing & ZIP | Vitlion
 ```
 
 **Meta description**
-
 ```
 Premium aluminum pergolas: bioclimatic electric pergolas, fixed pergolas,
 ZIP screens, frameless balcony glazing, guillotine windows and glass roofs.
@@ -198,7 +185,6 @@ Design, manufacturing and installation in Israel. Get a quote. Vitlion Group.
 ```
 
 **H1**
-
 ```
 Aluminum Pergolas - Premium Shading and Enclosure Solutions
 ```
@@ -212,8 +198,7 @@ Aluminum Pergolas - Premium Shading and Enclosure Solutions
   <li>Electric bioclimatic pergolas with adjustable louvers</li>
   <li>Fixed pergolas in hi-tech and classic design</li>
   <li>ZIP screens for protection from sun, wind and insects</li>
-  <li>Frameless balcony glazing</li>
-  <li>Electric guillotine windows with smooth vertical movement</li>
+  <li>Frameless balcony glazing and electric guillotine windows</li>
   <li>Glass roofs and electric skylight</li>
 </ul>
 
@@ -261,39 +246,37 @@ Aluminum Pergolas - Premium Shading and Enclosure Solutions
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 # פרגולות חשמליות (Электрические перголы)
-
-Карточки: ביוקלימטיק, ביוקלימטיק Bio Rolling, ביוקלימטיק רפרפה, ביוקלימטיק שלבי זכוכית, פרגולת PVC, פרגולת PVC קשתית
+Карточки: ביוקלימטיק, ביוקלימטיק Bio Rolling, ביוקלימטיק רפפה, ביוקלימטיק שלבי זכוכית, פרגולת PVC, פרגולת PVC קשתית
 URL: `/electric-pergolas`
 
 ## Иврит (HE)
 
 **Title**
-
 ```
 פרגולה חשמלית | ביוקלימטית עם שלבים מתכווננים | Vitlion
 ```
 
 **Meta description**
-
 ```
 פרגולה חשמלית ביוקלימטית עם שלבים מתכווננים 0-90°. שליטה בשלט או באפליקציה,
 אטימות מלאה לגשם וחיבור לבית חכם. ייצור והתקנה מקצועית בישראל. הצעת מחיר. Vitlion.
 ```
 
 **H1**
-
 ```
-פרגולה חשמלית ביוקלימטית - שליטה מלאה באור ובצל
+פרגולות חשמליות - שליטה מלאה באור ובצל בלחיצת כפתור
 ```
 
 **Структура H2**
 
 ```html
-<h2>מה מייחד את הפרגולה החשמלית</h2>
-<p>הפרגולה הביוקלימטית משלבת טכנולוגיה מתקדמת עם עיצוב יוקרתי:</p>
+<h2>מה זו פרגולה חשמלית</h2>
+<p>רוב הפרגולות החשמליות שלנו (דגמי ביוקלימטיק) מבוססות על שלבי אלומיניום מתכווננים
+המופעלים בשלט, מתג קיר או אפליקציה. במקום להתאים את עצמכם למזג האוויר, השלבים
+מתאימים את עצמם אליכם:</p>
 <ul>
   <li>שלבי אלומיניום מתכווננים מ-0° עד 90° לשליטה מדויקת באור ובצל</li>
   <li>פתיחה מלאה של הגג ותחושת מרחב פתוח לחלוטין</li>
@@ -301,15 +284,17 @@ URL: `/electric-pergolas`
   <li>שליטה חשמלית בשלט, מתג קיר או אפליקציה</li>
   <li>חיבור לבית חכם ואפשרות לתאורת LED משולבת</li>
 </ul>
+<p>לצד דגמי הביוקלימטיק, בקטגוריה יש גם פרגולת PVC - שאינה מבוססת על שלבים
+אלא על גג יריעה גמיש ועמיד למים, בעיצוב ישר או קשתי.</p>
 
 <h2>סוגי הפרגולות החשמליות שלנו</h2>
-<p>אנחנו מציעים כמה דגמים לפי הצורך והעיצוב:</p>
+<p>תחת הקטגוריה פרגולות חשמליות אנחנו מציעים כמה דגמים, שנבדלים באופן התנועה של השלבים:</p>
 <ul>
-  <li>ביוקלימטיק - שלבים מתכווננים עד 90°</li>
-  <li>ביוקלימטיק Bio Rolling - השלבים נאספים לחלוטין לצד, הגג נפתח ל-100%</li>
-  <li>ביוקלימטיק רפרפה - שלבי רפרפה עם שליטה עדינה באור</li>
-  <li>ביוקלימטיק שלבי זכוכית - שילוב שקיפות ושליטה</li>
-  <li>פרגולת PVC ופרגולת PVC קשתית</li>
+  <li>ביוקלימטיק - השלבים גם נפתחים ונסגרים וגם מסתובבים, לשליטה מלאה באור ובאוורור</li>
+  <li>ביוקלימטיק Bio Rolling - השלבים נעים בהזזה בלבד ונאספים לחלוטין לצד, הגג נפתח לחלוטין</li>
+  <li>ביוקלימטיק רפפה - השלבים מסתובבים בלבד, ללא הזזה, לשליטה עדינה באור</li>
+  <li>ביוקלימטיק שלבי זכוכית - שלבים מזכוכית לשילוב שקיפות ושליטה</li>
+  <li>פרגולת PVC ופרגולת PVC קשתית - גג גמיש ועמיד למים, בעיצוב ישר או קשתי</li>
 </ul>
 
 <h2>איך זה עובד</h2>
@@ -326,17 +311,20 @@ URL: `/electric-pergolas`
 
 ```html
 <div class="seo-text">
-  <p>הפרגולה החשמלית הביוקלימטית היא פתרון ההצללה המתקדם ביותר לחללי חוץ. השלבים
-  המתכווננים מאלומיניום מאפשרים שליטה מדויקת בכמות האור והצל - מפתיחה מלאה של
-  הגג ועד סגירה אטומה לחלוטין, הכל בלחיצת כפתור.</p>
+  <p>רוב הפרגולות החשמליות שלנו, דגמי הביוקלימטיק, מבוססות על שלבי אלומיניום
+  מתכווננים המופעלים בלחיצת כפתור. השלבים נעים בין 0° ל-90°, כך שאפשר לשלוט
+  בדיוק בכמות האור והצל - מפתיחה מלאה של הגג ועד סגירה אטומה לחלוטין.</p>
 
-  <p>בניגוד לפרגולה רגילה, הביוקלימטיק מסתגלת לכל מזג אוויר: בקיץ מכווננים את
-  השלבים לצל מקסימלי ואוורור, ובגשם סוגרים אטום עם מערכת ניקוז נסתרת. אפשר
-  לשלוט בשלט, במתג קיר או דרך אפליקציה, ולחבר את הפרגולה למערכת בית חכם.</p>
+  <p>תחת הקטגוריה הזו אנחנו מציעים כמה דגמים, שנבדלים באופן התנועה של השלבים:
+  ביוקלימטיק, שבו השלבים גם נפתחים ונסגרים וגם מסתובבים; ביוקלימטיק Bio Rolling,
+  שבו השלבים נעים בהזזה בלבד ונאספים לחלוטין לצד עד שהגג נפתח לחלוטין; ביוקלימטיק
+  רפפה, שבו השלבים מסתובבים בלבד לשליטה עדינה באור; ביוקלימטיק עם שלבי זכוכית
+  לשילוב שקיפות ושליטה; ופרגולת PVC (ישרה או קשתית) עם גג גמיש ועמיד למים.</p>
 
-  <p>כל פרגולה מיוצרת לפי מידה ומותקנת מקצועית בכל רחבי הארץ. אפשר להוסיף
-  תאורת LED, תריסי ZIP לצדדים או סגירת זכוכית להפוך את החלל למרחב מוגן בכל
-  עונות השנה.</p>
+  <p>בניגוד לפרגולה רגילה, הפרגולה החשמלית מסתגלת לכל מזג אוויר: בקיץ
+  מכווננים את השלבים לצל מקסימלי ואוורור, ובגשם סוגרים אטום עם מערכת ניקוז
+  נסתרת. אפשר לשלוט בשלט, במתג קיר או דרך אפליקציה, ולחבר את הפרגולה
+  למערכת בית חכם. כל פרגולה מיוצרת לפי מידה ומותקנת מקצועית בכל רחבי הארץ.</p>
 </div>
 ```
 
@@ -344,37 +332,36 @@ URL: `/electric-pergolas`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Русский (RU)
-
 URL: `/ru/electric-pergolas`
 
 **Title**
-
 ```
-Биоклиматическая пергола с ламелями | Vitlion
+Электрические перголы | Биоклиматик с ламелями | Vitlion
 ```
 
 **Meta description**
-
 ```
-Электрическая биоклиматическая пергола с поворотными ламелями 0-90°. Управление
+Электрическая пергола с поворотными ламелями 0-90°. Управление
 пультом или приложением, полная защита от дождя и умный дом. Производство
 и монтаж в Израиле. Получите расчёт. Vitlion.
 ```
 
 **H1**
-
 ```
-Электрическая биоклиматическая пергола - полный контроль света и тени
+Электрические перголы - полный контроль света и тени в один клик
 ```
 
 **Структура H2**
 
 ```html
-<h2>Что отличает электрическую перголу</h2>
-<p>Биоклиматическая пергола сочетает передовую технологию и премиальный дизайн:</p>
+<h2>Что такое электрическая пергола</h2>
+<p>Большинство наших электрических пергол (модели Биоклиматик) построены на
+поворотных алюминиевых ламелях, которыми управляют пультом, настенным
+выключателем или приложением. Вместо того чтобы подстраиваться под погоду,
+ламели подстраиваются под вас:</p>
 <ul>
   <li>Поворотные алюминиевые ламели от 0° до 90° для точного контроля света и тени</li>
   <li>Полное открытие крыши и ощущение открытого пространства</li>
@@ -382,15 +369,18 @@ URL: `/ru/electric-pergolas`
   <li>Электрическое управление пультом, настенным выключателем или приложением</li>
   <li>Интеграция с умным домом и опция встроенной LED-подсветки</li>
 </ul>
+<p>Наряду с моделями Биоклиматик в категории есть и ПВХ-пергола - она
+устроена иначе, без ламелей, и представляет собой гибкую водостойкую крышу
+прямой или арочной формы.</p>
 
 <h2>Наши модели электрических пергол</h2>
-<p>Мы предлагаем несколько моделей под задачу и дизайн:</p>
+<p>В категории электрических пергол мы предлагаем несколько моделей, которые отличаются способом движения ламелей:</p>
 <ul>
-  <li>Биоклиматик - поворотные ламели до 90°</li>
-  <li>Биоклиматик Bio Rolling - ламели полностью сдвигаются в сторону, крыша открывается на 100%</li>
-  <li>Биоклиматик рефлекс - ламели с плавным контролем света</li>
+  <li>Биоклиматик - ламели и раздвигаются/сдвигаются, и поворачиваются, для полного контроля света и вентиляции</li>
+  <li>Биоклиматик Bio Rolling - ламели только сдвигаются в сторону, крыша открывается полностью</li>
+  <li>Биоклиматик Рафафа - ламели только поворачиваются на месте, без сдвига, для тонкой настройки света</li>
   <li>Биоклиматик со стеклянными ламелями - сочетание прозрачности и контроля</li>
-  <li>ПВХ-пергола и арочная ПВХ-пергола</li>
+  <li>ПВХ-пергола прямая и арочная - гибкая водостойкая крыша</li>
 </ul>
 
 <h2>Как это работает</h2>
@@ -407,21 +397,26 @@ URL: `/ru/electric-pergolas`
 
 ```html
 <div class="seo-text">
-  <p>Электрическая биоклиматическая пергола - самое передовое решение для навеса
-  открытых пространств. Поворотные алюминиевые ламели позволяют точно управлять
-  количеством света и тени - от полного открытия крыши до полностью герметичного
-  закрытия, всё нажатием кнопки.</p>
+  <p>Большинство наших электрических пергол, модели Биоклиматик, построены
+  на поворотных алюминиевых ламелях, которыми управляют нажатием кнопки.
+  Ламели двигаются от 0° до 90°, поэтому можно точно управлять количеством
+  света и тени - от полного открытия крыши до полностью герметичного
+  закрытия.</p>
 
-  <p>В отличие от обычной перголы, биоклиматик адаптируется к любой погоде:
-  летом регулируете ламели для максимальной тени и вентиляции, а в дождь
-  закрываете герметично со скрытой системой водоотвода. Управлять можно
-  пультом, настенным выключателем или через приложение, а также подключить
-  перголу к системе умного дома.</p>
+  <p>В этой категории мы предлагаем несколько моделей, которые отличаются
+  способом движения ламелей: Биоклиматик, где ламели и раздвигаются, и
+  поворачиваются, для полного контроля; Биоклиматик Bio Rolling, где ламели
+  только сдвигаются в сторону и крыша открывается полностью; Биоклиматик Рафафа,
+  где ламели только поворачиваются на месте, для тонкой настройки света;
+  Биоклиматик со стеклянными ламелями для сочетания прозрачности и контроля;
+  и ПВХ-перголу (прямую или арочную) с гибкой водостойкой крышей.</p>
 
-  <p>Каждая пергола производится по размеру и профессионально монтируется по
-  всему Израилю. Можно добавить LED-подсветку, ZIP-роллеты по бокам или
-  стеклянное остекление, чтобы превратить пространство в защищённое место
-  круглый год.</p>
+  <p>В отличие от обычной перголы, электрическая пергола адаптируется к
+  любой погоде: летом регулируете ламели для максимальной тени и вентиляции,
+  а в дождь закрываете герметично со скрытой системой водоотвода. Управлять
+  можно пультом, настенным выключателем или через приложение, а также
+  подключить перголу к системе умного дома. Каждая пергола производится по
+  размеру и профессионально монтируется по всему Израилю.</p>
 </div>
 ```
 
@@ -429,37 +424,35 @@ URL: `/ru/electric-pergolas`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Английский (EN)
-
 URL: `/en/electric-pergolas`
 
 **Title**
-
 ```
-Bioclimatic Pergola with Adjustable Louvers | Vitlion
+Electric Pergolas | Bioclimatic with Louvers | Vitlion
 ```
 
 **Meta description**
-
 ```
-Electric bioclimatic pergola with adjustable louvers 0-90°. Remote or app
+Electric pergola with adjustable louvers 0-90°. Remote or app
 control, full rain protection and smart home ready. Manufacturing and
 installation in Israel. Get a quote. Vitlion.
 ```
 
 **H1**
-
 ```
-Electric Bioclimatic Pergola - Full Control of Light and Shade
+Electric Pergolas - Full Control of Light and Shade at a Touch
 ```
 
 **Структура H2**
 
 ```html
-<h2>What sets the electric pergola apart</h2>
-<p>The bioclimatic pergola combines advanced technology with premium design:</p>
+<h2>What is an electric pergola</h2>
+<p>Most of our electric pergolas (Bioclimatic models) are built on adjustable
+aluminum louvers, controlled by remote, wall switch or app. Instead of
+adjusting to the weather, the louvers adjust to you:</p>
 <ul>
   <li>Adjustable aluminum louvers from 0° to 90° for precise light and shade control</li>
   <li>Full roof opening and a completely open-space feel</li>
@@ -467,15 +460,18 @@ Electric Bioclimatic Pergola - Full Control of Light and Shade
   <li>Electric control by remote, wall switch or app</li>
   <li>Smart home integration and optional integrated LED lighting</li>
 </ul>
+<p>Alongside the Bioclimatic models, the category also includes a PVC
+pergola - built differently, without louvers, with a flexible waterproof
+fabric roof in a straight or arched design.</p>
 
 <h2>Our electric pergola models</h2>
-<p>We offer several models by need and design:</p>
+<p>Within the electric pergola category we offer several models, which differ in how the louvers move:</p>
 <ul>
-  <li>Bioclimatic - adjustable louvers up to 90°</li>
-  <li>Bioclimatic Bio Rolling - louvers fully retract to one side, roof opens 100%</li>
-  <li>Bioclimatic reflex - louvers with smooth light control</li>
+  <li>Bioclimatic - louvers both slide open/closed and rotate, for full control of light and airflow</li>
+  <li>Bioclimatic Bio Rolling - louvers only slide to one side, roof opens fully</li>
+  <li>Bioclimatic Rafafa - louvers only rotate in place, without sliding, for fine light adjustment</li>
   <li>Bioclimatic with glass louvers - combining transparency and control</li>
-  <li>PVC pergola and arched PVC pergola</li>
+  <li>PVC pergola, straight and arched - a flexible waterproof roof</li>
 </ul>
 
 <h2>How it works</h2>
@@ -492,19 +488,26 @@ Electric Bioclimatic Pergola - Full Control of Light and Shade
 
 ```html
 <div class="seo-text">
-  <p>The electric bioclimatic pergola is the most advanced shading solution for
-  outdoor spaces. The adjustable aluminum louvers allow precise control over
-  the amount of light and shade - from fully opening the roof to a completely
-  watertight closure, all at the touch of a button.</p>
+  <p>Most of our electric pergolas, the Bioclimatic models, are built on
+  adjustable aluminum louvers, controlled at the touch of a button. The
+  louvers move from 0° to 90°, so you can precisely control the amount of
+  light and shade - from fully opening the roof to a completely watertight
+  closure.</p>
 
-  <p>Unlike a regular pergola, the bioclimatic adapts to any weather: in summer
-  you adjust the louvers for maximum shade and ventilation, and in rain you
-  close it watertight with a hidden drainage system. It can be controlled by
-  remote, wall switch or app, and connected to a smart home system.</p>
+  <p>In this category we offer several models, which differ in how the
+  louvers move: Bioclimatic, where the louvers both slide open/closed and
+  rotate; Bioclimatic Bio Rolling, where the louvers only slide to one side
+  and the roof opens fully; Bioclimatic Rafafa, where the louvers only rotate
+  in place for fine light adjustment; Bioclimatic with glass louvers
+  combining transparency and control; and a PVC pergola (straight or arched)
+  with a flexible waterproof roof.</p>
 
-  <p>Every pergola is custom-made and professionally installed across Israel.
-  You can add LED lighting, ZIP screens on the sides, or glass enclosure to
-  turn the space into a protected area all year round.</p>
+  <p>Unlike a regular pergola, the electric pergola adapts to any weather:
+  in summer you adjust the louvers for maximum shade and ventilation, and in
+  rain you close it watertight with a hidden drainage system. It can be
+  controlled by remote, wall switch or app, and connected to a smart home
+  system. Every pergola is custom-made and professionally installed across
+  Israel.</p>
 </div>
 ```
 
@@ -512,30 +515,26 @@ Electric Bioclimatic Pergola - Full Control of Light and Shade
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 # פרגולות קבועות (Статичные перголы)
-
 Карточки: פרגולה קלאסית, פרגולה מפנל מבודד, פרגולה הייטק פס ישר, פרגולה הייטק פסים מעוצבים
 URL: `/static-pergolas`
 
 ## Иврит (HE)
 
 **Title**
-
 ```
 פרגולת אלומיניום קבועה | הייטק וקלאסית | Vitlion
 ```
 
 **Meta description**
-
 ```
 פרגולה קבועה מאלומיניום בעיצוב הייטק או קלאסי. מבנה חזק ועמיד לשנים, קירוי סנטף BH,
 הגנה מלאה משמש וגשם. ייצור לפי מידה והתקנה בכל הארץ. הצעת מחיר. Vitlion.
 ```
 
 **H1**
-
 ```
 פרגולת אלומיניום קבועה - עיצוב הייטק וקלאסי
 ```
@@ -546,9 +545,9 @@ URL: `/static-pergolas`
 <h2>מה כוללת פרגולה קבועה</h2>
 <p>פתרון הצללה יציב ואמין לחצר, לגינה ולמרפסת:</p>
 <ul>
-  <li>שלד אלומיניום מפרופיל 120/40 מ״מ - חזק ויציב</li>
-  <li>מערכת שלבים קבועים ליצירת משחק אור וצל מדויק</li>
-  <li>קירוי סנטף BH - לוחות פוליקרבונט עמידים לרוחות, ברד וקרינת שמש</li>
+  <li>שלד (מבנה תמיכה) מאלומיניום איכותי - חזק ויציב</li>
+  <li>מערכת שלבים קבועים בדגמי ההייטק והקלאסי, ליצירת משחק אור וצל מדויק</li>
+  <li>קירוי סנטף BH בדגמי ההייטק והקלאסי - לוחות פוליקרבונט עמידים לרוחות, ברד וקרינת שמש</li>
   <li>עיצוב הייטק עם פסי צד דקורטיביים או קלאסי חלק</li>
   <li>ייצור לפי מידה בכל גוון RAL</li>
 </ul>
@@ -576,14 +575,14 @@ URL: `/static-pergolas`
 
 ```html
 <div class="seo-text">
-  <p>הפרגולה הקבועה היא פתרון "גג מעל הראש" יציב, אמין ועמיד לשנים. השלד עשוי
-  אלומיניום איכותי מפרופיל 120/40 מ״מ, והקירוי - סנטף BH, לוחות פוליקרבונט
+  <p>הפרגולה הקבועה היא פתרון "גג מעל הראש" יציב, אמין ועמיד לשנים. מבנה התמיכה (השלד)
+  עשוי אלומיניום איכותי. בדגמי ההייטק והקלאסי הקירוי הוא סנטף BH, לוחות פוליקרבונט
   במבנה כוורת דבש שעמידים לרוחות, ברד וקרינת שמש.</p>
 
   <p>אנחנו מציעים כמה דגמים: פרגולה הייטק פס ישר למראה נקי ומינימליסטי, פרגולה
   הייטק פסים מעוצבים עם פסי צד דקורטיביים, פרגולה קלאסית כפתרון משתלם ללא
-  פשרות באיכות, ופרגולה מפנל מבודד לבידוד תרמי מלא. כל פרגולה מיוצרת לפי מידה
-  ובכל גוון ממניפת RAL, כולל שחור מט ואנתרציט.</p>
+  פשרות באיכות, ופרגולה מפנל מבודד עם קירוי פאנל לבידוד תרמי ואקוסטי מלא.
+  כל פרגולה מיוצרת לפי מידה ובכל גוון ממניפת RAL, כולל שחור מט ואנתרציט.</p>
 
   <p>אפשר לשלב תריסי ZIP להגנה מהצדדים, סגירת זכוכית לשימוש בכל עונות השנה,
   תאורת LED וגופי חימום אינפרא-אדום. פרגולות קבועות של Vitlion מיוצרות בישראל
@@ -595,20 +594,17 @@ URL: `/static-pergolas`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Русский (RU)
-
 URL: `/ru/static-pergolas`
 
 **Title**
-
 ```
 Стационарная алюминиевая пергола | Vitlion
 ```
 
 **Meta description**
-
 ```
 Стационарная алюминиевая пергола в стиле хай-тек или классика. Прочная конструкция
 на годы, кровля Сантеф BH, полная защита от солнца и дождя. Производство по размеру
@@ -616,7 +612,6 @@ URL: `/ru/static-pergolas`
 ```
 
 **H1**
-
 ```
 Стационарная алюминиевая пергола - дизайн хай-тек и классика
 ```
@@ -627,9 +622,9 @@ URL: `/ru/static-pergolas`
 <h2>Что включает стационарная пергола</h2>
 <p>Устойчивое и надёжное решение для двора, сада и террасы:</p>
 <ul>
-  <li>Каркас из алюминиевого профиля 120/40 мм - прочный и устойчивый</li>
-  <li>Система фиксированных ламелей для точной игры света и тени</li>
-  <li>Кровля Сантеф BH - поликарбонатные листы, устойчивые к ветру, граду и солнцу</li>
+  <li>Каркас из качественного алюминиевого профиля - прочный и устойчивый</li>
+  <li>Система фиксированных ламелей в моделях хай-тек и классика, для точной игры света и тени</li>
+  <li>Кровля Сантеф BH в моделях хай-тек и классика - поликарбонатные листы, устойчивые к ветру, граду и солнцу</li>
   <li>Дизайн хай-тек с декоративными боковыми планками или гладкий классический</li>
   <li>Производство по размеру в любом цвете RAL</li>
 </ul>
@@ -658,14 +653,14 @@ URL: `/ru/static-pergolas`
 ```html
 <div class="seo-text">
   <p>Стационарная пергола - это устойчивое, надёжное и долговечное решение
-  "крыша над головой". Каркас выполнен из качественного алюминиевого профиля
-  120/40 мм, а кровля - Сантеф BH, поликарбонатные листы с сотовой структурой,
+  "крыша над головой". Каркас выполнен из качественного алюминиевого профиля.
+  В моделях хай-тек и классика кровля - Сантеф BH, поликарбонатные листы с сотовой структурой,
   устойчивые к ветру, граду и солнечному излучению.</p>
 
   <p>Мы предлагаем несколько моделей: пергола хай-тек с прямыми планками для
   чистого минималистичного вида, пергола хай-тек с декоративными боковыми
   планками, классическая пергола как доступное решение без компромиссов в
-  качестве, и пергола из теплоизоляционной панели для полной тепло- и
+  качестве, и пергола из теплоизоляционной панели с панельной кровлей для полной тепло- и
   звукоизоляции. Каждая пергола производится по размеру и в любом цвете по
   палитре RAL, включая чёрный матовый и антрацит.</p>
 
@@ -680,20 +675,17 @@ URL: `/ru/static-pergolas`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Английский (EN)
-
 URL: `/en/static-pergolas`
 
 **Title**
-
 ```
 Fixed Aluminum Pergola | Vitlion
 ```
 
 **Meta description**
-
 ```
 Fixed aluminum pergola in hi-tech or classic design. Strong build for years,
 Santaf BH roofing, full sun and rain protection. Custom manufacturing and
@@ -701,7 +693,6 @@ installation across Israel. Get a quote. Vitlion.
 ```
 
 **H1**
-
 ```
 Fixed Aluminum Pergola - Hi-Tech and Classic Design
 ```
@@ -712,9 +703,9 @@ Fixed Aluminum Pergola - Hi-Tech and Classic Design
 <h2>What a fixed pergola includes</h2>
 <p>A stable and reliable shading solution for the yard, garden and terrace:</p>
 <ul>
-  <li>Aluminum frame from 120/40 mm profile - strong and stable</li>
-  <li>Fixed louver system for a precise play of light and shade</li>
-  <li>Santaf BH roofing - polycarbonate panels resistant to wind, hail and sun</li>
+  <li>Aluminum frame from a quality aluminum profile - strong and stable</li>
+  <li>Fixed louver system in the hi-tech and classic models, for a precise play of light and shade</li>
+  <li>Santaf BH roofing in the hi-tech and classic models - polycarbonate panels resistant to wind, hail and sun</li>
   <li>Hi-tech design with decorative side strips or smooth classic</li>
   <li>Custom manufacturing in any RAL color</li>
 </ul>
@@ -743,16 +734,16 @@ Fixed Aluminum Pergola - Hi-Tech and Classic Design
 ```html
 <div class="seo-text">
   <p>The fixed pergola is a stable, reliable and long-lasting "roof over your
-  head" solution. The frame is made of quality aluminum 120/40 mm profile, and
-  the roofing is Santaf BH - polycarbonate panels with a honeycomb structure,
-  resistant to wind, hail and solar radiation.</p>
+  head" solution. The frame is made of quality aluminum. In the hi-tech and
+  classic models, the roofing is Santaf BH - polycarbonate panels with a
+  honeycomb structure, resistant to wind, hail and solar radiation.</p>
 
   <p>We offer several models: a hi-tech pergola with straight strips for a
   clean minimalist look, a hi-tech pergola with decorative side strips, a
   classic pergola as an affordable solution with no compromise on quality, and
-  an insulated panel pergola for full thermal and acoustic insulation. Each
-  pergola is custom-made in any color from the RAL palette, including matte
-  black and anthracite.</p>
+  an insulated panel pergola with panel roofing for full thermal and acoustic
+  insulation. Each pergola is custom-made in any color from the RAL palette,
+  including matte black and anthracite.</p>
 
   <p>You can add ZIP screens for side protection, glass enclosure for
   year-round use, LED lighting and infrared heaters. Vitlion fixed pergolas
@@ -764,30 +755,26 @@ Fixed Aluminum Pergola - Hi-Tech and Classic Design
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 # תריסי ZIP (ZIP-роллеты)
-
 Карточки: מסכי ZIP, ZIP אופקי
 URL: `/zip-shutters`
 
 ## Иврит (HE)
 
 **Title**
-
 ```
 מסך זיפ חשמלי | תריסי ZIP להגנה משמש ורוח | Vitlion
 ```
 
 **Meta description**
-
 ```
 מסכי ZIP חשמליים ו-ZIP אופקי עם בד מתוח במסילות. הגנה משמש, רוח, אבק וחרקים,
 שליטה בשלט או אפליקציה. מתאים לפרגולות, מרפסות וטרסות. הצעת מחיר. Vitlion.
 ```
 
 **H1**
-
 ```
 תריסי ZIP חשמליים - הגנה מלאה בלחיצת כפתור
 ```
@@ -844,20 +831,17 @@ URL: `/zip-shutters`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Русский (RU)
-
 URL: `/ru/zip-shutters`
 
 **Title**
-
 ```
 Электрические ZIP-роллеты | Vitlion
 ```
 
 **Meta description**
-
 ```
 Электрические ZIP-роллеты (вертикальные и горизонтальные) с натянутым полотном
 в направляющих. Защита от солнца, ветра, пыли и насекомых. Для пергол, балконов
@@ -865,7 +849,6 @@ URL: `/ru/zip-shutters`
 ```
 
 **H1**
-
 ```
 Электрические ZIP-роллеты - полная защита одним нажатием
 ```
@@ -926,20 +909,17 @@ URL: `/ru/zip-shutters`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Английский (EN)
-
 URL: `/en/zip-shutters`
 
 **Title**
-
 ```
 Electric ZIP Screens | Vitlion
 ```
 
 **Meta description**
-
 ```
 Electric ZIP screens (vertical and horizontal) with taut fabric in tracks.
 Protection from sun, wind, dust and insects. For pergolas, balconies and
@@ -947,7 +927,6 @@ terraces. Get a quote. Vitlion.
 ```
 
 **H1**
-
 ```
 Electric ZIP Screens - Full Protection at the Touch of a Button
 ```
@@ -1007,32 +986,28 @@ Electric ZIP Screens - Full Protection at the Touch of a Button
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 # זכוכיות נאספות (Остекление)
-
 Карточки: זכוכיות נאספות (основной блок), זכוכיות נאספות עם צלון קלוע, גיליוטינה
 URL: `/glazing`
 
 ## Иврит (HE)
 
 **Title**
-
 ```
 סגירת מרפסת זכוכית | זכוכיות נאספות וגיליוטינה | Vitlion
 ```
 
 **Meta description**
-
 ```
 סגירת מרפסת בזכוכיות נאספות ללא מסגרת או בגיליוטינה חשמלית. מקסימום נוף, זכוכית
 מחוסמת ובטיחותית. ייצור והתקנה מקצועית בישראל. הצעת מחיר. Vitlion.
 ```
 
 **H1**
-
 ```
-סגירת מרפסת בזכוכית - זכוכיות נאספות וגיליוטינה
+סגירת מרפסת בזכוכיות - זכוכיות נאספות וגיליוטינה
 ```
 
 **Структура H2**
@@ -1093,7 +1068,7 @@ URL: `/glazing`
   לחלוטין, ללא אבק וללא צורך בתחזוקה.</p>
 
   <p>לצד הזכוכיות הנאספות, אנחנו מציעים גם חלון גיליוטינה - מערכת זכוכית
-  עם תנועה אנכית חלקה, הנפתחת וסוגרת למעלה ולמטה בלחיצת כפתור. שני הפתרונות
+  עם תנועה אנכית חלקה, הנפתחת והנסגרת למעלה ולמטה בלחיצת כפתור. שני הפתרונות
   משלבים עיצוב מינימליסטי עם הנדסה מדויקת ומתאימים למרפסות, טרסות, גינות
   חורף, מסעדות וחללים מסחריים. ייצור לפי מידה והתקנה מקצועית בכל הארץ.</p>
 </div>
@@ -1103,20 +1078,17 @@ URL: `/glazing`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Русский (RU)
-
 URL: `/ru/glazing`
 
 **Title**
-
 ```
 Безрамное остекление и гильотина | Vitlion
 ```
 
 **Meta description**
-
 ```
 Безрамное остекление балкона или электрическая гильотина. Максимум обзора,
 закалённое безопасное стекло. Производство и монтаж в Израиле. Получите
@@ -1124,7 +1096,6 @@ URL: `/ru/glazing`
 ```
 
 **H1**
-
 ```
 Остекление балкона - безрамное остекление и гильотина
 ```
@@ -1199,20 +1170,17 @@ URL: `/ru/glazing`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Английский (EN)
-
 URL: `/en/glazing`
 
 **Title**
-
 ```
-Frameless Glazing \\\& Guillotine Window | Vitlion
+Frameless Glazing & Guillotine Window | Vitlion
 ```
 
 **Meta description**
-
 ```
 Frameless balcony glazing or electric guillotine window. Maximum view,
 tempered safety glass. Manufacturing and installation in Israel. Get a
@@ -1220,7 +1188,6 @@ quote. Vitlion.
 ```
 
 **H1**
-
 ```
 Balcony Glazing - Frameless Glazing and Guillotine Window
 ```
@@ -1295,30 +1262,26 @@ Balcony Glazing - Frameless Glazing and Guillotine Window
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 # גגות זכוכית (Стеклянные крыши)
-
 Карточки: סקיילייט חשמלי, גג זכוכית קבוע
 URL: `/glass-roofs`
 
 ## Иврит (HE)
 
 **Title**
-
 ```
 גג זכוכית קבוע וסקיילייט חשמלי | Vitlion
 ```
 
 **Meta description**
-
 ```
 גג זכוכית קבוע וסקיילייט חשמלי - אור טבעי מקסימלי וחיבור מושלם בין פנים לחוץ.
 שליטה חשמלית באוורור וצל, זכוכית איכותית ועיצוב אדריכלי יוקרתי. הצעת מחיר. Vitlion.
 ```
 
 **H1**
-
 ```
 גגות זכוכית - אור טבעי וחיבור מושלם בין פנים לחוץ
 ```
@@ -1377,20 +1340,17 @@ URL: `/glass-roofs`
 
 Кнопка: [לקבלת הצעת מחיר](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Русский (RU)
-
 URL: `/ru/glass-roofs`
 
 **Title**
-
 ```
 Стационарная стеклянная крыша и скайлайт | Vitlion
 ```
 
 **Meta description**
-
 ```
 Стационарная стеклянная крыша и электрический скайлайт - максимум естественного
 света и идеальная связь между домом и улицей. Электрическое управление вентиляцией
@@ -1398,7 +1358,6 @@ URL: `/ru/glass-roofs`
 ```
 
 **H1**
-
 ```
 Стеклянные крыши - естественный свет и связь дома с улицей
 ```
@@ -1461,20 +1420,17 @@ URL: `/ru/glass-roofs`
 
 Кнопка: [Получить расчёт](https://wa.me/972XXXXXXXXX)
 
-\---
+---
 
 ## Английский (EN)
-
 URL: `/en/glass-roofs`
 
 **Title**
-
 ```
-Fixed Glass Roof \\\& Electric Skylight | Vitlion
+Fixed Glass Roof & Electric Skylight | Vitlion
 ```
 
 **Meta description**
-
 ```
 Fixed glass roof and electric skylight - maximum natural light and a perfect
 connection between indoors and outdoors. Electric control of ventilation and
@@ -1482,7 +1438,6 @@ shade, quality glass. Get a quote. Vitlion.
 ```
 
 **H1**
-
 ```
 Glass Roofs - Natural Light and a Seamless Indoor-Outdoor Connection
 ```
@@ -1543,4 +1498,3 @@ Glass Roofs - Natural Light and a Seamless Indoor-Outdoor Connection
 **CTA**
 
 Button: [Get a free quote](https://wa.me/972XXXXXXXXX)
-

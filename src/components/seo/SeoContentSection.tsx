@@ -24,6 +24,7 @@ export default function SeoContentSection({ h2Blocks, seoText, ctaLabel, ctaHref
                 {block.items.map((item, j) => <li key={j}>{item}</li>)}
               </ul>
             )}
+            {block.outro && <p className="text-ink-mid mt-4">{block.outro}</p>}
           </div>
         ))}
 

@@ -14,20 +14,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800;900&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet" />
 
-    <!-- Default SEO - overridden by react-helmet-async per language -->
+    <!-- Default SEO - all overridden per-page by the SEOHead component (react-helmet-async), rendered on every route.
+         Do NOT add static <meta name="description">, og:type, og:site_name, or og:image tags here:
+         react-helmet-async does not remove pre-existing static tags, so they end up duplicated
+         alongside the per-page ones and get picked up by document.querySelector / crawlers instead. -->
     <title>Vitlion Group | מבנים מאלומיניום | Алюминиевые конструкции</title>
-    <meta name="description" content="Vitlion Group - עיצוב, ייצור והתקנה של מבנים מאלומיניום. פרגולות, זיגוג, וילונות ZIP ומערכות הזזה בישראל." />
 
     <!-- Google Search Console - replace with actual code -->
     <!-- <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" /> -->
 
-    <!-- Canonical and hreflang - set dynamically by SEOHead component -->
-    <!-- robots meta is set per-page by SEOHead; the homepage is closed from indexing per VitlionSEO/03_Robots.md and public/robots.txt -->
-
-    <!-- Open Graph defaults -->
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://vitlion.com/og-image.jpg" />
-    <meta property="og:site_name" content="Vitlion Group" />
+    <!-- Canonical, hreflang, robots, description and Open Graph tags are all set dynamically by SEOHead -->
 
     <!-- Theme color -->
     <meta name="theme-color" content="#0A0A0A" />
