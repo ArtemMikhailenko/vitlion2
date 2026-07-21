@@ -2,9 +2,11 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, useAnimationControls, useReducedMotion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 
-const VIDEO_UNBLUR_MS = 1800
-const PANEL_ENTER_MS = 760
-const TEXT_INTRO_GAP_MS = 120
+const VIDEO_UNBLUR_MS = 900
+const PANEL_ENTER_MS = 480
+const TEXT_INTRO_GAP_MS = 60
+const TEXT_CHAR_STAGGER_MS = 30
+const TEXT_LINE_GAP_MS = 60
 const HERO_EASE = [0.16, 1, 0.3, 1] as const
 const VIDEO_INITIAL_BLUR = 'blur(10px)'
 const VIDEO_SHARP_BLUR = 'blur(0px)'
@@ -35,7 +37,7 @@ function SparkyLine({ text, delay, color = 'ink' }: { text: string; delay: numbe
   useEffect(() => {
     if (!started) return
     if (revealed >= text.length) return
-    const id = setTimeout(() => setRevealed(r => r + 1), 52)
+    const id = setTimeout(() => setRevealed(r => r + 1), TEXT_CHAR_STAGGER_MS)
     return () => clearTimeout(id)
   }, [started, revealed, text.length])
 
@@ -47,7 +49,7 @@ function SparkyLine({ text, delay, color = 'ink' }: { text: string; delay: numbe
           style={
             i < revealed
               ? {
-                  animation: `spark 0.55s ease-out both`,
+                  animation: `spark 0.4s ease-out both`,
                   animationDelay: `0ms`,
                   color: color === 'gold' ? undefined : '#1A1D24',
                 }
@@ -349,7 +351,7 @@ export default function Hero() {
       await wait(40)
       if (cancelled) return
 
-      await videoControls.start({
+      const videoPromise = videoControls.start({
         filter: VIDEO_SHARP_BLUR,
         scale: VIDEO_SHARP_SCALE,
         transition: {
@@ -358,9 +360,7 @@ export default function Hero() {
         },
       })
 
-      if (cancelled) return
-
-      await Promise.all([
+      const panelsPromise = Promise.all([
         panelControls.start({
           opacity: 1,
           scaleX: 1,
@@ -391,10 +391,12 @@ export default function Hero() {
         }),
       ])
 
-      if (cancelled) return
-
+      // Kick off the text reveal as soon as the video starts showing through,
+      // instead of waiting for the panel/video animations to finish.
       await wait(TEXT_INTRO_GAP_MS)
       if (!cancelled) setMounted(true)
+
+      await Promise.all([videoPromise, panelsPromise])
     }
 
     runIntro()
@@ -529,7 +531,7 @@ export default function Hero() {
                       {mounted && (
                         <SparkyLine
                           text={line}
-                          delay={i * (line.length * 52) + i * 100}
+                          delay={i * (line.length * TEXT_CHAR_STAGGER_MS) + i * TEXT_LINE_GAP_MS}
                           color={i === 1 ? 'gold' : 'ink'}
                         />
                       )}
@@ -543,7 +545,7 @@ export default function Hero() {
                     opacity: mounted ? 1 : 0,
                     transform: mounted ? 'translateY(0)' : 'translateY(20px)',
                     transition: 'opacity 0.7s ease, transform 0.7s ease',
-                    transitionDelay: mounted ? `${titleLines.join('').length * 52 + 400}ms` : '0ms',
+                    transitionDelay: mounted ? `${titleLines.join('').length * TEXT_CHAR_STAGGER_MS + 250}ms` : '0ms',
                   }}
                 >
                   {t('hero.subtitle')}
@@ -558,7 +560,7 @@ export default function Hero() {
                     opacity: mounted ? 1 : 0,
                     transform: mounted ? 'translateY(0)' : 'translateY(20px)',
                     transition: 'opacity 0.7s ease, transform 0.7s ease',
-                    transitionDelay: mounted ? `${titleLines.join('').length * 52 + 550}ms` : '0ms',
+                    transitionDelay: mounted ? `${titleLines.join('').length * TEXT_CHAR_STAGGER_MS + 350}ms` : '0ms',
                   }}
                 >
                   <a
