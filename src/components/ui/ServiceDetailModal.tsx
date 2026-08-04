@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
 import { X, Check, ChevronLeft, ChevronRight, ArrowRight, MessageCircle } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
 import type { ServiceItem } from '../../types'
-import { CONTACT, CROSS_SUGGESTIONS, CATEGORIES } from '../../data/services'
-import { useLanguage } from '../../hooks/useLanguage'
+import { CONTACT } from '../../data/services'
 
 interface Props {
   service: ServiceItem | null
@@ -16,12 +14,9 @@ interface Props {
 
 export default function ServiceDetailModal({ service, onClose, categoryServices, onSelectService, categoryName }: Props) {
   const { t, i18n } = useTranslation()
-  const navigate = useNavigate()
-  const { lang: routeLang } = useLanguage()
   const [activeImg, setActiveImg] = useState(0)
   const [imageViewerOpen, setImageViewerOpen] = useState(false)
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
-  const prefix = routeLang === 'he' ? '' : `/${routeLang}`
 
   useEffect(() => {
     if (!service) return
@@ -53,18 +48,6 @@ export default function ServiceDetailModal({ service, onClose, categoryServices,
   const currentImg = gallery[activeImg] ?? service.mainImage
   const showPreviousImage = () => setActiveImg(i => Math.max(i - 1, 0))
   const showNextImage = () => setActiveImg(i => Math.min(i + 1, gallery.length - 1))
-
-  const allServices = CATEGORIES.flatMap(c => c.services)
-  const crossSlugs = CROSS_SUGGESTIONS[service.id] ?? []
-  const crossServices = crossSlugs
-    .map(slug => allServices.find(s => s.slug === slug))
-    .filter(Boolean) as ServiceItem[]
-
-  const navigateToCross = (s: ServiceItem) => {
-    const cat = CATEGORIES.find(c => c.services.some(cs => cs.id === s.id))
-    if (!cat) return
-    navigate(`${prefix}/${cat.slug}`, { state: { openService: s.slug } })
-  }
 
   return (
     <div
@@ -269,6 +252,11 @@ export default function ServiceDetailModal({ service, onClose, categoryServices,
               {features.length > 0 && (
                 <div>
                   <p className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-white/50">{t('services.features')}</p>
+                  <p className="mb-3 text-[13px] leading-relaxed text-white/70">
+                    {lang === 'ru'
+                      ? 'Наша компания специализируется на строительстве полностью закрытых пергол со стеклянными стенами, превращая их во внутреннее пространство наподобие комнаты на все сезоны года. Можно комбинировать разные модели пергол из списка вместе со стеклянными стенами, чтобы подобрать решение точно под ваши потребности и дизайн.'
+                      : 'החברה שלנו מתמחה בבניית פרגולה סגורה לחלוטין עם דפנות זכוכית, שהופכת אותה למרחב פנימי דמוי חדר לכל עונות השנה. ניתן לשלב בין דגמי הפרגולות השונים מהרשימה יחד עם דפנות זכוכית, כדי להתאים את הפתרון בדיוק לצרכים ולעיצוב שלכם.'}
+                  </p>
                   <ul className="grid grid-cols-1 gap-x-5 gap-y-2 sm:grid-cols-2 lg:grid-cols-1">
                     {features.map((f, i) => (
                       <li key={i} className="flex items-start gap-2 text-[13px] leading-5 text-white/72">
@@ -301,30 +289,6 @@ export default function ServiceDetailModal({ service, onClose, categoryServices,
                   WhatsApp
                 </a>
               </div>
-
-              {crossServices.length > 0 && (
-                <div className="mt-5 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-                  <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-white/40">
-                    {lang === 'ru' ? 'Также может подойти' : 'גם יכול להתאים'}
-                  </p>
-                  <div className="flex gap-2.5 flex-wrap">
-                    {crossServices.map(s => (
-                      <button
-                        key={s.id}
-                        type="button"
-                        onClick={() => navigateToCross(s)}
-                        className="group flex items-center gap-2 rounded-xl px-3 py-2 text-[12px] font-medium text-white/70 transition-all duration-200 hover:text-gold hover:-translate-y-0.5"
-                        style={{ backgroundColor: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)' }}
-                      >
-                        <div className="h-8 w-10 shrink-0 overflow-hidden rounded-lg">
-                          <img src={s.mainImage} alt={s.name[lang]} className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-200" loading="lazy" />
-                        </div>
-                        {s.name[lang]}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           </div>
         </div>

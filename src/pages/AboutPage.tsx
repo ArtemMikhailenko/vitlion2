@@ -11,6 +11,7 @@ import { useInView } from '../hooks/useInView'
 import { useLanguage } from '../hooks/useLanguage'
 
 const WHY_ICONS = [Factory, Ruler, Zap, ShieldCheck, Palette, Headset]
+const TEAM_PHOTOS = ['/media/team/roman-sales.jpg', '/media/team/kirill-photograper.jpg']
 
 export default function AboutPage() {
   const { t } = useTranslation()
@@ -21,6 +22,7 @@ export default function AboutPage() {
   const whyItems = t('whyUs.items', { returnObjects: true }) as Array<{ title: string; text: string }>
   const regularFeatures = t('glass.regularFeatures', { returnObjects: true }) as string[]
   const temperedFeatures = t('glass.temperedFeatures', { returnObjects: true }) as string[]
+  const teamMembers = t('team.members', { returnObjects: true }) as Array<{ name: string; role: string }>
 
   return (
     <>
@@ -163,6 +165,46 @@ export default function AboutPage() {
                   </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="py-20 bg-dark-section">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-14">
+              <span className="inline-block text-gold text-sm font-semibold tracking-widest uppercase mb-4">
+                {t('team.badge')}
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-ink mb-5">
+                {t('team.title')}
+              </h2>
+              <p className="text-ink-mid text-lg max-w-2xl mx-auto leading-relaxed">
+                {t('team.subtitle')}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-3xl mx-auto">
+              {teamMembers.map((member, i) => (
+                <div
+                  key={i}
+                  className="group bg-dark-card border border-dark-border hover:border-gold/40 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg hover:shadow-gold/5"
+                >
+                  <div className="aspect-[4/5] overflow-hidden">
+                    <img
+                      src={TEAM_PHOTOS[i]}
+                      alt={member.name}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div className="p-6 text-center">
+                    <h3 className="text-lg font-bold text-ink mb-1 group-hover:text-gold transition-colors duration-200">
+                      {member.name}
+                    </h3>
+                    <p className="text-ink-mid text-sm">{member.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
