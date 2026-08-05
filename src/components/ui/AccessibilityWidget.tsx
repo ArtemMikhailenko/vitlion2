@@ -28,6 +28,7 @@ export default function AccessibilityWidget() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [settings, setSettings] = useState<Settings>(() => {
+    if (typeof localStorage === 'undefined') return DEFAULT // SSR / prerender guard
     try {
       const saved = localStorage.getItem('acc')
       return saved ? { ...DEFAULT, ...JSON.parse(saved) } : DEFAULT

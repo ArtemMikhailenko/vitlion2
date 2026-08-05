@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate, useParams } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
 import SEOHead from './components/seo/SEOHead'
 import Header from './components/layout/Header'
 import Footer from './components/layout/Footer'
@@ -59,7 +58,7 @@ function CategoryRedirect({ ruPrefix }: { ruPrefix?: boolean }) {
 
 export default function App() {
   return (
-    <HelmetProvider>
+    <>
       <ScrollToTop />
       <Routes>
         {/* Hebrew — default, no prefix */}
@@ -91,6 +90,6 @@ export default function App() {
         {/* Fallback for removed EN routes and unknown paths */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </HelmetProvider>
+    </>
   )
 }

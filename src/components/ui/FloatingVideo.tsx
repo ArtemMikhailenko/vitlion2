@@ -5,7 +5,9 @@ import { X, Volume2, VolumeX } from 'lucide-react'
 export default function FloatingVideo() {
   const { i18n } = useTranslation()
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
-  const [visible, setVisible] = useState(!sessionStorage.getItem('dominika-dismissed'))
+  const [visible, setVisible] = useState(() =>
+    typeof sessionStorage === 'undefined' || !sessionStorage.getItem('dominika-dismissed')
+  )
   const [muted, setMuted] = useState(true)
   const [ended, setEnded] = useState(false)
   const [expanded, setExpanded] = useState(false)

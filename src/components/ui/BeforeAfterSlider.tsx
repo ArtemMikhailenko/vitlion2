@@ -13,6 +13,7 @@ export default function BeforeAfterSlider({ before, after }: Props) {
   const [dragging, setDragging] = useState(false)
   const [interacted, setInteracted] = useState(false)
   const [animPaused, setAnimPaused] = useState(() =>
+    typeof document !== 'undefined' &&
     document.documentElement.classList.contains('acc-no-anim')
   )
 

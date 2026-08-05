@@ -8,6 +8,8 @@ export const SUPPORTED_LANGUAGES: Language[] = ['he', 'ru']
 export const DEFAULT_LANGUAGE: Language = 'he'
 
 export function getLanguageFromUrl(): Language {
+  // Guard for SSR / prerender (no `window` in Node).
+  if (typeof window === 'undefined') return DEFAULT_LANGUAGE
   const path = window.location.pathname
   if (path.startsWith('/ru')) return 'ru'
   return 'he'
