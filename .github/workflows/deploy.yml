@@ -1,0 +1,49 @@
+name: Build & publish to deploy branch (Hostinger)
+
+# Hostinger serves the connected branch as-is into public_html (no build step).
+# A Vite SPA must be built first, so this workflow builds `dist/` on every push
+# to main and force-pushes the built output to the `deploy` branch. Point the
+# Hostinger GitHub deployment at the `deploy` branch instead of `main`.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: hostinger-deploy-branch
+  cancel-in-progress: true
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build (Vite + prerender)
+        run: npm run build
+
+      - name: Publish dist/ to the deploy branch
+        run: |
+          cd dist
+          git init -q -b deploy
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Deploy build from ${GITHUB_SHA}"
+          git push -q --force "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
