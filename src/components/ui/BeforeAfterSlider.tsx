@@ -144,6 +144,8 @@ export default function BeforeAfterSlider({ before, after }: Props) {
         alt="after"
         className="absolute inset-0 w-full h-full object-cover object-top"
         draggable={false}
+        loading="lazy"
+        decoding="async"
       />
 
       {/* Before image — clipped by clipPath to left portion */}
@@ -156,6 +158,8 @@ export default function BeforeAfterSlider({ before, after }: Props) {
           alt="before"
           className="absolute inset-0 w-full h-full object-cover object-top"
           draggable={false}
+          loading="lazy"
+          decoding="async"
         />
       </div>
 

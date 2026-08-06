@@ -13,8 +13,22 @@ export default function FloatingVideo() {
   const [muted, setMuted] = useState(true)
   const [ended, setEnded] = useState(false)
   const [expanded, setExpanded] = useState(false)
+  // Deferred so this marketing clip never competes with the hero video for
+  // bandwidth during first paint — it only starts downloading once the browser
+  // goes idle.
+  const [deferredIn, setDeferredIn] = useState(false)
   const videoRef = useRef<HTMLVideoElement>(null)
   const expandedVideoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    const idle = window.requestIdleCallback
+    if (idle) {
+      const id = idle(() => setDeferredIn(true), { timeout: 5000 })
+      return () => window.cancelIdleCallback?.(id)
+    }
+    const id = window.setTimeout(() => setDeferredIn(true), 3000)
+    return () => window.clearTimeout(id)
+  }, [])
 
   const dismiss = () => {
     setVisible(false)
@@ -55,7 +69,7 @@ export default function FloatingVideo() {
     }
   }
 
-  if (!visible) return null
+  if (!visible || !deferredIn) return null
 
   const src = lang === 'ru' ? '/media/dominika-ru.mp4' : '/media/dominika-he.mp4'
   const name = lang === 'ru' ? 'Доминика' : 'דומיניקה'

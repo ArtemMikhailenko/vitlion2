@@ -11,7 +11,7 @@ import ScrollProgress from '../components/ui/ScrollProgress'
 import { useInView } from '../hooks/useInView'
 
 const WHY_ICONS = [Factory, Ruler, Zap, ShieldCheck, Palette, Headset]
-const TEAM_PHOTOS = ['/media/team/roman-sales.jpg', '/media/team/kirill-photograper.jpg']
+const TEAM_PHOTOS = ['/media/team/roman-sales.webp', '/media/team/kirill-photograper.webp']
 
 export default function AboutPage() {
   const { t } = useTranslation()
@@ -101,7 +101,7 @@ export default function AboutPage() {
                 style={{ opacity: glassInView ? 1 : 0, transform: glassInView ? 'translateX(0)' : 'translateX(-32px)', transition: 'opacity 0.7s ease, transform 0.7s ease' }}
               >
                 <img
-                  src="/media/services/frameless-glazing/01.jpg"
+                  src="/media/services/frameless-glazing/01.webp"
                   alt="Vitlion tempered glass"
                   className="w-full h-full object-cover"
                   loading="lazy"

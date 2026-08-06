@@ -5,20 +5,20 @@ import { useTranslation } from '@/lib/i18n/client'
 import { useInView } from '../../hooks/useInView'
 
 const GALLERY_IMAGES = [
-  { src: '/media/gallery/01.jpg', alt: 'Frameless glazing project' },
-  { src: '/media/gallery/02.jpg', alt: 'Aluminum pergola' },
-  { src: '/media/gallery/03.png', alt: 'ZIP PVC curtains' },
-  { src: '/media/gallery/04.jpg', alt: 'Bioclimatic pergola' },
-  { src: '/media/gallery/05.png', alt: 'Sliding system' },
-  { src: '/media/gallery/06.png', alt: 'Electric guillotine' },
-  { src: '/media/gallery/07.png', alt: 'Fixed glazing' },
-  { src: '/media/gallery/08.png', alt: 'Swing doors' },
-  { src: '/media/gallery/09.png', alt: 'Pergola installation' },
-  { src: '/media/gallery/10.png', alt: 'Glass system' },
-  { src: '/media/gallery/13.jpg', alt: 'Winter garden' },
-  { src: '/media/gallery/14.png', alt: 'Pergola with PVC' },
-  { src: '/media/gallery/15.png', alt: 'Pivot windows' },
-  { src: '/media/gallery/16.jpg', alt: 'Commercial glazing' },
+  { src: '/media/gallery/01.webp', alt: 'Frameless glazing project' },
+  { src: '/media/gallery/02.webp', alt: 'Aluminum pergola' },
+  { src: '/media/gallery/03.webp', alt: 'ZIP PVC curtains' },
+  { src: '/media/gallery/04.webp', alt: 'Bioclimatic pergola' },
+  { src: '/media/gallery/05.webp', alt: 'Sliding system' },
+  { src: '/media/gallery/06.webp', alt: 'Electric guillotine' },
+  { src: '/media/gallery/07.webp', alt: 'Fixed glazing' },
+  { src: '/media/gallery/08.webp', alt: 'Swing doors' },
+  { src: '/media/gallery/09.webp', alt: 'Pergola installation' },
+  { src: '/media/gallery/10.webp', alt: 'Glass system' },
+  { src: '/media/gallery/13.webp', alt: 'Winter garden' },
+  { src: '/media/gallery/14.webp', alt: 'Pergola with PVC' },
+  { src: '/media/gallery/15.webp', alt: 'Pivot windows' },
+  { src: '/media/gallery/16.webp', alt: 'Commercial glazing' },
 ]
 
 export default function Gallery({ hideHeader }: { hideHeader?: boolean } = {}) {

@@ -7,19 +7,19 @@ import VideoModal from '../ui/VideoModal'
 const VIDEO_ITEMS = [
   {
     src: '/media/services-video/frameless-glazing.mp4',
-    poster: '/media/services/frameless-glazing/main.jpg',
+    poster: '/media/services/frameless-glazing/main.webp',
   },
   {
     src: '/media/services-video/bioclimatic.mp4',
-    poster: '/media/services/pergola-electric/main.jpg',
+    poster: '/media/services/pergola-electric/main.webp',
   },
   {
     src: '/media/services-video/glazing.mp4',
-    poster: '/media/services/guillotine-electric/main.jpg',
+    poster: '/media/services/guillotine-electric/main.webp',
   },
   {
     src: '/media/services-video/pergola-pvc.mp4',
-    poster: '/media/services-video/pergola-pvc-poster.png',
+    poster: '/media/services-video/pergola-pvc-poster.webp',
   },
 ]
 

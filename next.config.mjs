@@ -25,6 +25,18 @@ const nextConfig = {
       { source: '/ru/category/:categorySlug', destination: '/ru/:categorySlug', permanent: true },
     ]
   },
+
+  // Files in public/ are served with `max-age=0` by default, so every repeat
+  // visit re-validates each photo and video. These assets are content-stable
+  // and versioned by hand, so give them a long cache with revalidation.
+  async headers() {
+    return [
+      {
+        source: '/media/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
+      },
+    ]
+  },
 }
 
 export default nextConfig

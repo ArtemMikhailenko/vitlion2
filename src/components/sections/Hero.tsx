@@ -425,7 +425,7 @@ export default function Hero() {
             className="absolute inset-0 w-full h-full object-cover"
             initial={{ filter: VIDEO_INITIAL_BLUR, scale: VIDEO_INITIAL_SCALE }}
             animate={videoControls}
-            autoPlay muted loop playsInline poster="/media/hero-bg.jpg"
+            autoPlay muted loop playsInline poster="/media/hero-bg.webp"
           >
             <source src="/media/hero-bg.mp4" type="video/mp4" />
           </motion.video>
@@ -456,7 +456,7 @@ export default function Hero() {
             muted
             loop
             playsInline
-            poster="/media/hero-bg.jpg"
+            poster="/media/hero-bg.webp"
             style={{ filter: 'blur(20px) brightness(0.32) saturate(0.82)' }}
           >
             <source src="/media/hero-bg.mp4" type="video/mp4" />
