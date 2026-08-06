@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useCallback } from 'react'
 
 export function useMagnetic<T extends HTMLElement>(strength = 0.28) {

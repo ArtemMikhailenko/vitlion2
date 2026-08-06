@@ -1,11 +1,13 @@
-import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router-dom'
+'use client'
+
+import { useTranslation } from '@/lib/i18n/client'
+import { useRouter } from 'next/navigation'
 import { CATEGORIES } from '../../data/services'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
 import BeforeAfterSlider from '../ui/BeforeAfterSlider'
 import type { ServiceCategory } from '../../types'
-import { useLanguage } from '../../hooks/useLanguage'
+import { useLanguage } from '@/lib/i18n/client'
 
 const CATEGORY_BA: Record<string, { before: string; after: string }> = {
   'electric-pergolas': { before: '/media/before-after/pergola-electric-after.png',    after: '/media/before-after/pergola-electric-before.png' },
@@ -70,14 +72,14 @@ function CategoryCard({ category, index, inView, onClick, lang }: {
 
 export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) {
   const { t, i18n } = useTranslation()
-  const navigate = useNavigate()
+  const router = useRouter()
   const { lang } = useLanguage()
   const [gridRef, inView] = useInView({ threshold: 0.05 })
   const displayLang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
   const prefix = lang === 'he' ? '' : `/${lang}`
 
   const openCategory = (category: ServiceCategory) => {
-    navigate(`${prefix}/${category.slug}`)
+    router.push(`${prefix}/${category.slug}`)
   }
 
   return (

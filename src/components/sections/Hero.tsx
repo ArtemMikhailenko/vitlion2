@@ -1,6 +1,8 @@
+'use client'
+
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { motion, useAnimationControls, useReducedMotion } from 'framer-motion'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/lib/i18n/client'
 
 const VIDEO_UNBLUR_MS = 900
 const PANEL_ENTER_MS = 480
@@ -83,7 +85,7 @@ export default function Hero() {
   const shouldReduceMotion = useReducedMotion()
 
   const isHebrew = (i18n.resolvedLanguage ?? i18n.language).startsWith('he')
-  const titleText = t('hero.title')
+  const titleText: string = t('hero.title')
   const titleLines = isHebrew
     ? (() => {
         const normalizedTitle = titleText.replace(/\s*\n\s*/g, ' ').trim()

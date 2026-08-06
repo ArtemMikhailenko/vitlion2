@@ -1,6 +1,8 @@
-import { useTranslation } from 'react-i18next'
+'use client'
+
+import { useTranslation } from '@/lib/i18n/client'
 import { CATEGORIES, CONTACT } from '../../data/services'
-import { useLanguage } from '../../hooks/useLanguage'
+import { useLanguage } from '@/lib/i18n/client'
 
 const PhoneIcon = () => (
   <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

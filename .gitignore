@@ -4,3 +4,8 @@ dist/
 *.local
 .env
 .env.*
+
+# Next.js
+.next/
+next-env.d.ts
+out/

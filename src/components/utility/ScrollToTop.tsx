@@ -1,14 +1,14 @@
+'use client'
+
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { usePathname } from 'next/navigation'
 
 /**
  * Resets scroll position to the top on every route change.
- * React Router does not do this automatically for client-side navigation,
- * so without it a new page (e.g. a category page) can render mid-scroll.
  * Temporarily disables the global `scroll-behavior: smooth` so the jump is instant.
  */
 export default function ScrollToTop() {
-  const { pathname } = useLocation()
+  const pathname = usePathname()
 
   useEffect(() => {
     const html = document.documentElement

@@ -1,5 +1,7 @@
+'use client'
+
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/lib/i18n/client'
 import { useInView } from '../../hooks/useInView'
 
 const GALLERY_IMAGES = [

@@ -1,22 +1,21 @@
+'use client'
+
 import { useState, useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useLocation } from 'react-router-dom'
+import { usePathname } from 'next/navigation'
+import { useTranslation, useLanguage } from '@/lib/i18n/client'
 import LanguageSwitcher from '../ui/LanguageSwitcher'
 import AccessibilityWidget from '../ui/AccessibilityWidget'
-import type { Language } from '../../types'
 
-interface Props {
-  lang: Language
-  onSwitchLang: (lang: Language) => void
-}
-
-export default function Header({ lang, onSwitchLang }: Props) {
+export default function Header() {
   const { t } = useTranslation()
+  // Language and the switcher both come from the route now, so the header no
+  // longer needs them threaded down as props from a page.
+  const { lang, switchLanguage: onSwitchLang } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
+  const pathname = usePathname()
   const prefix = lang === 'he' ? '' : `/${lang}`
-  const basePath = location.pathname.replace(/^\/ru/, '') || '/'
+  const basePath = (pathname || '/').replace(/^\/ru/, '') || '/'
   const isHome = basePath === '/'
   const solid = scrolled || !isHome
 

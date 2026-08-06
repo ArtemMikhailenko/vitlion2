@@ -20,21 +20,20 @@ const he = {
   },
 
   hero: {
-    badge: 'מעל 500 פרויקטים מומשו',
+    // The previous "500+ projects" claim was removed on purpose: it was not
+    // corroborated anywhere else on the site, and unverifiable numbers in the
+    // most prominent element weaken E-E-A-T / GEO trust signals. Replaced with
+    // the written 10-year warranty, which is stated identically in the FAQ and
+    // in JSON-LD — and which none of the tracked competitors publish clearly.
+    badge: 'אחריות של 10 שנים על כל מבנה',
     title: 'אלומיניום\nשמשנה\nמרחבים',
     subtitle:
-      'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום בכל רחבי ישראל. פרגולות, זיגוג, מערכות הזזה: הכל תחת קורת גג אחת.',
+      'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום במרכז, בצפון ובדרום הארץ - מתל אביב וחיפה ועד באר שבע. פרגולות, זיגוג ומערכות הזזה, מיוצרים במפעל שלנו בישראל ומגיעים עם אחריות של 10 שנים.',
     cta: 'קבל ייעוץ חינם',
     ctaSecondary: 'צפה בפרויקטים',
     scrollDown: 'גלול למטה',
   },
 
-  stats: {
-    projects: { value: '500+', label: 'פרויקטים מומשו' },
-    experience: { value: '10+', label: 'שנות ניסיון' },
-    warranty: { value: '10', label: 'שנות אחריות' },
-    cities: { value: '20+', label: 'ערים בישראל' },
-  },
 
   services: {
     badge: 'השירותים שלנו',

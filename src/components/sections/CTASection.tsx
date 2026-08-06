@@ -1,4 +1,6 @@
-import { useTranslation } from 'react-i18next'
+'use client'
+
+import { useTranslation } from '@/lib/i18n/client'
 import { CONTACT } from '../../data/services'
 import ParticleButton from '../ui/ParticleButton'
 import BlueprintLines from '../ui/BlueprintLines'

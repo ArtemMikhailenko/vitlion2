@@ -1,4 +1,6 @@
-import { useTranslation } from 'react-i18next'
+'use client'
+
+import { useTranslation } from '@/lib/i18n/client'
 import { useInView } from '../../hooks/useInView'
 import { useMagnetic } from '../../hooks/useMagnetic'
 

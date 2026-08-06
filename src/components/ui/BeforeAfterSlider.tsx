@@ -1,5 +1,7 @@
+'use client'
+
 import { useRef, useState, useEffect, useCallback } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation } from '@/lib/i18n/client'
 
 interface Props {
   before: string
