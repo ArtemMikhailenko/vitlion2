@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { allServiceParams } from '@/lib/catalog'
 import { LANGS, localePath, type Lang } from '@/lib/i18n'
 import { SITE_URL } from '@/lib/site'
 
@@ -22,7 +23,7 @@ const ENTRIES: {
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
 
-  return ENTRIES.flatMap(entry => {
+  const categoryUrls = ENTRIES.flatMap(entry => {
     const languages: Record<string, string> = {}
     for (const lang of LANGS) languages[lang] = `${SITE_URL}${localePath(lang, entry.path)}`
 
@@ -34,4 +35,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
       alternates: { languages },
     }))
   })
+
+  // The 17 product models, now that each has its own page.
+  const serviceUrls = allServiceParams().flatMap(({ category, service }) => {
+    const path = `${category}/${service}`
+    const languages: Record<string, string> = {}
+    for (const lang of LANGS) languages[lang] = `${SITE_URL}${localePath(lang, path)}`
+
+    return LANGS.map(lang => ({
+      url: `${SITE_URL}${localePath(lang, path)}`,
+      lastModified,
+      changeFrequency: 'monthly' as const,
+      priority: lang === 'he' ? 0.6 : 0.4,
+      alternates: { languages },
+    }))
+  })
+
+  return [...categoryUrls, ...serviceUrls]
 }

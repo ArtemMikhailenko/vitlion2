@@ -9,11 +9,22 @@ interface Crumb {
   path?: string
 }
 
+interface ProductInfo {
+  name: string
+  description: string
+  image: string
+  /** Path with no leading slash and no language prefix. */
+  path: string
+  category: string
+}
+
 interface Props {
   lang: Lang
   /** Emits a FAQPage node — the highest-value schema for AI citation here. */
   faq?: FaqItem[]
   breadcrumbs?: Crumb[]
+  /** Emitted on the per-model pages. */
+  product?: ProductInfo
 }
 
 /**
@@ -23,7 +34,7 @@ interface Props {
  * literal placeholder "+972-XX-XXX-XXXX" and `sameAs` pointed at two social
  * profiles that do not exist. Both now come from the single CONTACT source.
  */
-export default function JsonLd({ lang, faq, breadcrumbs }: Props) {
+export default function JsonLd({ lang, faq, breadcrumbs, product }: Props) {
   const business = {
     '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
     '@id': `${SITE_URL}/#business`,
@@ -104,6 +115,31 @@ export default function JsonLd({ lang, faq, breadcrumbs }: Props) {
         name: item.question,
         acceptedAnswer: { '@type': 'Answer', text: item.answer },
       })),
+    })
+  }
+
+  if (product) {
+    graph.push({
+      '@type': 'Product',
+      '@id': `${SITE_URL}${localePath(lang, product.path)}#product`,
+      name: product.name,
+      description: product.description,
+      image: `${SITE_URL}${product.image}`,
+      category: product.category,
+      brand: { '@id': `${SITE_URL}/#org` },
+      // Everything is made to measure, so there is no list price to publish —
+      // the free on-site survey is the offer.
+      offers: {
+        '@type': 'Offer',
+        availability: 'https://schema.org/InStock',
+        priceCurrency: 'ILS',
+        url: `${SITE_URL}${localePath(lang, product.path)}`,
+        seller: { '@id': `${SITE_URL}/#business` },
+      },
+      warranty: {
+        '@type': 'WarrantyPromise',
+        durationOfWarranty: { '@type': 'QuantitativeValue', value: WARRANTY_YEARS, unitCode: 'ANN' },
+      },
     })
   }
 

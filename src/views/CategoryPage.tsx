@@ -1,32 +1,33 @@
-'use client'
-
-import { useState } from 'react'
+import Link from 'next/link'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
 import SeoContentSection from '../components/seo/SeoContentSection'
-import ServiceDetailModal from '../components/ui/ServiceDetailModal'
-import { CATEGORIES, CONTACT } from '../data/services'
+import { CONTACT } from '../data/services'
 import { SEO_PAGES } from '../data/seoContent'
-import { useLanguage } from '@/lib/i18n/client'
-import type { ServiceItem } from '../types'
+import { findCategory } from '@/lib/catalog'
+import { localePath, type Lang } from '@/lib/i18n'
 
 interface Props {
+  lang: Lang
   slug: string
 }
 
-export default function CategoryPage({ slug }: Props) {
-  // Single source of truth for the language: the route. The old page derived it
-  // twice (URL + i18next) which could disagree for a render after a switch.
-  const { lang } = useLanguage()
-  const category = CATEGORIES.find(c => c.slug === slug)
+/**
+ * Category page — now a Server Component.
+ *
+ * The model cards used to be <button>s that opened a modal, which meant the 17
+ * models had no URLs and crawlers could not reach any of that content. They are
+ * plain links to the per-model pages now, so the catalog is fully crawlable and
+ * each model is shareable.
+ */
+export default function CategoryPage({ lang, slug }: Props) {
+  const category = findCategory(slug)
   const seo = SEO_PAGES[slug]?.[lang]
-  const [activeService, setActiveService] = useState<ServiceItem | null>(null)
 
-  // The route only renders known slugs (generateStaticParams + dynamicParams:false),
-  // so this is a type guard rather than a reachable state.
+  // The route only renders known slugs (generateStaticParams + dynamicParams:false).
   if (!category || !seo) return null
 
   const waHref = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`
@@ -50,10 +51,9 @@ export default function CategoryPage({ slug }: Props) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6">
               {category.services.map(service => (
-                <button
+                <Link
                   key={service.id}
-                  type="button"
-                  onClick={() => setActiveService(service)}
+                  href={`${localePath(lang, slug)}/${service.slug}`}
                   className="group flex flex-col overflow-hidden rounded-2xl text-start bg-dark-card border border-dark-border transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   <div className="relative h-36 sm:h-48 overflow-hidden">
@@ -62,9 +62,7 @@ export default function CategoryPage({ slug }: Props) {
                       alt={service.name[lang]}
                       className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
-                      onError={e => {
-                        e.currentTarget.style.display = 'none'
-                      }}
+                      decoding="async"
                     />
                   </div>
                   <div className="px-3 py-3 sm:px-4 sm:py-4">
@@ -75,7 +73,7 @@ export default function CategoryPage({ slug }: Props) {
                       {service.short[lang]}
                     </p>
                   </div>
-                </button>
+                </Link>
               ))}
             </div>
           </div>
@@ -88,14 +86,6 @@ export default function CategoryPage({ slug }: Props) {
           ctaHref={waHref}
         />
       </main>
-
-      <ServiceDetailModal
-        service={activeService}
-        onClose={() => setActiveService(null)}
-        categoryServices={category.services}
-        onSelectService={setActiveService}
-        categoryName={category.name[lang]}
-      />
 
       <CTASection />
       <Footer />

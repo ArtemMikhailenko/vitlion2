@@ -6,8 +6,15 @@ import AboutPage from '@/views/AboutPage'
 import ProjectsPage from '@/views/ProjectsPage'
 import ContactPage from '@/views/ContactPage'
 import CategoryPage from '@/views/CategoryPage'
+import ServiceDetailView from '@/views/ServiceDetailView'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
+import CTASection from '@/components/sections/CTASection'
+import WhatsAppButton from '@/components/ui/WhatsAppButton'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 import { getGeoContent } from '@/data/geoContent'
 import { CATEGORIES } from '@/data/services'
+import { findService } from '@/lib/catalog'
 import { getT, type Lang } from '@/lib/i18n'
 
 /**
@@ -61,7 +68,50 @@ export function CategoryRoute({ lang, slug }: { lang: Lang; slug: string }) {
           ...(category ? [{ name: category.name[lang], path: slug }] : []),
         ]}
       />
-      <CategoryPage slug={slug} />
+      <CategoryPage lang={lang} slug={slug} />
+    </>
+  )
+}
+
+export function ServiceRoute({
+  lang,
+  categorySlug,
+  serviceSlug,
+}: {
+  lang: Lang
+  categorySlug: string
+  serviceSlug: string
+}) {
+  const t = getT(lang)
+  const entry = findService(categorySlug, serviceSlug)
+  if (!entry) return null
+
+  const { category, service } = entry
+
+  return (
+    <>
+      <JsonLd
+        lang={lang}
+        product={{
+          name: service.name[lang],
+          description: service.description[lang],
+          image: service.mainImage,
+          path: `${categorySlug}/${serviceSlug}`,
+          category: category.name[lang],
+        }}
+        breadcrumbs={[
+          { name: t('nav.home') as string },
+          { name: t('nav.services') as string, path: 'services' },
+          { name: category.name[lang], path: categorySlug },
+          { name: service.name[lang], path: `${categorySlug}/${serviceSlug}` },
+        ]}
+      />
+      <ScrollProgress />
+      <Header />
+      <ServiceDetailView lang={lang} categorySlug={categorySlug} serviceSlug={serviceSlug} />
+      <CTASection />
+      <Footer />
+      <WhatsAppButton />
     </>
   )
 }
