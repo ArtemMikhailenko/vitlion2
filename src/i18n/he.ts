@@ -25,8 +25,13 @@ const he = {
     // most prominent element weaken E-E-A-T / GEO trust signals. Replaced with
     // the written 10-year warranty, which is stated identically in the FAQ and
     // in JSON-LD — and which none of the tracked competitors publish clearly.
-    badge: 'אחריות של 10 שנים על כל מבנה',
+    badge: 'ייצור עצמי במפעל בישראל',
     title: 'אלומיניום\nשמשנה\nמרחבים',
+    // Keyword tail of the improved H1 from the brief. Kept as a separate key so
+    // the hero can render it one tier smaller without breaking the layout —
+    // it still sits inside the <h1>, so the full heading reads
+    // "אלומיניום שמשנה מרחבים: פרגולות, זיגוג ומערכות הזזה".
+    titleSuffix: 'פרגולות, זיגוג ומערכות הזזה',
     subtitle:
       'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום במרכז, בצפון ובדרום הארץ - מתל אביב וחיפה ועד באר שבע. פרגולות, זיגוג ומערכות הזזה, מיוצרים במפעל שלנו בישראל ומגיעים עם אחריות של 10 שנים.',
     cta: 'קבל ייעוץ חינם',

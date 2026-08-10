@@ -530,15 +530,31 @@ export default function Hero() {
                 <h1 className={`mb-6 font-bold tracking-tight text-white ${isHebrew ? 'max-w-[820px] text-[2.2rem] leading-tight sm:text-[3rem] md:text-[4rem] lg:text-[5.6rem] xl:text-[6.3rem]' : 'text-4xl leading-tight sm:text-5xl lg:text-7xl xl:text-8xl'}`}>
                   {titleLines.map((line, i) => (
                     <span key={i} className="block">
-                      {mounted && (
+                      {/* The plain text is rendered until `mounted` flips, so the
+                          heading exists in the server HTML. Previously this was
+                          gated behind `mounted &&`, which left the homepage <h1>
+                          completely empty for crawlers. `mounted` is set from a
+                          layout effect, so the swap happens before paint. */}
+                      {mounted ? (
                         <SparkyLine
                           text={line}
                           delay={i * (line.length * TEXT_CHAR_STAGGER_MS) + i * TEXT_LINE_GAP_MS}
                           color={i === 1 ? 'gold' : 'ink'}
                         />
+                      ) : (
+                        line
                       )}
                     </span>
                   ))}
+                  <span
+                    className={`block font-semibold text-white/80 ${
+                      isHebrew
+                        ? 'mt-3 text-[1.05rem] sm:text-[1.3rem] md:text-[1.6rem] lg:text-[2rem]'
+                        : 'mt-3 text-lg sm:text-xl lg:text-2xl'
+                    }`}
+                  >
+                    {t('hero.titleSuffix')}
+                  </span>
                 </h1>
 
                 <p
