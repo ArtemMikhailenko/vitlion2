@@ -1,4 +1,6 @@
 import Link from 'next/link'
+import ContentBlocks from '../components/sections/ContentBlocks'
+import { getCategoryBrief } from '../data/briefContent'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
@@ -31,6 +33,7 @@ export default function CategoryPage({ lang, slug }: Props) {
   if (!category || !seo) return null
 
   const waHref = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`
+  const briefBlocks = getCategoryBrief(slug, lang)
 
   return (
     <>
@@ -79,12 +82,29 @@ export default function CategoryPage({ lang, slug }: Props) {
           </div>
         </section>
 
-        <SeoContentSection
-          h2Blocks={seo.h2Blocks}
-          seoText={seo.seoText}
-          ctaLabel={seo.ctaLabel}
-          ctaHref={waHref}
-        />
+        {/* Body copy. The brief supersedes seoContent's h2Blocks/seoText — they
+            are an earlier pass of the same text, so rendering both would repeat
+            every section on the page. Older pages without brief copy still fall
+            back to the original blocks. */}
+        {briefBlocks.length ? (
+          <ContentBlocks blocks={briefBlocks} alternate>
+            <div className="mt-12 text-center">
+              <a
+                href={waHref}
+                className="inline-flex items-center gap-2 rounded-xl bg-gold px-8 py-4 font-bold text-dark transition-transform hover:scale-105"
+              >
+                {seo.ctaLabel}
+              </a>
+            </div>
+          </ContentBlocks>
+        ) : (
+          <SeoContentSection
+            h2Blocks={seo.h2Blocks}
+            seoText={seo.seoText}
+            ctaLabel={seo.ctaLabel}
+            ctaHref={waHref}
+          />
+        )}
       </main>
 
       <CTASection />

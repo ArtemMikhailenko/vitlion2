@@ -7,6 +7,8 @@ import ProjectsPage from '@/views/ProjectsPage'
 import ContactPage from '@/views/ContactPage'
 import CategoryPage from '@/views/CategoryPage'
 import ServiceDetailView from '@/views/ServiceDetailView'
+import ContentBlocks from '@/components/sections/ContentBlocks'
+import { SERVICES_BRIEF, getModelBrief } from '@/data/briefContent'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import CTASection from '@/components/sections/CTASection'
@@ -49,7 +51,19 @@ export function ServicesRoute({ lang }: { lang: Lang }) {
           { name: t('nav.services') as string, path: 'services' },
         ]}
       />
-      <ServicesPage geoSections={<GeoSections lang={lang} />} />
+      <ServicesPage
+        geoSections={
+          <>
+            <ContentBlocks
+              heading={SERVICES_BRIEF[lang].heading}
+              intro={SERVICES_BRIEF[lang].intro}
+              blocks={SERVICES_BRIEF[lang].blocks}
+              alternate
+            />
+            <GeoSections lang={lang} />
+          </>
+        }
+      />
     </>
   )
 }
@@ -108,7 +122,12 @@ export function ServiceRoute({
       />
       <ScrollProgress />
       <Header />
-      <ServiceDetailView lang={lang} categorySlug={categorySlug} serviceSlug={serviceSlug} />
+      <ServiceDetailView
+        lang={lang}
+        categorySlug={categorySlug}
+        serviceSlug={serviceSlug}
+        blocks={getModelBrief(serviceSlug, lang)}
+      />
       <CTASection />
       <Footer />
       <WhatsAppButton />
