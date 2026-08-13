@@ -2,6 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  // Static generation fans out one worker per CPU by default. The page count
+  // went from 25 to 59 when the per-model routes landed, and on a memory-capped
+  // build container that fan-out is what pushes the build over the limit.
+  // Capping the workers trades a slower build for one that finishes.
+  experimental: {
+    cpus: 2,
+    workerThreads: false,
+  },
+
   // Legacy URLs kept alive from the previous SPA (were in vercel.json).
   // The old client-side catch-all that silently 200'd every unknown URL onto
   // the homepage is intentionally NOT reproduced — unknown paths now 404.
