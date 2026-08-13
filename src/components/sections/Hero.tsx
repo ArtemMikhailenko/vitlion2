@@ -83,6 +83,15 @@ export default function Hero() {
   const accentControls = useAnimationControls()
   const mobilePanelControls = useAnimationControls()
   const shouldReduceMotion = useReducedMotion()
+  // Desktop stretches the background to 1920px and wider, where the phone-sized
+  // encode visibly softens once the intro blur clears. Resolved after mount so
+  // phones are not made to download the heavy file; the poster covers the gap.
+  const [heroVideoSrc, setHeroVideoSrc] = useState<string | null>(null)
+
+  useEffect(() => {
+    const wide = window.matchMedia('(min-width: 1024px)').matches
+    setHeroVideoSrc(wide ? '/media/hero-bg-hd.mp4' : '/media/hero-bg.mp4')
+  }, [])
 
   const isHebrew = (i18n.resolvedLanguage ?? i18n.language).startsWith('he')
   const titleText: string = t('hero.title')
@@ -426,9 +435,8 @@ export default function Hero() {
             initial={{ filter: VIDEO_INITIAL_BLUR, scale: VIDEO_INITIAL_SCALE }}
             animate={videoControls}
             autoPlay muted loop playsInline poster="/media/hero-bg.webp"
-          >
-            <source src="/media/hero-bg.mp4" type="video/mp4" />
-          </motion.video>
+            src={heroVideoSrc ?? undefined}
+          />
           <div
             className={`absolute inset-0 ${isHebrew ? 'bg-gradient-to-r' : 'bg-gradient-to-l'} from-[#0A0A0A]/15 via-[#0A0A0A]/10 to-[#0A0A0A]/45`}
             style={cursorRevealMask ? { WebkitMaskImage: cursorRevealMask, maskImage: cursorRevealMask, ...cursorRevealMaskExtraStyles } : undefined}
@@ -458,9 +466,11 @@ export default function Hero() {
             playsInline
             poster="/media/hero-bg.webp"
             style={{ filter: 'blur(20px) brightness(0.32) saturate(0.82)' }}
-          >
-            <source src="/media/hero-bg.mp4" type="video/mp4" />
-          </video>
+            // Same file as the main background so the browser serves it from
+            // cache — this panel is blurred to 20px, so it costs nothing extra
+            // and adds no second download.
+            src={heroVideoSrc ?? undefined}
+          />
           <div className="absolute inset-0 bg-[#0C0E14]/22" />
         </motion.div>
 
