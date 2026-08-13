@@ -2,13 +2,14 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { useTranslation } from '@/lib/i18n/client'
+import { readStorage, writeStorage } from '@/lib/safeStorage'
 import { X, Volume2, VolumeX } from 'lucide-react'
 
 export default function FloatingVideo() {
   const { i18n } = useTranslation()
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
   const [visible, setVisible] = useState(() =>
-    typeof sessionStorage === 'undefined' || !sessionStorage.getItem('dominika-dismissed')
+    !readStorage('session', 'dominika-dismissed')
   )
   const [muted, setMuted] = useState(true)
   const [ended, setEnded] = useState(false)
@@ -32,7 +33,7 @@ export default function FloatingVideo() {
 
   const dismiss = () => {
     setVisible(false)
-    sessionStorage.setItem('dominika-dismissed', '1')
+    writeStorage('session', 'dominika-dismissed', '1')
   }
 
   const toggleMute = () => {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useTranslation } from '@/lib/i18n/client'
+import { readStorage, writeStorage } from '@/lib/safeStorage'
 
 type Settings = {
   fontSize: 0 | 1 | 2
@@ -30,9 +31,8 @@ export default function AccessibilityWidget() {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const [settings, setSettings] = useState<Settings>(() => {
-    if (typeof localStorage === 'undefined') return DEFAULT // SSR / prerender guard
     try {
-      const saved = localStorage.getItem('acc')
+      const saved = readStorage('local', 'acc')
       return saved ? { ...DEFAULT, ...JSON.parse(saved) } : DEFAULT
     } catch {
       return DEFAULT
@@ -41,7 +41,7 @@ export default function AccessibilityWidget() {
 
   useEffect(() => {
     applySettings(settings)
-    localStorage.setItem('acc', JSON.stringify(settings))
+    writeStorage('local', 'acc', JSON.stringify(settings))
   }, [settings])
 
   const toggle = (key: keyof Omit<Settings, 'fontSize'>) =>
