@@ -2,9 +2,10 @@ import { redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
 import { Notice } from '@/components/admin/fields'
 import { isDbConfigured } from '@/db'
+import { OPEN_STATUSES } from '@/lib/admin/leadStatus'
 import { getCurrentUser } from '@/lib/session'
 import { listLeads } from './actions'
-import LeadRow from './LeadRow'
+import LeadsBoard from './LeadsBoard'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,20 +21,30 @@ export default async function LeadsPage() {
   if (!user) redirect('/admin/login')
 
   const leads = await listLeads()
-  const pending = leads.filter(l => !l.handled).length
+  const open = leads.filter(l => OPEN_STATUSES.includes(l.status)).length
 
   return (
     <AdminShell
       title="Заявки"
-      description="Обращения из калькулятора стоимости на сайте."
+      description="Обращения из калькулятора стоимости на сайте. Статус и заметка сохраняются сразу."
       userEmail={user.email}
       crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Заявки' }]}
       actions={
-        pending > 0 ? (
-          <span className="rounded-lg bg-[#C4983A] px-3 py-1.5 text-sm font-bold text-[#0C0E14]">
-            {pending} новых
-          </span>
-        ) : undefined
+        <div className="flex items-center gap-2">
+          {open > 0 && (
+            <span className="rounded-lg bg-[#C4983A] px-3 py-1.5 text-sm font-bold text-[#0C0E14]">
+              {open} ждут
+            </span>
+          )}
+          {leads.length > 0 && (
+            <a
+              href="/admin/leads/export"
+              className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8]"
+            >
+              Выгрузить в Excel
+            </a>
+          )}
+        </div>
       }
     >
       {!isDbConfigured() && (
@@ -47,29 +58,26 @@ export default async function LeadsPage() {
           <p className="text-sm text-[#8C90A8]">Заявок пока нет.</p>
           <p className="mx-auto mt-2 max-w-md text-xs leading-relaxed text-[#585C78]">
             Раньше форма калькулятора не сохраняла обращения — данные писались в консоль браузера и
-            пропадали. Теперь они попадают сюда.
+            пропадали. Теперь они попадают сюда, а на телефон приходит уведомление, если оно
+            настроено в разделе «Уведомления».
           </p>
         </div>
       ) : (
-        <div className="space-y-3">
-          {leads.map(lead => (
-            <LeadRow
-              key={lead.id}
-              lead={{
-                id: lead.id,
-                name: lead.name,
-                phone: lead.phone,
-                shape: lead.shape ? (SHAPE[lead.shape] ?? lead.shape) : null,
-                area: lead.area,
-                service: lead.service,
-                lang: lead.lang,
-                page: lead.page,
-                handled: lead.handled,
-                createdAt: lead.createdAt.toISOString(),
-              }}
-            />
-          ))}
-        </div>
+        <LeadsBoard
+          leads={leads.map(lead => ({
+            id: lead.id,
+            name: lead.name,
+            phone: lead.phone,
+            shape: lead.shape ? (SHAPE[lead.shape] ?? lead.shape) : null,
+            area: lead.area,
+            service: lead.service,
+            lang: lead.lang,
+            page: lead.page,
+            status: lead.status,
+            note: lead.note,
+            createdAt: lead.createdAt.toISOString(),
+          }))}
+        />
       )}
     </AdminShell>
   )

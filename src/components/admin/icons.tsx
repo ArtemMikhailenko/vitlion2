@@ -15,6 +15,7 @@ const PATHS: Record<IconName, string> = {
   search: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM16 16l4.5 4.5',
   phone: 'M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z',
   user: 'M12 4a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zM4.5 20a7.5 7.5 0 0 1 15 0',
+  bell: 'M6 9a6 6 0 1 1 12 0c0 4 1.5 5.5 1.5 5.5h-15S6 13 6 9zM10 18a2 2 0 0 0 4 0',
 }
 
 export function Icon({ name, className = 'h-4 w-4' }: { name: IconName; className?: string }) {

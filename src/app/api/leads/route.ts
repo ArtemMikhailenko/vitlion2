@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getDb, schema } from '@/db'
+import { notifyNewLead } from '@/lib/notify'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -48,20 +49,27 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 503 })
   }
 
+  const lead = {
+    name,
+    phone,
+    shape: clean(body.shape, LIMITS.shape),
+    area: clean(body.area, LIMITS.area),
+    service: clean(body.service, LIMITS.service),
+    lang: clean(body.lang, 2),
+    page: clean(body.page, LIMITS.page),
+  }
+
   try {
-    await db.insert(schema.leads).values({
-      name,
-      phone,
-      shape: clean(body.shape, LIMITS.shape),
-      area: clean(body.area, LIMITS.area),
-      service: clean(body.service, LIMITS.service),
-      lang: clean(body.lang, 2),
-      page: clean(body.page, LIMITS.page),
-    })
+    await db.insert(schema.leads).values(lead)
   } catch (error) {
     console.error('[leads] insert failed', error)
     return NextResponse.json({ ok: false }, { status: 500 })
   }
+
+  // Awaited, not detached: on serverless the response can end the invocation
+  // and kill a pending request. Eight seconds is the worst case, and
+  // notifyNewLead swallows its own failures so the visitor still gets ok.
+  await notifyNewLead(lead)
 
   return NextResponse.json({ ok: true })
 }

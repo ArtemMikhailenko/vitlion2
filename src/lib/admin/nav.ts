@@ -17,6 +17,7 @@ export type IconName =
   | 'search'
   | 'phone'
   | 'user'
+  | 'bell'
 
 export interface NavItem {
   href: string
@@ -67,6 +68,12 @@ export const NAV_GROUPS: NavGroup[] = [
     title: 'Настройки',
     items: [
       { href: '/admin/contacts', label: 'Контакты', icon: 'phone', hint: 'Телефон, адреса, соцсети' },
+      {
+        href: '/admin/notifications',
+        label: 'Уведомления',
+        icon: 'bell',
+        hint: 'Заявки в Telegram',
+      },
       { href: '/admin/pages', label: 'Для поисковиков', icon: 'search', hint: 'Заголовки в Google' },
       { href: '/admin/account', label: 'Учётная запись', icon: 'user', hint: 'Смена пароля' },
     ],

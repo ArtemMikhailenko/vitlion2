@@ -186,7 +186,13 @@ export const leads = pgTable(
     lang: varchar('lang', { length: 2 }),
     /** Page they submitted from, for attribution. */
     page: varchar('page', { length: 512 }),
+    /**
+     * Kept as the "needs attention" flag that drives the badge; the sales stage
+     * below is the detail. They move together — any stage past 'new' is handled.
+     */
     handled: boolean('handled').default(false).notNull(),
+    /** 'new' | 'callback' | 'quoted' | 'won' | 'lost' — see LEAD_STATUSES. */
+    status: varchar('status', { length: 16 }).default('new').notNull(),
     note: text('note'),
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
   },
