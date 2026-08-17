@@ -3,6 +3,7 @@
 import { useActionState, useMemo, useState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { Card, LangLines, LangPair, Notice, SaveBar, inputClass } from '@/components/admin/fields'
+import { useSaveEffect } from '@/components/admin/useSaveEffect'
 import { ImageField, ImageLibrary } from '@/components/admin/ImagePicker'
 import type { EditableEntity } from '@/lib/admin/catalog'
 import type { PickableImage } from '@/lib/admin/images'
@@ -30,6 +31,8 @@ export default function EntityEditor({
   const [dirty, setDirty] = useState(false)
   const [gallery, setGallery] = useState(entity.gallery.join('\n'))
   const [pickingGallery, setPickingGallery] = useState(false)
+
+  useSaveEffect(state, () => setDirty(false))
 
   const galleryPreview = useMemo(
     () =>

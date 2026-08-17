@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
+import SplitEditor from '@/components/admin/SplitEditor'
 import { isDbConfigured } from '@/db'
 import { listModels, loadEntity } from '@/lib/admin/catalog'
 import { listPickableImages } from '@/lib/admin/images'
@@ -29,6 +30,12 @@ export default async function CategoryPage({
       title={entity.name.ru || category}
       description="Поля категории и её модели. Изменения появляются на сайте сразу после сохранения."
       userEmail={user.email}
+      wide
+      crumbs={[
+        { label: 'Обзор', href: '/admin' },
+        { label: 'Каталог', href: '/admin/catalog' },
+        { label: entity.name.ru || category },
+      ]}
       actions={
         <div className="flex gap-2">
           <Link
@@ -69,13 +76,15 @@ export default async function CategoryPage({
         </div>
       </div>
 
-      <EntityEditor
-        kind="category"
-        entity={entity}
-        categorySlug={category}
-        canSave={isDbConfigured()}
-        images={images}
-      />
+      <SplitEditor path={`/${category}`}>
+        <EntityEditor
+          kind="category"
+          entity={entity}
+          categorySlug={category}
+          canSave={isDbConfigured()}
+          images={images}
+        />
+      </SplitEditor>
     </AdminShell>
   )
 }

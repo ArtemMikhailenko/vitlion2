@@ -27,6 +27,7 @@ export default async function LeadsPage() {
       title="Заявки"
       description="Обращения из калькулятора стоимости на сайте."
       userEmail={user.email}
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Заявки' }]}
       actions={
         pending > 0 ? (
           <span className="rounded-lg bg-[#C4983A] px-3 py-1.5 text-sm font-bold text-[#0C0E14]">

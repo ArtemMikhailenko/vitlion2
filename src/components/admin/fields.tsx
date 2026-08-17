@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
 /**
  * Form primitives shared by every admin screen.
@@ -45,31 +45,82 @@ export function LangPair({
   values,
   multiline,
   rows = 4,
+  limit,
 }: {
   name: string
   values: { he: string; ru: string }
   multiline?: boolean
   rows?: number
+  /** Shows a live character count, and warns past this many. */
+  limit?: number
 }) {
-  const Tag = multiline ? 'textarea' : 'input'
-
   return (
     <div className="grid gap-3 lg:grid-cols-2">
       {(['he', 'ru'] as const).map(lang => (
-        <label key={lang} className="block">
-          <span className="mb-1.5 block text-xs uppercase tracking-wider text-[#585C78]">
-            {lang === 'he' ? 'עברית' : 'Русский'}
-          </span>
-          <Tag
-            name={`${name}::${lang}`}
-            defaultValue={values[lang]}
-            dir={lang === 'he' ? 'rtl' : 'ltr'}
-            rows={multiline ? rows : undefined}
-            className={`${inputClass} ${multiline ? 'resize-y leading-relaxed' : ''}`}
-          />
-        </label>
+        <CountedInput
+          key={lang}
+          name={`${name}::${lang}`}
+          label={lang === 'he' ? 'עברית' : 'Русский'}
+          defaultValue={values[lang]}
+          dir={lang === 'he' ? 'rtl' : 'ltr'}
+          multiline={multiline}
+          rows={rows}
+          limit={limit}
+        />
       ))}
     </div>
+  )
+}
+
+/**
+ * One field that counts itself.
+ *
+ * The counter exists for the two fields where length has a consequence the
+ * operator cannot see: a title over ~60 characters and a description over ~155
+ * get cut off in Google, and nothing in the panel would otherwise say so.
+ */
+function CountedInput({
+  name,
+  label,
+  defaultValue,
+  dir,
+  multiline,
+  rows,
+  limit,
+}: {
+  name: string
+  label: string
+  defaultValue: string
+  dir: 'rtl' | 'ltr'
+  multiline?: boolean
+  rows?: number
+  limit?: number
+}) {
+  const [value, setValue] = useState(defaultValue)
+  const Tag = multiline ? 'textarea' : 'input'
+  const over = limit !== undefined && value.length > limit
+
+  return (
+    <label className="block">
+      <span className="mb-1.5 flex items-baseline justify-between gap-2">
+        <span className="text-xs uppercase tracking-wider text-[#585C78]">{label}</span>
+        {limit !== undefined && (
+          <span className={`text-[11px] tabular-nums ${over ? 'text-[#E5A0A0]' : 'text-[#42465C]'}`}>
+            {value.length}/{limit}
+          </span>
+        )}
+      </span>
+      <Tag
+        name={name}
+        value={value}
+        onChange={e => setValue(e.target.value)}
+        dir={dir}
+        rows={multiline ? rows : undefined}
+        className={`${inputClass} ${multiline ? 'resize-y leading-relaxed' : ''} ${
+          over ? 'border-[#5A2A2A]' : ''
+        }`}
+      />
+    </label>
   )
 }
 
@@ -119,6 +170,17 @@ export function SaveBar({
   pending: boolean
   message?: string
 }) {
+  // Closing the tab mid-edit used to lose the work silently. The browser's own
+  // confirmation is the only thing that can interrupt that, and it only appears
+  // while there is something to lose.
+  useEffect(() => {
+    if (!dirty || disabled) return
+
+    const warn = (event: BeforeUnloadEvent) => event.preventDefault()
+    window.addEventListener('beforeunload', warn)
+    return () => window.removeEventListener('beforeunload', warn)
+  }, [dirty, disabled])
+
   return (
     <div className="sticky bottom-0 -mx-5 mt-8 border-t border-[#23263A] bg-[#0C0E14]/95 px-5 py-4 backdrop-blur sm:-mx-8 sm:px-8">
       <div className="flex items-center justify-between gap-4">

@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useSaveEffect } from '@/components/admin/useSaveEffect'
 import { Card, Notice, SaveBar, inputClass } from '@/components/admin/fields'
 import type { ContentBlock } from '@/components/sections/ContentBlocks'
 import { saveBlocks, type BlocksState } from './blocks-actions'
@@ -45,6 +46,8 @@ export default function BlocksEditor({
   const [state, formAction] = useActionState<BlocksState, FormData>(saveBlocks, {})
   const [blocks, setBlocks] = useState<BlocksValue>(initial)
   const [dirty, setDirty] = useState(false)
+
+  useSaveEffect(state, () => setDirty(false))
 
   const count = Math.max(blocks.he.length, blocks.ru.length)
 

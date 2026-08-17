@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
+import SplitEditor from '@/components/admin/SplitEditor'
 import { isDbConfigured } from '@/db'
 import { loadEntity, modelBelongsTo } from '@/lib/admin/catalog'
 import { listPickableImages } from '@/lib/admin/images'
@@ -30,6 +31,13 @@ export default async function ModelPage({
       title={entity.name.ru || model}
       description="Поля модели. Эта страница есть на сайте по собственному адресу и индексируется отдельно."
       userEmail={user.email}
+      wide
+      crumbs={[
+        { label: 'Обзор', href: '/admin' },
+        { label: 'Каталог', href: '/admin/catalog' },
+        { label: category, href: `/admin/catalog/${category}` },
+        { label: entity.name.ru || model },
+      ]}
       actions={
         <div className="flex gap-2">
           <Link
@@ -55,13 +63,15 @@ export default async function ModelPage({
         </div>
       }
     >
-      <EntityEditor
-        kind="model"
-        entity={entity}
-        categorySlug={category}
-        canSave={isDbConfigured()}
-        images={images}
-      />
+      <SplitEditor path={`/${category}/${model}`}>
+        <EntityEditor
+          kind="model"
+          entity={entity}
+          categorySlug={category}
+          canSave={isDbConfigured()}
+          images={images}
+        />
+      </SplitEditor>
     </AdminShell>
   )
 }

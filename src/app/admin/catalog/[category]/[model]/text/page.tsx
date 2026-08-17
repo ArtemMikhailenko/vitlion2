@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
+import SplitEditor from '@/components/admin/SplitEditor'
 import { isDbConfigured } from '@/db'
 import { loadEntity, modelBelongsTo } from '@/lib/admin/catalog'
 import { getModelBlocks } from '@/lib/content'
@@ -30,6 +31,14 @@ export default async function ModelTextPage({
       title={`Текст: ${entity.name.ru || model}`}
       description="Основной текст на странице модели — то, что читают посетители и индексируют поисковики."
       userEmail={user.email}
+      wide
+      crumbs={[
+        { label: 'Обзор', href: '/admin' },
+        { label: 'Каталог', href: '/admin/catalog' },
+        { label: category, href: `/admin/catalog/${category}` },
+        { label: entity.name.ru || model, href: `/admin/catalog/${category}/${model}` },
+        { label: 'Текст' },
+      ]}
       actions={
         <Link
           href={`/admin/catalog/${category}/${model}`}
@@ -39,13 +48,15 @@ export default async function ModelTextPage({
         </Link>
       }
     >
-      <BlocksEditor
-        ownerType="model"
-        ownerSlug={model}
-        categorySlug={category}
-        initial={{ he, ru }}
-        canSave={isDbConfigured()}
-      />
+      <SplitEditor path={`/${category}/${model}`}>
+        <BlocksEditor
+          ownerType="model"
+          ownerSlug={model}
+          categorySlug={category}
+          initial={{ he, ru }}
+          canSave={isDbConfigured()}
+        />
+      </SplitEditor>
     </AdminShell>
   )
 }

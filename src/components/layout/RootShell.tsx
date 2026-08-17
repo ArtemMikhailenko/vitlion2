@@ -2,6 +2,8 @@ import type { ReactNode } from 'react'
 import { Heebo, Ubuntu } from 'next/font/google'
 import { I18nProvider } from '@/lib/i18n/client'
 import WebMcpTools from '@/components/webmcp/WebMcpTools'
+import { ContactProvider } from '@/lib/contact/client'
+import { getContactInfo } from '@/lib/content/contact'
 import { dirOf, getDictionary, type Lang } from '@/lib/i18n'
 
 // Self-hosted by next/font — removes the render-blocking Google Fonts request
@@ -27,7 +29,9 @@ const ubuntu = Ubuntu({
  * typography are in the very first byte of HTML — the old SPA had to patch
  * them from an effect after hydration.
  */
-export default function RootShell({ lang, children }: { lang: Lang; children: ReactNode }) {
+export default async function RootShell({ lang, children }: { lang: Lang; children: ReactNode }) {
+  const contact = await getContactInfo()
+
   return (
     <html
       lang={lang}
@@ -37,8 +41,10 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
     >
       <body className="bg-dark text-white">
         <I18nProvider lang={lang} dictionary={getDictionary(lang)}>
-          {children}
-          <WebMcpTools lang={lang} />
+          <ContactProvider value={contact}>
+            {children}
+            <WebMcpTools lang={lang} />
+          </ContactProvider>
         </I18nProvider>
       </body>
     </html>

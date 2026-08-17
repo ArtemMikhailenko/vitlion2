@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { X, Check, ChevronLeft, ChevronRight, ArrowRight, MessageCircle } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n/client'
 import type { ServiceItem } from '../../types'
-import { CONTACT } from '../../data/services'
+import { digits, useContact } from '@/lib/contact/client'
 
 interface Props {
   service: ServiceItem | null
@@ -19,6 +19,7 @@ export default function ServiceDetailModal({ service, onClose, categoryServices,
   const [activeImg, setActiveImg] = useState(0)
   const [imageViewerOpen, setImageViewerOpen] = useState(false)
   const lang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
+  const contact = useContact()
 
   useEffect(() => {
     if (!service) return
@@ -281,7 +282,7 @@ export default function ServiceDetailModal({ service, onClose, categoryServices,
                   <ArrowRight className="h-4 w-4 rtl:rotate-180" strokeWidth={2.5} />
                 </a>
                 <a
-                  href={`https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`}
+                  href={`https://wa.me/${digits(contact.whatsapp)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3 text-[13px] font-bold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"

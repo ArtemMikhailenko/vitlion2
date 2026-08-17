@@ -17,6 +17,7 @@ export default async function CatalogIndex() {
       title="Каталог"
       description="Пять категорий и семнадцать моделей. Структура повторяет сайт: выберите категорию, внутри — её модели."
       userEmail={user.email}
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Каталог' }]}
     >
       <div className="grid gap-4 sm:grid-cols-2">
         {categories.map(category => (

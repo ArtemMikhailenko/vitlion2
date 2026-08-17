@@ -1,91 +1,87 @@
-'use client'
-
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import type { ReactNode } from 'react'
+import { buildSearchIndex } from '@/lib/admin/searchIndex'
+import { getAdminStats } from '@/lib/admin/stats'
+import AdminNav from './AdminNav'
 
-const NAV = [
-  { href: '/admin', label: 'Обзор', exact: true },
-  { href: '/admin/leads', label: 'Заявки' },
-  { href: '/admin/texts', label: 'Тексты сайта' },
-  { href: '/admin/pages', label: 'Страницы' },
-  { href: '/admin/catalog', label: 'Каталог' },
-  { href: '/admin/faq', label: 'Вопросы и ответы' },
-  { href: '/admin/media', label: 'Фотографии' },
-]
+export interface Crumb {
+  label: string
+  href?: string
+}
 
-export default function AdminShell({
+/**
+ * Frame around every admin screen.
+ *
+ * A server component so the enquiry badge is accurate on every page without
+ * each page having to fetch and pass the count; the interactive parts of the
+ * sidebar live in AdminNav.
+ */
+export default async function AdminShell({
   children,
   title,
   description,
   actions,
   userEmail,
+  crumbs,
+  wide,
 }: {
   children: ReactNode
   title: string
   description?: string
   actions?: ReactNode
   userEmail?: string
+  crumbs?: Crumb[]
+  /** Skips the reading-width cap — for screens that lay out their own columns. */
+  wide?: boolean
 }) {
-  const pathname = usePathname()
+  const { pendingLeads } = await getAdminStats()
 
   return (
     <div className="flex min-h-screen">
-      <aside className="hidden w-60 shrink-0 border-e border-[#23263A] bg-[#0F1118] p-5 lg:block">
-        <Link href="/admin" className="block">
-          <p className="text-lg font-bold tracking-[0.16em] text-white">
-            VITLION <span className="text-[#C4983A]">GROUP</span>
-          </p>
-          <p className="mt-0.5 text-xs text-[#585C78]">панель управления</p>
-        </Link>
+      <AdminNav
+        pendingLeads={pendingLeads}
+        userEmail={userEmail}
+        searchEntries={buildSearchIndex()}
+      />
 
-        <nav className="mt-8 space-y-1">
-          {NAV.map(item => {
-            const active = item.exact ? pathname === item.href : pathname.startsWith(item.href)
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
-                  active
-                    ? 'bg-[#C4983A]/12 font-medium text-[#E8C568]'
-                    : 'text-[#8C90A8] hover:bg-white/5 hover:text-[#E4E0D8]'
-                }`}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
+      {/* pt-14 clears the fixed mobile bar; on lg the sidebar is in flow. */}
+      <main className="min-w-0 flex-1 pt-14 lg:pt-0">
+        <header className="border-b border-[#1C1F2C] px-5 py-6 sm:px-8">
+          <div className={wide ? '' : 'mx-auto max-w-5xl'}>
+            {crumbs && crumbs.length > 0 && (
+              <nav className="mb-2 flex flex-wrap items-center gap-1.5 text-xs text-[#585C78]">
+                {crumbs.map((crumb, i) => (
+                  <span key={`${crumb.label}-${i}`} className="flex items-center gap-1.5">
+                    {i > 0 && <span className="text-[#2E3244]">/</span>}
+                    {crumb.href ? (
+                      <Link href={crumb.href} className="transition-colors hover:text-[#8C90A8]">
+                        {crumb.label}
+                      </Link>
+                    ) : (
+                      <span>{crumb.label}</span>
+                    )}
+                  </span>
+                ))}
+              </nav>
+            )}
 
-        <div className="mt-8 border-t border-[#23263A] pt-4">
-          <Link href="/" className="block px-3 py-2 text-sm text-[#585C78] hover:text-[#8C90A8]">
-            ← Открыть сайт
-          </Link>
-          <Link
-            href="/admin/account"
-            className="block px-3 py-2 text-sm text-[#585C78] hover:text-[#8C90A8]"
-          >
-            Учётная запись
-          </Link>
-          {userEmail && <p className="px-3 pt-2 text-xs text-[#585C78]">{userEmail}</p>}
-        </div>
-      </aside>
-
-      <main className="min-w-0 flex-1">
-        <header className="border-b border-[#23263A] px-5 py-6 sm:px-8">
-          <div className="flex flex-wrap items-start justify-between gap-4">
-            <div className="min-w-0">
-              <h1 className="text-xl font-bold text-white sm:text-2xl">{title}</h1>
-              {description && (
-                <p className="mt-1 max-w-2xl text-sm leading-relaxed text-[#8C90A8]">{description}</p>
-              )}
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div className="min-w-0">
+                <h1 className="text-xl font-bold text-white sm:text-2xl">{title}</h1>
+                {description && (
+                  <p className="mt-1 max-w-2xl text-sm leading-relaxed text-[#8C90A8]">
+                    {description}
+                  </p>
+                )}
+              </div>
+              {actions}
             </div>
-            {actions}
           </div>
         </header>
 
-        <div className="px-5 py-6 sm:px-8">{children}</div>
+        <div className="px-5 py-6 pb-24 sm:px-8 lg:pb-6">
+          <div className={wide ? '' : 'mx-auto max-w-5xl'}>{children}</div>
+        </div>
       </main>
     </div>
   )

@@ -14,6 +14,7 @@ export default async function AccountPage() {
       title="Учётная запись"
       description={`Вы вошли как ${user.email}.`}
       userEmail={user.email}
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Учётная запись' }]}
     >
       <PasswordForm />
     </AdminShell>

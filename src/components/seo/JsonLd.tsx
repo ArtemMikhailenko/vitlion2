@@ -1,7 +1,8 @@
 import type { FaqItem } from '@/data/geoContent'
 import { servedCities } from '@/data/geoContent'
 import { localePath, type Lang } from '@/lib/i18n'
-import { CONTACT, GEO, OFFICES, OG_IMAGE, SITE_NAME, SITE_URL, SOCIAL_PROFILES, WARRANTY_YEARS } from '@/lib/site'
+import { GEO, OFFICES, OG_IMAGE, SITE_NAME, SITE_URL, WARRANTY_YEARS } from '@/lib/site'
+import { getContactInfo } from '@/lib/content/contact'
 
 interface Crumb {
   name: string
@@ -34,7 +35,10 @@ interface Props {
  * literal placeholder "+972-XX-XXX-XXXX" and `sameAs` pointed at two social
  * profiles that do not exist. Both now come from the single CONTACT source.
  */
-export default function JsonLd({ lang, faq, breadcrumbs, product }: Props) {
+export default async function JsonLd({ lang, faq, breadcrumbs, product }: Props) {
+  const contact = await getContactInfo()
+  const socialProfiles = [contact.facebook, contact.instagram, contact.tiktok, contact.youtube].filter(Boolean)
+
   const business = {
     '@type': ['LocalBusiness', 'HomeAndConstructionBusiness'],
     '@id': `${SITE_URL}/#business`,
@@ -44,8 +48,8 @@ export default function JsonLd({ lang, faq, breadcrumbs, product }: Props) {
         ? 'עיצוב, ייצור והתקנה של מבנים מאלומיניום בישראל'
         : 'Проектирование, производство и монтаж алюминиевых конструкций в Израиле',
     url: SITE_URL,
-    telephone: CONTACT.phone,
-    email: CONTACT.email,
+    telephone: contact.phone,
+    email: contact.email,
     address: OFFICES.map(office => ({
       '@type': 'PostalAddress',
       streetAddress: office.street[lang],
@@ -65,7 +69,7 @@ export default function JsonLd({ lang, faq, breadcrumbs, product }: Props) {
     priceRange: '₪₪₪',
     image: `${SITE_URL}${OG_IMAGE.url}`,
     logo: `${SITE_URL}/logo.svg`,
-    sameAs: SOCIAL_PROFILES,
+    sameAs: socialProfiles,
     // Country plus the concrete cities from the GEO content block, so the
     // service-area claim on the page and in the markup say the same thing.
     areaServed: [
@@ -93,11 +97,11 @@ export default function JsonLd({ lang, faq, breadcrumbs, product }: Props) {
     name: SITE_NAME,
     url: SITE_URL,
     logo: { '@type': 'ImageObject', url: `${SITE_URL}/logo.svg`, width: 200, height: 60 },
-    sameAs: SOCIAL_PROFILES,
+    sameAs: socialProfiles,
     contactPoint: {
       '@type': 'ContactPoint',
-      telephone: CONTACT.phone,
-      email: CONTACT.email,
+      telephone: contact.phone,
+      email: contact.email,
       contactType: 'sales',
       areaServed: 'IL',
       availableLanguage: ['he', 'ru'],

@@ -9,7 +9,7 @@ import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
 import SeoContentSection from '../components/seo/SeoContentSection'
-import { CONTACT } from '../data/services'
+import { digits, useContact } from '@/lib/contact/client'
 import { SEO_PAGES } from '../data/seoContent'
 
 interface Props {
@@ -25,7 +25,7 @@ export default function ServicesPage({ geoSections }: Props) {
   const { t } = useTranslation()
   const { lang } = useLanguage()
   const seo = SEO_PAGES.services[lang]
-  const waHref = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`
+  const waHref = `https://wa.me/${digits(useContact().whatsapp)}`
 
   return (
     <>

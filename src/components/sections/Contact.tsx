@@ -2,17 +2,18 @@
 
 import { Phone, MessageCircle, Mail, Clock, MapPin } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n/client'
-import { CONTACT } from '../../data/services'
+import { digits, useContact } from '@/lib/contact/client'
 
 export default function Contact() {
   const { t } = useTranslation()
-  const waNumber = CONTACT.whatsapp.replace(/\D/g, '')
+  const contact = useContact()
+  const waNumber = digits(contact.whatsapp)
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(t('whatsapp.message'))}`
 
   const infoItems = [
-    { Icon: Phone,         label: t('contact.info.phone'),   value: CONTACT.phone,          href: `tel:${CONTACT.phone}`, ltr: true },
-    { Icon: MessageCircle, label: 'WhatsApp',                value: CONTACT.whatsapp,        href: waHref,                 ltr: true },
-    { Icon: Mail,          label: t('contact.info.email'),   value: CONTACT.email,           href: `mailto:${CONTACT.email}`, ltr: true },
+    { Icon: Phone,         label: t('contact.info.phone'),   value: contact.phone,          href: `tel:${contact.phone}`, ltr: true },
+    { Icon: MessageCircle, label: 'WhatsApp',                value: contact.whatsapp,        href: waHref,                 ltr: true },
+    { Icon: Mail,          label: t('contact.info.email'),   value: contact.email,           href: `mailto:${contact.email}`, ltr: true },
     { Icon: Clock,         label: t('contact.info.hours'),   value: t('contact.info.hoursValue'), href: null,             ltr: false },
     { Icon: MapPin,        label: t('contact.info.addressLabel'), value: t('contact.info.address'), href: 'https://www.google.com/maps/dir/?api=1&destination=אברהם+בומה+שביט+1,ראשון+לציון', ltr: false },
     { Icon: MapPin,        label: t('contact.info.address2Label'), value: t('contact.info.address2'), href: 'https://www.google.com/maps/dir/?api=1&destination=ההסתדרות+25,חיפה', ltr: false },
@@ -62,12 +63,12 @@ export default function Contact() {
         {/* CTA buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href={`tel:${CONTACT.phone}`}
+            href={`tel:${contact.phone}`}
             className="inline-flex items-center justify-center gap-2.5 bg-gold hover:bg-gold-light text-white font-bold px-8 py-4 rounded-xl transition-all duration-200 text-base hover:scale-105 active:scale-95 shadow-lg"
             style={{ color: '#1A1D24', boxShadow: '0 4px 20px rgba(196,152,58,0.3)' }}
           >
             <Phone className="w-4 h-4" strokeWidth={2} />
-            <span dir="ltr">{CONTACT.phone}</span>
+            <span dir="ltr">{contact.phone}</span>
           </a>
           <a
             href={waHref}

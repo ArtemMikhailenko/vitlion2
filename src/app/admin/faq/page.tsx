@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
 import { Notice } from '@/components/admin/fields'
+import SplitEditor from '@/components/admin/SplitEditor'
 import { isDbConfigured } from '@/db'
 import { getFaq } from '@/lib/content'
 import { getCurrentUser } from '@/lib/session'
@@ -28,6 +29,8 @@ export default async function FaqPage() {
       title="Вопросы и ответы"
       description="Блок FAQ на странице услуг. Он же уходит в разметку для поисковиков — это то, что AI-системы цитируют, отвечая на вопросы о перголах."
       userEmail={user.email}
+      wide
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Вопросы и ответы' }]}
     >
       {!isDbConfigured() && (
         <Notice kind="warn">
@@ -45,7 +48,9 @@ export default async function FaqPage() {
         — согласуйте формулировку, прежде чем менять.
       </Notice>
 
-      <FaqEditor initial={pairs} canSave={isDbConfigured()} />
+      <SplitEditor path="/services">
+        <FaqEditor initial={pairs} canSave={isDbConfigured()} />
+      </SplitEditor>
     </AdminShell>
   )
 }

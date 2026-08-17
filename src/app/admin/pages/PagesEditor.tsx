@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useSaveEffect } from '@/components/admin/useSaveEffect'
 import { Card, LangPair, Notice, SaveBar } from '@/components/admin/fields'
 import { savePageSeo, type SaveState } from './actions'
 
@@ -63,6 +64,8 @@ function PageForm({ page, canSave }: { page: PageSeoValues; canSave: boolean }) 
   const [state, formAction] = useActionState<SaveState, FormData>(savePageSeo, {})
   const [dirty, setDirty] = useState(false)
 
+  useSaveEffect(state, () => setDirty(false))
+
   return (
     <form action={formAction} onChange={() => setDirty(true)}>
       <input type="hidden" name="slug" value={page.slug} />
@@ -87,14 +90,14 @@ function PageForm({ page, canSave }: { page: PageSeoValues; canSave: boolean }) 
           title="Заголовок в результатах поиска (title)"
           hint="До ~60 символов — длиннее Google обрежет. Он же в заголовке вкладки браузера."
         >
-          <LangPair name="title" values={page.title} />
+          <LangPair name="title" values={page.title} limit={60} />
         </Card>
 
         <Card
           title="Описание (description)"
           hint="До ~155 символов. Это текст под ссылкой в результатах поиска."
         >
-          <LangPair name="description" values={page.description} multiline rows={3} />
+          <LangPair name="description" values={page.description} multiline rows={3} limit={155} />
         </Card>
 
         <Card title="Заголовок на странице (H1)" hint="Крупный заголовок, который видит посетитель.">

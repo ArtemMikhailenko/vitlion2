@@ -2,6 +2,8 @@
 
 import { useActionState, useState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { SaveBar as SharedSaveBar } from '@/components/admin/fields'
+import { useSaveEffect } from '@/components/admin/useSaveEffect'
 import type { FieldGroup } from '@/lib/admin/fields'
 import type { TranslationMap } from '@/lib/content/translations'
 import { saveTexts, type SaveState } from './actions'
@@ -11,27 +13,7 @@ const inputBase =
 
 function SaveBar({ dirty, disabled }: { dirty: boolean; disabled: boolean }) {
   const { pending } = useFormStatus()
-
-  return (
-    <div className="sticky bottom-0 -mx-5 mt-8 border-t border-[#23263A] bg-[#0C0E14]/95 px-5 py-4 backdrop-blur sm:-mx-8 sm:px-8">
-      <div className="flex items-center justify-between gap-4">
-        <p className="text-sm text-[#8C90A8]">
-          {disabled
-            ? 'Сохранение недоступно — база не подключена.'
-            : dirty
-              ? 'Есть несохранённые изменения.'
-              : 'Все изменения сохранены.'}
-        </p>
-        <button
-          type="submit"
-          disabled={pending || disabled || !dirty}
-          className="rounded-lg bg-[#C4983A] px-6 py-2.5 text-sm font-bold text-[#0C0E14] transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          {pending ? 'Сохраняем…' : 'Сохранить'}
-        </button>
-      </div>
-    </div>
-  )
+  return <SharedSaveBar dirty={dirty} disabled={disabled} pending={pending} />
 }
 
 export default function TextsEditor({
@@ -46,6 +28,8 @@ export default function TextsEditor({
   const [state, formAction] = useActionState<SaveState, FormData>(saveTexts, {})
   const [activeId, setActiveId] = useState(groups[0]?.id ?? '')
   const [dirty, setDirty] = useState(false)
+
+  useSaveEffect(state, () => setDirty(false))
 
   const active = groups.find(g => g.id === activeId) ?? groups[0]
 

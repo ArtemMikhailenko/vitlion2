@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
+import SplitEditor from '@/components/admin/SplitEditor'
 import { isDbConfigured } from '@/db'
 import { ALL_FIELD_KEYS, FIELD_GROUPS } from '@/lib/admin/fields'
 import { getTranslations } from '@/lib/content/translations'
@@ -16,9 +17,21 @@ export default async function TextsPage() {
 
   return (
     <AdminShell
-      title="Тексты сайта"
-      description="Надписи на страницах — на иврите и русском. Правки применяются к сайту сразу после сохранения, пересобирать ничего не нужно."
+      title="Главная страница"
+      description="Надписи на главной — на иврите и русском. Справа видно, как они выглядят на сайте; после сохранения предпросмотр обновляется сам."
       userEmail={user.email}
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Главная страница' }]}
+      wide
+      actions={
+        <a
+          href="/"
+          target="_blank"
+          rel="noreferrer"
+          className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8] xl:hidden"
+        >
+          Открыть страницу ↗
+        </a>
+      }
     >
       {!isDbConfigured() && (
         <div className="mb-6 rounded-xl border border-[#4A3A1A] bg-[#1F1810] px-5 py-4 text-sm leading-relaxed">
@@ -30,7 +43,9 @@ export default async function TextsPage() {
         </div>
       )}
 
-      <TextsEditor groups={FIELD_GROUPS} values={values} canSave={isDbConfigured()} />
+      <SplitEditor path="/">
+        <TextsEditor groups={FIELD_GROUPS} values={values} canSave={isDbConfigured()} />
+      </SplitEditor>
     </AdminShell>
   )
 }

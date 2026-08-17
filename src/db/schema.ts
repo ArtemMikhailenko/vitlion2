@@ -192,3 +192,17 @@ export const leads = pgTable(
   },
   t => [index('leads_created_idx').on(t.createdAt)],
 )
+
+/**
+ * Site-wide settings that are not text and not per-page: the phone number, the
+ * addresses, the social profiles.
+ *
+ * A key/value table rather than one column per setting, so adding a setting is
+ * an insert instead of a migration on a live database — the panel is the only
+ * reader and it already knows which keys it wants.
+ */
+export const siteSettings = pgTable('site_settings', {
+  key: varchar('key', { length: 64 }).primaryKey(),
+  value: text('value').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
+})

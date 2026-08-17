@@ -21,6 +21,7 @@ export default async function MediaPage() {
       title="Фотографии"
       description="Общая библиотека изображений. Загрузите фото здесь, скопируйте адрес и вставьте его в нужное поле каталога."
       userEmail={user.email}
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Фотографии' }]}
     >
       {!canUpload && (
         <Notice kind="warn">

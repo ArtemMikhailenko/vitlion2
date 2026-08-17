@@ -7,7 +7,7 @@ import CTASection from '../components/sections/CTASection'
 import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
 import SeoContentSection from '../components/seo/SeoContentSection'
-import { CONTACT } from '../data/services'
+import { getContactInfo } from '@/lib/content/contact'
 import { SEO_PAGES } from '../data/seoContent'
 import { findCategory } from '@/lib/catalog'
 import { localePath, type Lang } from '@/lib/i18n'
@@ -25,14 +25,14 @@ interface Props {
  * plain links to the per-model pages now, so the catalog is fully crawlable and
  * each model is shareable.
  */
-export default function CategoryPage({ lang, slug }: Props) {
+export default async function CategoryPage({ lang, slug }: Props) {
   const category = findCategory(slug)
   const seo = SEO_PAGES[slug]?.[lang]
 
   // The route only renders known slugs (generateStaticParams + dynamicParams:false).
   if (!category || !seo) return null
 
-  const waHref = `https://wa.me/${CONTACT.whatsapp.replace(/\D/g, '')}`
+  const waHref = `https://wa.me/${(await getContactInfo()).whatsapp.replace(/\D/g, '')}`
   const briefBlocks = getCategoryBrief(slug, lang)
 
   return (

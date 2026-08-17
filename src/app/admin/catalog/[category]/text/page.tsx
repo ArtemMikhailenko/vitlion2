@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
+import SplitEditor from '@/components/admin/SplitEditor'
 import { isDbConfigured } from '@/db'
 import { loadEntity } from '@/lib/admin/catalog'
 import { getCategoryBlocks } from '@/lib/content'
@@ -31,6 +32,13 @@ export default async function CategoryTextPage({
       title={`Текст: ${entity.name.ru || category}`}
       description="Основной текст на странице категории — то, что читают посетители и индексируют поисковики."
       userEmail={user.email}
+      wide
+      crumbs={[
+        { label: 'Обзор', href: '/admin' },
+        { label: 'Каталог', href: '/admin/catalog' },
+        { label: entity.name.ru || category, href: `/admin/catalog/${category}` },
+        { label: 'Текст' },
+      ]}
       actions={
         <Link
           href={`/admin/catalog/${category}`}
@@ -40,13 +48,15 @@ export default async function CategoryTextPage({
         </Link>
       }
     >
-      <BlocksEditor
-        ownerType="category"
-        ownerSlug={category}
-        categorySlug={category}
-        initial={{ he, ru }}
-        canSave={isDbConfigured()}
-      />
+      <SplitEditor path={`/${category}`}>
+        <BlocksEditor
+          ownerType="category"
+          ownerSlug={category}
+          categorySlug={category}
+          initial={{ he, ru }}
+          canSave={isDbConfigured()}
+        />
+      </SplitEditor>
     </AdminShell>
   )
 }

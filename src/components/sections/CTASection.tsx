@@ -1,13 +1,13 @@
 'use client'
 
 import { useTranslation } from '@/lib/i18n/client'
-import { CONTACT } from '../../data/services'
+import { digits, useContact } from '@/lib/contact/client'
 import ParticleButton from '../ui/ParticleButton'
 import BlueprintLines from '../ui/BlueprintLines'
 
 export default function CTASection() {
   const { t } = useTranslation()
-  const waNumber = CONTACT.whatsapp.replace(/\D/g, '')
+  const waNumber = digits(useContact().whatsapp)
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(t('whatsapp.message'))}`
 
   return (

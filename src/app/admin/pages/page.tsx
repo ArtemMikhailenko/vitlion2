@@ -43,9 +43,10 @@ export default async function PagesPage() {
 
   return (
     <AdminShell
-      title="Страницы"
+      title="Для поисковиков"
       description="Заголовки и описания страниц — то, как они выглядят в результатах поиска."
       userEmail={user.email}
+      crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Для поисковиков' }]}
     >
       {!isDbConfigured() && (
         <Notice kind="warn">

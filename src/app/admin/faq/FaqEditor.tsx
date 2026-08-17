@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from 'react'
 import { useFormStatus } from 'react-dom'
+import { useSaveEffect } from '@/components/admin/useSaveEffect'
 import { Notice, SaveBar, inputClass } from '@/components/admin/fields'
 import { saveFaq, type FaqPair, type FaqState } from './actions'
 
@@ -19,6 +20,8 @@ export default function FaqEditor({ initial, canSave }: { initial: FaqPair[]; ca
   const [state, formAction] = useActionState<FaqState, FormData>(saveFaq, {})
   const [pairs, setPairs] = useState<FaqPair[]>(initial.length ? initial : [EMPTY_PAIR])
   const [dirty, setDirty] = useState(false)
+
+  useSaveEffect(state, () => setDirty(false))
 
   const touch = () => setDirty(true)
 
