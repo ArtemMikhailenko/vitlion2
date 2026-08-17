@@ -10,14 +10,15 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.1.0",
     "cloudinary": "^2.10.0",
     "drizzle-orm": "^0.45.2",
     "framer-motion": "^12.42.0",
     "lucide-react": "^1.21.0",
-    "mysql2": "^3.23.3",
     "next": "^15.5.22",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

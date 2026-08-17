@@ -31,13 +31,16 @@ const NAMED_CRAWLERS = [
   'Bytespider', // ByteDance / TikTok
 ]
 
+/** The admin panel. Also carries a noindex meta tag, so this is belt and braces. */
+const PRIVATE = ['/admin']
+
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
-      { userAgent: '*', allow: '/' },
+      { userAgent: '*', allow: '/', disallow: PRIVATE },
       // Restated per crawler on purpose: once a bot matches its own User-agent
       // group it ignores the `*` group entirely.
-      { userAgent: NAMED_CRAWLERS, allow: '/' },
+      { userAgent: NAMED_CRAWLERS, allow: '/', disallow: PRIVATE },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
