@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ServiceRoute } from '@/components/routes/Routes'
-import { allServiceParams, findService } from '@/lib/catalog'
+import { allServiceParams } from '@/lib/catalog'
+import { findServiceLive } from '@/lib/content/catalog'
 import { buildMetadata } from '@/lib/seo'
 
 type Params = { category: string; service: string }
@@ -18,7 +19,7 @@ export async function generateMetadata({
   params: Promise<Params>
 }): Promise<Metadata> {
   const { category, service } = await params
-  const entry = findService(category, service)
+  const entry = await findServiceLive(category, service)
   if (!entry) return {}
 
   return buildMetadata({
@@ -32,7 +33,7 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: Promise<Params> }) {
   const { category, service } = await params
-  if (!findService(category, service)) notFound()
+  if (!(await findServiceLive(category, service))) notFound()
 
   return <ServiceRoute lang="he" categorySlug={category} serviceSlug={service} />
 }

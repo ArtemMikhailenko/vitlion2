@@ -3,9 +3,7 @@ import { getDb, schema } from '@/db'
 import type { ContentBlock } from '@/components/sections/ContentBlocks'
 import { CATEGORY_BRIEF, MODEL_BRIEF, FAQ_BRIEF } from '@/data/briefContent'
 import { SEO_PAGES, type SeoPageContent } from '@/data/seoContent'
-import { CATEGORIES } from '@/data/services'
 import type { Lang } from '@/lib/i18n'
-import type { ServiceCategory, ServiceItem } from '@/types'
 
 /**
  * Single place the pages ask for content.
@@ -120,45 +118,3 @@ export async function getPageSeo(slug: string, lang: Lang): Promise<SeoPageConte
   }
 }
 
-/**
- * Catalogue. Categories and models still come from the bundled data until the
- * migration runs; the database only overrides names, copy and imagery.
- */
-export async function getCategories(lang: Lang): Promise<ServiceCategory[]> {
-  const db = getDb()
-  if (!db) return CATEGORIES
-
-  try {
-    const overrides = await db.select().from(schema.catalogText).where(eq(schema.catalogText.lang, lang))
-    if (!overrides.length) return CATEGORIES
-
-    const byKey = new Map(overrides.map(o => [`${o.entityType}:${o.slug}`, o]))
-
-    const apply = <T extends ServiceCategory | ServiceItem>(
-      entity: T,
-      kind: 'category' | 'model',
-    ): T => {
-      const o = byKey.get(`${kind}:${entity.slug}`)
-      if (!o) return entity
-      return {
-        ...entity,
-        name: { ...entity.name, [lang]: o.name ?? entity.name[lang] },
-        short: { ...entity.short, [lang]: o.short ?? entity.short[lang] },
-        ...('description' in entity && o.description
-          ? { description: { ...entity.description, [lang]: o.description } }
-          : {}),
-        ...('features' in entity && o.features?.length
-          ? { features: { ...entity.features, [lang]: o.features } }
-          : {}),
-      }
-    }
-
-    return CATEGORIES.map(category => ({
-      ...apply(category, 'category'),
-      services: category.services.map(service => apply(service, 'model')),
-    }))
-  } catch (error) {
-    console.error('[content] catalogue query failed, using bundled content', error)
-    return CATEGORIES
-  }
-}

@@ -15,8 +15,7 @@ import CTASection from '@/components/sections/CTASection'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import ScrollProgress from '@/components/ui/ScrollProgress'
 import { getGeoContent } from '@/data/geoContent'
-import { CATEGORIES } from '@/data/services'
-import { findService } from '@/lib/catalog'
+import { findCategoryLive, findServiceLive } from '@/lib/content/catalog'
 import { getT, type Lang } from '@/lib/i18n'
 
 /**
@@ -68,9 +67,9 @@ export function ServicesRoute({ lang }: { lang: Lang }) {
   )
 }
 
-export function CategoryRoute({ lang, slug }: { lang: Lang; slug: string }) {
+export async function CategoryRoute({ lang, slug }: { lang: Lang; slug: string }) {
   const t = getT(lang)
-  const category = CATEGORIES.find(c => c.slug === slug)
+  const category = await findCategoryLive(slug)
 
   return (
     <>
@@ -87,7 +86,7 @@ export function CategoryRoute({ lang, slug }: { lang: Lang; slug: string }) {
   )
 }
 
-export function ServiceRoute({
+export async function ServiceRoute({
   lang,
   categorySlug,
   serviceSlug,
@@ -97,7 +96,7 @@ export function ServiceRoute({
   serviceSlug: string
 }) {
   const t = getT(lang)
-  const entry = findService(categorySlug, serviceSlug)
+  const entry = await findServiceLive(categorySlug, serviceSlug)
   if (!entry) return null
 
   const { category, service } = entry

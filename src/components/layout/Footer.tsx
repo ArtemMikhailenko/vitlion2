@@ -1,7 +1,7 @@
 'use client'
 
 import { useTranslation } from '@/lib/i18n/client'
-import { CATEGORIES } from '../../data/services'
+import { useCatalog } from '@/lib/catalog/client'
 import { useContact } from '@/lib/contact/client'
 import { useLanguage } from '@/lib/i18n/client'
 
@@ -42,6 +42,7 @@ export default function Footer() {
   const { t } = useTranslation()
   const { lang } = useLanguage()
   const contact = useContact()
+  const catalog = useCatalog()
   const year = new Date().getFullYear()
   const prefix = lang === 'he' ? '' : `/${lang}`
   const catLang = lang === 'ru' ? 'ru' : 'he'
@@ -91,7 +92,7 @@ export default function Footer() {
               {t('footer.services')}
             </h3>
             <ul className="space-y-3">
-              {CATEGORIES.map(cat => (
+              {catalog.map(cat => (
                 <li key={cat.id}>
                   <a
                     href={`${prefix}/services`}

@@ -97,3 +97,71 @@ export function listModels(categorySlug: string) {
 export function modelBelongsTo(categorySlug: string, modelSlug: string): boolean {
   return Boolean(findService(categorySlug, modelSlug))
 }
+
+export interface AdminEntry {
+  slug: string
+  name: { he: string; ru: string }
+  mainImage: string
+  published: boolean
+  position: number
+  modelCount?: number
+}
+
+/**
+ * The catalogue as the panel needs to see it — including hidden entries.
+ *
+ * The public resolver drops anything unpublished, which is exactly wrong here:
+ * a hidden model that cannot be found in the panel can never be brought back.
+ */
+async function withMeta(
+  bundled: { slug: string; name: { he: string; ru: string }; mainImage: string; modelCount?: number }[],
+  kind: 'category' | 'model',
+): Promise<AdminEntry[]> {
+  const db = getDb()
+  const fallback = bundled.map((entry, i) => ({ ...entry, published: true, position: i }))
+  if (!db) return fallback
+
+  try {
+    const table = kind === 'category' ? schema.categories : schema.models
+    const rows = await db.select().from(table)
+    const meta = new Map(rows.map(r => [r.slug, r]))
+
+    return bundled
+      .map((entry, i) => {
+        const m = meta.get(entry.slug)
+        return {
+          ...entry,
+          mainImage: m?.mainImage || entry.mainImage,
+          published: m?.published ?? true,
+          position: m?.position ?? i,
+        }
+      })
+      .sort((a, b) => a.position - b.position)
+  } catch (error) {
+    console.error('[admin] catalogue meta query failed', error)
+    return fallback
+  }
+}
+
+export async function listCategoriesAdmin(): Promise<AdminEntry[]> {
+  return withMeta(
+    CATEGORIES.map(c => ({
+      slug: c.slug,
+      name: c.name,
+      mainImage: c.mainImage,
+      modelCount: c.services.length,
+    })),
+    'category',
+  )
+}
+
+export async function listModelsAdmin(categorySlug: string): Promise<AdminEntry[]> {
+  return withMeta(
+    findCategory(categorySlug)?.services.map(s => ({
+      slug: s.slug,
+      name: s.name,
+      mainImage: s.mainImage,
+    })) ?? [],
+    'model',
+  )
+}

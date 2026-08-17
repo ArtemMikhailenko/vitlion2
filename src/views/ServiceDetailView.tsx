@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { ContentBlock } from '@/components/sections/ContentBlocks'
 import ContentBlocks from '@/components/sections/ContentBlocks'
-import { findService, siblingServices } from '@/lib/catalog'
+import { findServiceLive } from '@/lib/content/catalog'
 import { getT, localePath, type Lang } from '@/lib/i18n'
 import { getContactInfo } from '@/lib/content/contact'
 
@@ -21,12 +21,12 @@ interface Props {
  * their own URLs.
  */
 export default async function ServiceDetailView({ lang, categorySlug, serviceSlug, blocks }: Props) {
-  const entry = findService(categorySlug, serviceSlug)
+  const entry = await findServiceLive(categorySlug, serviceSlug)
   if (!entry) return null
 
   const { category, service } = entry
   const t = getT(lang)
-  const siblings = siblingServices(categorySlug, serviceSlug)
+  const siblings = entry.category.services.filter(s => s.slug !== serviceSlug)
   const waHref = `https://wa.me/${(await getContactInfo()).whatsapp.replace(/\D/g, '')}`
   const features: string[] = service.features[lang] ?? []
 

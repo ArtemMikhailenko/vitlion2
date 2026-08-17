@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { allServiceParams } from '@/lib/catalog'
+import { getCatalog } from '@/lib/content/catalog'
 import { LANGS, localePath, type Lang } from '@/lib/i18n'
 import { SITE_URL } from '@/lib/site'
 
@@ -48,15 +48,19 @@ function entriesFor(
   }))
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const lastModified = new Date()
 
   const pages = PAGES.flatMap(p =>
     entriesFor(p.path, p.priority, p.changeFrequency, lastModified),
   )
 
-  // The 17 product models, each with its own page.
-  const models = allServiceParams().flatMap(({ category, service }) =>
+  // Product models, each with its own page. Read from the live catalogue so a
+  // model hidden in the panel stops being advertised to search engines.
+  const catalog = await getCatalog()
+  const models = catalog
+    .flatMap(c => c.services.map(s => ({ category: c.slug, service: s.slug })))
+    .flatMap(({ category, service }) =>
     entriesFor(
       `${category}/${service}`,
       { he: 0.6, ru: 0.4 },

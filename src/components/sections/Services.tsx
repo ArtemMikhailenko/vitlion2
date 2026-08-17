@@ -2,7 +2,7 @@
 
 import { useTranslation } from '@/lib/i18n/client'
 import { useRouter } from 'next/navigation'
-import { CATEGORIES } from '../../data/services'
+import { useCatalog } from '@/lib/catalog/client'
 import { useInView } from '../../hooks/useInView'
 import ShimmerHeading from '../ui/ShimmerHeading'
 import BeforeAfterSlider from '../ui/BeforeAfterSlider'
@@ -74,6 +74,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
   const { t, i18n } = useTranslation()
   const router = useRouter()
   const { lang } = useLanguage()
+  const catalog = useCatalog()
   const [gridRef, inView] = useInView({ threshold: 0.05 })
   const displayLang = i18n.resolvedLanguage === 'ru' ? 'ru' : 'he'
   const prefix = lang === 'he' ? '' : `/${lang}`
@@ -101,7 +102,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
           <div ref={gridRef as React.RefObject<HTMLDivElement>}>
             {/* Top row: 3 columns */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              {CATEGORIES.slice(0, 3).map((category, index) => (
+              {catalog.slice(0, 3).map((category, index) => (
                 <CategoryCard
                   key={category.id}
                   category={category}
@@ -114,7 +115,7 @@ export default function Services({ hideHeader }: { hideHeader?: boolean } = {}) 
             </div>
             {/* Bottom row: 2 columns centered under the 3 above */}
             <div className="mt-6 flex flex-col sm:flex-row sm:justify-center gap-6">
-              {CATEGORIES.slice(3).map((category, index) => (
+              {catalog.slice(3).map((category, index) => (
                 <div key={category.id} className="w-full sm:w-[calc((100%-3rem)/3)]">
                   <CategoryCard
                     category={category}

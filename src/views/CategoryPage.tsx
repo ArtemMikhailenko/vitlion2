@@ -9,7 +9,7 @@ import ScrollProgress from '../components/ui/ScrollProgress'
 import SeoContentSection from '../components/seo/SeoContentSection'
 import { getContactInfo } from '@/lib/content/contact'
 import { SEO_PAGES } from '../data/seoContent'
-import { findCategory } from '@/lib/catalog'
+import { findCategoryLive } from '@/lib/content/catalog'
 import { localePath, type Lang } from '@/lib/i18n'
 
 interface Props {
@@ -26,7 +26,7 @@ interface Props {
  * each model is shareable.
  */
 export default async function CategoryPage({ lang, slug }: Props) {
-  const category = findCategory(slug)
+  const category = await findCategoryLive(slug)
   const seo = SEO_PAGES[slug]?.[lang]
 
   // The route only renders known slugs (generateStaticParams + dynamicParams:false).

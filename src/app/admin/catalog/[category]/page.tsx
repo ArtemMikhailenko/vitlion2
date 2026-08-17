@@ -2,8 +2,9 @@ import Link from 'next/link'
 import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
 import SplitEditor from '@/components/admin/SplitEditor'
+import CatalogList from '../CatalogList'
 import { isDbConfigured } from '@/db'
-import { listModels, loadEntity } from '@/lib/admin/catalog'
+import { listModelsAdmin, loadEntity } from '@/lib/admin/catalog'
 import { listPickableImages } from '@/lib/admin/images'
 import { getCurrentUser } from '@/lib/session'
 import EntityEditor from '../EntityEditor'
@@ -22,7 +23,7 @@ export default async function CategoryPage({
   const entity = await loadEntity('category', category)
   if (!entity) notFound()
 
-  const models = listModels(category)
+  const models = await listModelsAdmin(category)
   const images = await listPickableImages()
 
   return (
@@ -55,25 +56,13 @@ export default async function CategoryPage({
     >
       <div className="mb-8">
         <p className="mb-3 text-sm font-semibold text-[#8C90A8]">Модели в этой категории</p>
-        <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {models.map(model => (
-            <Link
-              key={model.slug}
-              href={`/admin/catalog/${category}/${model.slug}`}
-              className="group flex items-center gap-3 rounded-lg border border-[#23263A] bg-[#13161F] p-2 transition-colors hover:border-[#C4983A]"
-            >
-              <img
-                src={model.mainImage}
-                alt=""
-                className="h-12 w-14 shrink-0 rounded object-cover"
-                loading="lazy"
-              />
-              <span className="min-w-0 truncate text-sm text-[#E4E0D8] group-hover:text-[#C4983A]">
-                {model.name.ru}
-              </span>
-            </Link>
-          ))}
-        </div>
+        <CatalogList
+          kind="model"
+          entries={models}
+          categorySlug={category}
+          hrefBase={`/admin/catalog/${category}`}
+          canEdit={isDbConfigured()}
+        />
       </div>
 
       <SplitEditor path={`/${category}`}>

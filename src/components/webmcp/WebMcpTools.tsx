@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { CATEGORIES } from '@/data/services'
+import { useCatalog } from '@/lib/catalog/client'
 import { digits, useContact } from '@/lib/contact/client'
 import { getGeoContent } from '@/data/geoContent'
 import { localePath, type Lang } from '@/lib/i18n'
@@ -22,6 +22,7 @@ import { OFFICES, SITE_URL, WARRANTY_YEARS } from '@/lib/site'
  */
 export default function WebMcpTools({ lang }: { lang: Lang }) {
   const contact = useContact()
+  const catalog = useCatalog()
 
   useEffect(() => {
     if (!('modelContext' in navigator) || !navigator.modelContext) return
@@ -30,7 +31,7 @@ export default function WebMcpTools({ lang }: { lang: Lang }) {
     const geo = getGeoContent(lang)
     const abs = (path: string) => `${SITE_URL}${path}`
 
-    const models = CATEGORIES.flatMap(category =>
+    const models = catalog.flatMap(category =>
       category.services.map(service => ({
         name: service.name[lang],
         category: category.name[lang],
@@ -52,7 +53,7 @@ export default function WebMcpTools({ lang }: { lang: Lang }) {
             query: { type: 'string', description: 'Free-text search over model and category names.' },
             category: {
               type: 'string',
-              enum: CATEGORIES.map(c => c.slug),
+              enum: catalog.map(c => c.slug),
               description: 'Restrict results to one category.',
             },
           },
@@ -168,7 +169,7 @@ export default function WebMcpTools({ lang }: { lang: Lang }) {
       cancelSchedule()
       tools.forEach(tool => ctx.unregisterTool?.(tool.name))
     }
-  }, [lang, contact])
+  }, [lang, contact, catalog])
 
   return null
 }

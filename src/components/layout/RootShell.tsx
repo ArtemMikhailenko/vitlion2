@@ -3,7 +3,9 @@ import { Heebo, Ubuntu } from 'next/font/google'
 import { I18nProvider } from '@/lib/i18n/client'
 import WebMcpTools from '@/components/webmcp/WebMcpTools'
 import { ContactProvider } from '@/lib/contact/client'
+import { CatalogProvider } from '@/lib/catalog/client'
 import { getContactInfo } from '@/lib/content/contact'
+import { getCatalog } from '@/lib/content/catalog'
 import { dirOf, getDictionary, type Lang } from '@/lib/i18n'
 
 // Self-hosted by next/font — removes the render-blocking Google Fonts request
@@ -30,7 +32,7 @@ const ubuntu = Ubuntu({
  * them from an effect after hydration.
  */
 export default async function RootShell({ lang, children }: { lang: Lang; children: ReactNode }) {
-  const contact = await getContactInfo()
+  const [contact, catalog] = await Promise.all([getContactInfo(), getCatalog()])
 
   return (
     <html
@@ -42,8 +44,10 @@ export default async function RootShell({ lang, children }: { lang: Lang; childr
       <body className="bg-dark text-white">
         <I18nProvider lang={lang} dictionary={getDictionary(lang)}>
           <ContactProvider value={contact}>
-            {children}
-            <WebMcpTools lang={lang} />
+            <CatalogProvider value={catalog}>
+              {children}
+              <WebMcpTools lang={lang} />
+            </CatalogProvider>
           </ContactProvider>
         </I18nProvider>
       </body>

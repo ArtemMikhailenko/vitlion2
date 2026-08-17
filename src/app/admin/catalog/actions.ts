@@ -107,3 +107,109 @@ export async function saveEntity(_prev: SaveState, formData: FormData): Promise<
 
   return { ok: true }
 }
+
+/**
+ * Hides or shows a category or model.
+ *
+ * Hiding rather than deleting is deliberate: a model taken off the site
+ * usually comes back next season, and its text, photos and page history are
+ * worth keeping. The catalogue resolver drops unpublished entries, so one flag
+ * removes it from the menu, the category page, the sitemap and its own URL at
+ * the same time.
+ */
+export async function togglePublished(_prev: SaveState, formData: FormData): Promise<SaveState> {
+  if (!(await getCurrentUser())) return { error: 'Сессия истекла. Войдите заново.' }
+
+  const db = getDb()
+  if (!db) return { error: 'База данных не подключена.' }
+
+  const kind = String(formData.get('kind') ?? '')
+  const slug = String(formData.get('slug') ?? '')
+  const categorySlug = String(formData.get('categorySlug') ?? '')
+  const next = formData.get('published') !== 'true'
+
+  const valid =
+    kind === 'category' ? Boolean(findCategory(slug)) : modelBelongsTo(categorySlug, slug)
+  if (!valid) return { error: 'Неизвестный раздел каталога.' }
+
+  try {
+    if (kind === 'category') {
+      await db
+        .insert(schema.categories)
+        .values({ slug, published: next })
+        .onConflictDoUpdate({
+          target: schema.categories.slug,
+          set: { published: next, updatedAt: new Date() },
+        })
+    } else {
+      await db
+        .insert(schema.models)
+        .values({ slug, categorySlug, published: next })
+        .onConflictDoUpdate({
+          target: schema.models.slug,
+          set: { published: next, updatedAt: new Date() },
+        })
+    }
+  } catch (error) {
+    console.error('[admin] togglePublished failed', error)
+    return { error: 'Не удалось изменить. Возможно, не выполнен db/seed.sql.' }
+  }
+
+  revalidatePath('/', 'layout')
+  return { ok: true }
+}
+
+/**
+ * Writes the whole order in one go.
+ *
+ * Positions are renumbered from zero on every save rather than patched, so a
+ * list that was never ordered before, or one with gaps and duplicates from an
+ * earlier partial save, comes out consistent.
+ */
+export async function saveOrder(_prev: SaveState, formData: FormData): Promise<SaveState> {
+  if (!(await getCurrentUser())) return { error: 'Сессия истекла. Войдите заново.' }
+
+  const db = getDb()
+  if (!db) return { error: 'База данных не подключена.' }
+
+  const kind = String(formData.get('kind') ?? '')
+  const categorySlug = String(formData.get('categorySlug') ?? '')
+  let slugs: string[]
+  try {
+    slugs = JSON.parse(String(formData.get('order') ?? '[]'))
+  } catch {
+    return { error: 'Не удалось прочитать порядок.' }
+  }
+
+  if (!Array.isArray(slugs) || !slugs.length) return { error: 'Пустой порядок.' }
+
+  try {
+    for (const [position, slug] of slugs.entries()) {
+      if (kind === 'category') {
+        if (!findCategory(slug)) continue
+        await db
+          .insert(schema.categories)
+          .values({ slug, position })
+          .onConflictDoUpdate({
+            target: schema.categories.slug,
+            set: { position, updatedAt: new Date() },
+          })
+      } else {
+        if (!modelBelongsTo(categorySlug, slug)) continue
+        await db
+          .insert(schema.models)
+          .values({ slug, categorySlug, position })
+          .onConflictDoUpdate({
+            target: schema.models.slug,
+            set: { position, updatedAt: new Date() },
+          })
+      }
+    }
+  } catch (error) {
+    console.error('[admin] saveOrder failed', error)
+    return { error: 'Не удалось сохранить порядок.' }
+  }
+
+  revalidatePath('/', 'layout')
+  return { ok: true }
+}
