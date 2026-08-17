@@ -37,15 +37,42 @@ export async function verifyPassword(password: string, stored: string): Promise<
   return timingSafeEqual(expected, derived)
 }
 
+/**
+ * Key used to sign session cookies.
+ *
+ * Prefers an explicit AUTH_SECRET. Falls back to deriving one from
+ * DATABASE_URL, which is already present and already a secret — the Hostinger
+ * panel would not accept a sixth environment variable, and there is no reason
+ * to let that block logging in.
+ *
+ * The derivation is domain-separated by a fixed label so the resulting key is
+ * unrelated to the connection string itself, and it is stable across restarts
+ * and deploys, which a random per-boot key would not be. Rotating the database
+ * password invalidates existing sessions; everyone simply logs in again.
+ *
+ * An explicit AUTH_SECRET is still preferable — it keeps the two concerns
+ * independent — so set one whenever the platform allows it.
+ */
 function secret(): string {
-  const value = process.env.AUTH_SECRET
-  if (!value || value.length < 32) {
-    throw new Error('AUTH_SECRET is missing or shorter than 32 characters — admin auth is disabled.')
-  }
-  return value
+  const explicit = process.env.AUTH_SECRET
+  if (explicit && explicit.length >= 32) return explicit
+
+  const derived = deriveFromDatabaseUrl()
+  if (derived) return derived
+
+  throw new Error('Neither AUTH_SECRET nor DATABASE_URL is set — admin auth is disabled.')
 }
 
-export const isAuthConfigured = () => Boolean(process.env.AUTH_SECRET && process.env.AUTH_SECRET.length >= 32)
+function deriveFromDatabaseUrl(): string | null {
+  const url = process.env.DATABASE_URL
+  if (!url) return null
+  return createHmac('sha256', url).update('vitlion:admin-session:v1').digest('hex')
+}
+
+export const isAuthConfigured = () =>
+  Boolean(
+    (process.env.AUTH_SECRET && process.env.AUTH_SECRET.length >= 32) || process.env.DATABASE_URL,
+  )
 
 interface SessionPayload {
   userId: number
