@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:seed-sql": "node --experimental-strip-types scripts/generate-seed-sql.ts > db/seed.sql",
+    "admin:hash": "node --experimental-strip-types scripts/hash-password.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.1.0",
