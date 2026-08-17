@@ -1,9 +1,11 @@
 'use client'
 
-import { useActionState, useState } from 'react'
+import { useActionState, useMemo, useState } from 'react'
 import { useFormStatus } from 'react-dom'
 import { Card, LangLines, LangPair, Notice, SaveBar, inputClass } from '@/components/admin/fields'
+import { ImageField, ImageLibrary } from '@/components/admin/ImagePicker'
 import type { EditableEntity } from '@/lib/admin/catalog'
+import type { PickableImage } from '@/lib/admin/images'
 import { saveEntity, type SaveState } from './actions'
 
 function Bar({ dirty, disabled }: { dirty: boolean; disabled: boolean }) {
@@ -16,14 +18,28 @@ export default function EntityEditor({
   entity,
   categorySlug,
   canSave,
+  images,
 }: {
   kind: 'category' | 'model'
   entity: EditableEntity
   categorySlug: string
   canSave: boolean
+  images: PickableImage[]
 }) {
   const [state, formAction] = useActionState<SaveState, FormData>(saveEntity, {})
   const [dirty, setDirty] = useState(false)
+  const [gallery, setGallery] = useState(entity.gallery.join('\n'))
+  const [pickingGallery, setPickingGallery] = useState(false)
+
+  const galleryPreview = useMemo(
+    () =>
+      gallery
+        .split('\n')
+        .map(line => line.trim())
+        .filter(Boolean)
+        .slice(0, 12),
+    [gallery],
+  )
 
   return (
     <form action={formAction} onChange={() => setDirty(true)}>
@@ -60,32 +76,52 @@ export default function EntityEditor({
 
         <Card
           title="Главное фото"
-          hint="Путь к изображению. Загрузить новое можно в разделе «Фотографии»."
+          hint="Выберите из библиотеки или вставьте адрес. Загрузить новое можно в разделе «Фотографии»."
         >
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
-            {entity.mainImage && (
-              <img
-                src={entity.mainImage}
-                alt=""
-                className="h-24 w-32 shrink-0 rounded-lg border border-[#23263A] object-cover"
-              />
-            )}
-            <input name="mainImage" defaultValue={entity.mainImage} className={inputClass} dir="ltr" />
-          </div>
+          <ImageField
+            name="mainImage"
+            defaultValue={entity.mainImage}
+            images={images}
+            onChanged={() => setDirty(true)}
+          />
         </Card>
 
         {kind === 'model' && (
           <Card title="Галерея" hint="По одному адресу на строку. Порядок отображения — как здесь.">
             <textarea
               name="gallery"
-              defaultValue={entity.gallery.join('\n')}
+              value={gallery}
+              onChange={e => setGallery(e.target.value)}
               rows={6}
               dir="ltr"
               className={`${inputClass} resize-y leading-relaxed`}
             />
-            {!!entity.gallery.length && (
+
+            <button
+              type="button"
+              onClick={() => setPickingGallery(true)}
+              className="mt-2 rounded-lg border border-[#23263A] px-3 py-1.5 text-xs text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8]"
+            >
+              Добавить фото из библиотеки
+            </button>
+
+            {pickingGallery && (
+              <ImageLibrary
+                images={images}
+                onPick={url => {
+                  // Appends rather than replaces: the gallery is a list, and the
+                  // operator is adding to it one photo at a time.
+                  setGallery(current => (current.trim() ? `${current.replace(/\s+$/, '')}\n${url}` : url))
+                  setPickingGallery(false)
+                  setDirty(true)
+                }}
+                onClose={() => setPickingGallery(false)}
+              />
+            )}
+
+            {galleryPreview.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
-                {entity.gallery.slice(0, 12).map(src => (
+                {galleryPreview.map(src => (
                   <img
                     key={src}
                     src={src}

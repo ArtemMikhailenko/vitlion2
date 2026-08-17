@@ -17,17 +17,22 @@ export const inputClass =
 export function Card({
   title,
   hint,
+  actions,
   children,
 }: {
   title: string
   hint?: string
+  actions?: ReactNode
   children: ReactNode
 }) {
   return (
     <div className="rounded-xl border border-[#23263A] bg-[#13161F] p-4 sm:p-5">
-      <div className="mb-3">
-        <p className="text-sm font-semibold text-[#E4E0D8]">{title}</p>
-        {hint && <p className="mt-1 text-xs leading-relaxed text-[#585C78]">{hint}</p>}
+      <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-sm font-semibold text-[#E4E0D8]">{title}</p>
+          {hint && <p className="mt-1 text-xs leading-relaxed text-[#585C78]">{hint}</p>}
+        </div>
+        {actions}
       </div>
       {children}
     </div>

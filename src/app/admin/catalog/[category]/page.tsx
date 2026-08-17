@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
 import { isDbConfigured } from '@/db'
 import { listModels, loadEntity } from '@/lib/admin/catalog'
+import { listPickableImages } from '@/lib/admin/images'
 import { getCurrentUser } from '@/lib/session'
 import EntityEditor from '../EntityEditor'
 
@@ -21,6 +22,7 @@ export default async function CategoryPage({
   if (!entity) notFound()
 
   const models = listModels(category)
+  const images = await listPickableImages()
 
   return (
     <AdminShell
@@ -28,12 +30,20 @@ export default async function CategoryPage({
       description="Поля категории и её модели. Изменения появляются на сайте сразу после сохранения."
       userEmail={user.email}
       actions={
-        <Link
-          href="/admin/catalog"
-          className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8]"
-        >
-          ← К каталогу
-        </Link>
+        <div className="flex gap-2">
+          <Link
+            href="/admin/catalog"
+            className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8]"
+          >
+            ← К каталогу
+          </Link>
+          <Link
+            href={`/admin/catalog/${category}/text`}
+            className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8]"
+          >
+            Текст на странице
+          </Link>
+        </div>
       }
     >
       <div className="mb-8">
@@ -64,6 +74,7 @@ export default async function CategoryPage({
         entity={entity}
         categorySlug={category}
         canSave={isDbConfigured()}
+        images={images}
       />
     </AdminShell>
   )

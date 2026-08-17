@@ -62,6 +62,12 @@ export default function AdminShell({
           <Link href="/" className="block px-3 py-2 text-sm text-[#585C78] hover:text-[#8C90A8]">
             ← Открыть сайт
           </Link>
+          <Link
+            href="/admin/account"
+            className="block px-3 py-2 text-sm text-[#585C78] hover:text-[#8C90A8]"
+          >
+            Учётная запись
+          </Link>
           {userEmail && <p className="px-3 pt-2 text-xs text-[#585C78]">{userEmail}</p>}
         </div>
       </aside>

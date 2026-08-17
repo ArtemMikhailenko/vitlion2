@@ -13,6 +13,7 @@ const SECTIONS = [
   { href: '/admin/catalog', title: 'Каталог', body: '5 категорий и 17 моделей: названия, описания, характеристики.' },
   { href: '/admin/faq', title: 'Вопросы и ответы', body: 'Блок FAQ на странице услуг.' },
   { href: '/admin/media', title: 'Фотографии', body: 'Загрузка и замена изображений.' },
+  { href: '/admin/account', title: 'Учётная запись', body: 'Смена пароля для входа в панель.' },
 ]
 
 export default async function AdminHome() {

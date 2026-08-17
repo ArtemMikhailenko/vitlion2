@@ -3,6 +3,7 @@ import { notFound, redirect } from 'next/navigation'
 import AdminShell from '@/components/admin/AdminShell'
 import { isDbConfigured } from '@/db'
 import { loadEntity, modelBelongsTo } from '@/lib/admin/catalog'
+import { listPickableImages } from '@/lib/admin/images'
 import { getCurrentUser } from '@/lib/session'
 import EntityEditor from '../../EntityEditor'
 
@@ -22,6 +23,8 @@ export default async function ModelPage({
   const entity = await loadEntity('model', model)
   if (!entity) notFound()
 
+  const images = await listPickableImages()
+
   return (
     <AdminShell
       title={entity.name.ru || model}
@@ -35,6 +38,12 @@ export default async function ModelPage({
           >
             ← К категории
           </Link>
+          <Link
+            href={`/admin/catalog/${category}/${model}/text`}
+            className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8]"
+          >
+            Текст на странице
+          </Link>
           <a
             href={`/${category}/${model}`}
             target="_blank"
@@ -46,7 +55,13 @@ export default async function ModelPage({
         </div>
       }
     >
-      <EntityEditor kind="model" entity={entity} categorySlug={category} canSave={isDbConfigured()} />
+      <EntityEditor
+        kind="model"
+        entity={entity}
+        categorySlug={category}
+        canSave={isDbConfigured()}
+        images={images}
+      />
     </AdminShell>
   )
 }
