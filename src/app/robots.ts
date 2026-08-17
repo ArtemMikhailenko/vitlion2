@@ -1,18 +1,25 @@
 import type { MetadataRoute } from 'next'
-import { INDEXABLE_CATEGORY_SLUGS } from '@/data/seoContent'
-import { LANGS, localePath } from '@/lib/i18n'
 import { SITE_URL } from '@/lib/site'
 
 /**
- * Generated instead of a static public/robots.txt so the allow-list can never
- * drift away from the routes that actually exist.
+ * Generated rather than shipped as a static file, so the sitemap and host lines
+ * always follow NEXT_PUBLIC_SITE_URL instead of drifting from it.
  *
- * Only the commercial pages are open; the homepage and the about/projects/
- * contact pages stay closed, which is the policy the site already shipped with.
+ * The whole site is open. The previous policy (from VitlionSEO/03_Robots.md)
+ * disallowed `/`, `/about`, `/projects` and `/contact`, but Disallow does not
+ * remove a page from the index — it only stops the page being read. Google kept
+ * listing the homepage for brand queries and rendered it as a bare URL with
+ * "no information is available for this page", which reads as a broken site.
  *
- * The named crawlers repeat the same policy on purpose: per the robots.txt
- * spec, once a bot matches its own User-agent group it ignores the `*` group
- * entirely, so the rules must be restated rather than inherited.
+ * It also worked against the point of the GEO work: Disallow applies to GPTBot,
+ * ClaudeBot and PerplexityBot too, and `/about` and `/contact` are exactly the
+ * pages an AI engine reads to establish who a company is.
+ *
+ * If a page should genuinely stay out of results, the tool is a `noindex` meta
+ * tag with crawling allowed — not a Disallow.
+ *
+ * `/category/*` is deliberately crawlable: those legacy paths 301 to the current
+ * URLs, and blocking them would stop crawlers ever seeing the redirect.
  */
 
 const NAMED_CRAWLERS = [
@@ -24,32 +31,13 @@ const NAMED_CRAWLERS = [
   'Bytespider', // ByteDance / TikTok
 ]
 
-const INDEXABLE_PATHS = ['services', ...INDEXABLE_CATEGORY_SLUGS]
-const CLOSED_PATHS = ['about', 'projects', 'contact']
-
-function policy() {
-  const allow: string[] = []
-  const disallow: string[] = []
-
-  for (const lang of LANGS) {
-    for (const path of INDEXABLE_PATHS) allow.push(localePath(lang, path))
-    for (const path of CLOSED_PATHS) disallow.push(localePath(lang, path))
-    // `$` anchors the match to the exact URL so only the landing page itself is
-    // closed, not everything beneath it.
-    disallow.push(`${localePath(lang)}$`)
-  }
-  disallow.push('/category')
-
-  return { allow, disallow }
-}
-
 export default function robots(): MetadataRoute.Robots {
-  const { allow, disallow } = policy()
-
   return {
     rules: [
-      { userAgent: '*', allow, disallow },
-      { userAgent: NAMED_CRAWLERS, allow, disallow },
+      { userAgent: '*', allow: '/' },
+      // Restated per crawler on purpose: once a bot matches its own User-agent
+      // group it ignores the `*` group entirely.
+      { userAgent: NAMED_CRAWLERS, allow: '/' },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,
