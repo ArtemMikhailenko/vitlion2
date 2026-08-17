@@ -16,6 +16,34 @@ const nextConfig = {
   // the homepage is intentionally NOT reproduced — unknown paths now 404.
   async redirects() {
     return [
+      // Canonical host. The site answers on several hostnames — vitlion.co.il,
+      // www.vitlion.co.il and www.vitlion.com all reach this app — and Google
+      // treats each as a separate site with duplicate content. Everything is
+      // sent to the host the SEO documentation names as canonical.
+      //
+      // The `has` condition matches only non-canonical hosts, so there is no
+      // redirect loop. vitlion.com is not covered here: it still points at the
+      // old Tilda site on a different server, so its redirect has to be set up
+      // there.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'vitlion.co.il' }],
+        destination: 'https://www.vitlion.co.il/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'www.vitlion.com' }],
+        destination: 'https://www.vitlion.co.il/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'vitlion.com' }],
+        destination: 'https://www.vitlion.co.il/:path*',
+        permanent: true,
+      },
+
       { source: '/he', destination: '/', permanent: true },
       { source: '/he/:path*', destination: '/:path*', permanent: true },
       { source: '/en', destination: '/', permanent: true },
