@@ -31,9 +31,15 @@ const he = {
     // the hero can render it one tier smaller without breaking the layout —
     // it still sits inside the <h1>, so the full heading reads
     // "אלומיניום שמשנה מרחבים: פרגולות, זיגוג ומערכות הזזה".
-    titleSuffix: 'פרגולות, זיגוג ומערכות הזזה',
+    // The brief's wording led on "מערכות הזזה", which is not a product line the
+    // company actually sells — and it has no category on the site or in the
+    // keyword data. Replaced with the lines that do carry the traffic
+    // (static pergolas 10,130/mo, glazing 5,920, electric 4,420, ZIP 1,120),
+    // and "וזכוכית" added so the glass side is named, matching the company's
+    // own strapline "עבודות אלומיניום וזכוכית".
+    titleSuffix: 'פרגולות, זיגוג ומסכי ZIP',
     subtitle:
-      'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום במרכז, בצפון ובדרום הארץ - מתל אביב וחיפה ועד באר שבע. פרגולות, זיגוג ומערכות הזזה, מיוצרים במפעל שלנו בישראל ומגיעים עם אחריות של 10 שנים.',
+      'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום וזכוכית במרכז, בצפון ובדרום הארץ - מתל אביב וחיפה ועד באר שבע. פרגולות קבועות וחשמליות, זכוכיות נאספות, גיליוטינות ומסכי ZIP - מיוצרים במפעל שלנו בישראל ומגיעים עם אחריות של 10 שנים.',
     cta: 'קבל ייעוץ חינם',
     ctaSecondary: 'צפה בפרויקטים',
     scrollDown: 'גלול למטה',
