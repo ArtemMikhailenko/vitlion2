@@ -9,3 +9,6 @@ dist/
 .next/
 next-env.d.ts
 out/
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
