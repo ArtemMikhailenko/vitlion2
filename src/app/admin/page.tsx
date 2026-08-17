@@ -7,6 +7,7 @@ import { logout } from './actions'
 export const dynamic = 'force-dynamic'
 
 const SECTIONS = [
+  { href: '/admin/leads', title: 'Заявки', body: 'Обращения из калькулятора стоимости.' },
   { href: '/admin/texts', title: 'Тексты сайта', body: 'Заголовки, кнопки, подписи — на иврите и русском.' },
   { href: '/admin/pages', title: 'Страницы', body: 'Заголовки, описания и тексты категорий.' },
   { href: '/admin/catalog', title: 'Каталог', body: '5 категорий и 17 моделей: названия, описания, характеристики.' },

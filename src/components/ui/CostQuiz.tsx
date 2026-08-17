@@ -115,14 +115,49 @@ export default function CostQuiz() {
   const [open, setOpen] = useState(false)
   const [step, setStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [failed, setFailed] = useState(false)
   const [data, setData] = useState<QuizData>({ shape: '', area: '', service: '', name: '', phone: '' })
 
-  const close = () => { setOpen(false); setStep(1); setSubmitted(false); setData({ shape: '', area: '', service: '', name: '', phone: '' }) }
+  const close = () => {
+    setOpen(false); setStep(1); setSubmitted(false); setFailed(false)
+    setData({ shape: '', area: '', service: '', name: '', phone: '' })
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  /**
+   * Sends the enquiry to the server.
+   *
+   * This previously logged to the console and showed a thank-you, so every
+   * submission since launch was lost. A failure is now surfaced rather than
+   * hidden — being thanked for a message nobody received is worse than being
+   * asked to call.
+   */
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Quiz data:', data)
-    setSubmitted(true)
+    if (sending) return
+
+    setSending(true)
+    setFailed(false)
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          lang,
+          page: window.location.pathname,
+          company: '', // honeypot — stays empty for a real person
+        }),
+      })
+      if (!response.ok) throw new Error(String(response.status))
+      setSubmitted(true)
+    } catch (error) {
+      console.error('[quiz] submit failed', error)
+      setFailed(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -264,12 +299,31 @@ export default function CostQuiz() {
                       className="w-full rounded-xl px-4 py-3 text-sm text-ink placeholder-ink-mid outline-none transition-all focus:border-gold/60"
                       style={{ backgroundColor: '#0C0E14', border: '1px solid #23263A' }}
                     />
+                    {/* Honeypot: hidden from people, filled by bots. */}
+                    <input
+                      type="text"
+                      name="company"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="absolute h-0 w-0 opacity-0"
+                    />
+
+                    {failed && (
+                      <p className="rounded-lg px-3 py-2 text-xs leading-relaxed" style={{ background: 'rgba(120,40,40,0.35)', color: '#FFB4B4' }}>
+                        {lang === 'ru'
+                          ? 'Не удалось отправить. Позвоните нам или напишите в WhatsApp — контакты внизу страницы.'
+                          : 'השליחה נכשלה. התקשרו אלינו או כתבו בוואטסאפ - הפרטים בתחתית העמוד.'}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
-                      className="mt-1 w-full rounded-xl py-3 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98]"
+                      disabled={sending}
+                      className="mt-1 w-full rounded-xl py-3 text-sm font-bold transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
                       style={{ background: 'linear-gradient(135deg, #C4983A, #E8C568)', color: '#1C1F26', boxShadow: '0 4px 20px rgba(196,152,58,0.3)' }}
                     >
-                      {t.submit}
+                      {sending ? (lang === 'ru' ? 'Отправляем…' : 'שולח…') : t.submit}
                     </button>
                   </form>
                 </>

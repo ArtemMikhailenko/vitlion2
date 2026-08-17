@@ -164,3 +164,31 @@ export const users = pgTable('users', {
   name: varchar('name', { length: 191 }),
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
 })
+
+/**
+ * Leads from the cost calculator.
+ *
+ * Until now the form logged the submission to the browser console and showed a
+ * thank-you — every enquiry since launch was discarded. This table is where
+ * they go instead.
+ */
+export const leads = pgTable(
+  'leads',
+  {
+    id: serial('id').primaryKey(),
+    name: varchar('name', { length: 191 }).notNull(),
+    phone: varchar('phone', { length: 64 }).notNull(),
+    /** Answers from the calculator steps. */
+    shape: varchar('shape', { length: 64 }),
+    area: varchar('area', { length: 64 }),
+    service: varchar('service', { length: 64 }),
+    /** Which language version of the site the person was on. */
+    lang: varchar('lang', { length: 2 }),
+    /** Page they submitted from, for attribution. */
+    page: varchar('page', { length: 512 }),
+    handled: boolean('handled').default(false).notNull(),
+    note: text('note'),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  t => [index('leads_created_idx').on(t.createdAt)],
+)
