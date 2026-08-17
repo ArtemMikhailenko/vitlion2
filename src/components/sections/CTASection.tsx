@@ -11,7 +11,7 @@ export default function CTASection() {
   const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(t('whatsapp.message'))}`
 
   return (
-    <section className="relative py-20 lg:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F1118 0%, #1A1620 50%, #0F1118 100%)' }}>
+    <section id="cta" className="relative py-20 lg:py-28 overflow-hidden" style={{ background: 'linear-gradient(135deg, #0F1118 0%, #1A1620 50%, #0F1118 100%)' }}>
       {/* Metallic shimmer */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true"
         style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, rgba(196,152,58,0.10) 0%, rgba(139,143,168,0.06) 50%, transparent 70%)' }}
