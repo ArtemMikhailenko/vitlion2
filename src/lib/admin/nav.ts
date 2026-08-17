@@ -18,6 +18,7 @@ export type IconName =
   | 'phone'
   | 'user'
   | 'bell'
+  | 'blocks'
 
 export interface NavItem {
   href: string
@@ -60,6 +61,12 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { href: '/admin/texts', label: 'Главная страница', icon: 'home', hint: 'Заголовки и кнопки' },
       { href: '/admin/catalog', label: 'Каталог', icon: 'catalog', hint: 'Категории и модели' },
+      {
+        href: '/admin/lists',
+        label: 'Блоки на страницах',
+        icon: 'blocks',
+        hint: 'Преимущества, отзывы, команда',
+      },
       { href: '/admin/faq', label: 'Вопросы и ответы', icon: 'question', hint: 'Блок FAQ' },
       { href: '/admin/media', label: 'Фотографии', icon: 'photo', hint: 'Библиотека изображений' },
     ],

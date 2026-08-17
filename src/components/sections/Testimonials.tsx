@@ -55,7 +55,7 @@ export default function Testimonials() {
   }>
 
   return (
-    <section className="py-24 lg:py-32 bg-dark-section">
+    <section id="testimonials" className="py-24 lg:py-32 bg-dark-section">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headRef as React.RefObject<HTMLDivElement>} className="text-center mb-16">
           <span

@@ -53,3 +53,45 @@ export async function getTranslations(keys: string[]): Promise<TranslationMap> {
 
   return result
 }
+
+export type ListValue = Record<Lang, unknown[]>
+
+/**
+ * Current value of a list key in both languages.
+ *
+ * Separate from getTranslations because these values are arrays, not strings:
+ * the string version stringifies whatever it finds, which would turn a list of
+ * reviews into "[object Object],[object Object]".
+ */
+export async function getListValues(keys: string[]): Promise<Record<string, ListValue>> {
+  const result: Record<string, ListValue> = {}
+
+  for (const key of keys) {
+    const he = readPath(getDictionary('he'), key)
+    const ru = readPath(getDictionary('ru'), key)
+    result[key] = {
+      he: Array.isArray(he) ? he : [],
+      ru: Array.isArray(ru) ? ru : [],
+    }
+  }
+
+  const db = getDb()
+  if (!db || !keys.length) return result
+
+  try {
+    const rows = await db
+      .select()
+      .from(schema.translations)
+      .where(inArray(schema.translations.key, keys))
+
+    for (const row of rows) {
+      const lang = row.lang as Lang
+      if (!result[row.key] || (lang !== 'he' && lang !== 'ru')) continue
+      if (Array.isArray(row.value)) result[row.key][lang] = row.value
+    }
+  } catch (error) {
+    console.error('[content] list query failed, using bundled lists', error)
+  }
+
+  return result
+}

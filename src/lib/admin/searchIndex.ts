@@ -1,5 +1,6 @@
 import { CATEGORIES } from '@/data/services'
 import { FIELD_GROUPS } from './fields'
+import { EDITABLE_LISTS } from './lists'
 import { NAV_ITEMS } from './nav'
 
 export interface SearchEntry {
@@ -59,6 +60,15 @@ export function buildSearchIndex(): SearchEntry[] {
         keywords: `${service.name.he} ${service.slug}`,
       })
     }
+  }
+
+  for (const list of EDITABLE_LISTS) {
+    entries.push({
+      label: list.title,
+      context: `Блоки на страницах · ${list.where}`,
+      href: `/admin/lists?block=${list.id}`,
+      keywords: list.description,
+    })
   }
 
   entries.push(
