@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { Heebo, Ubuntu } from 'next/font/google'
 import { I18nProvider } from '@/lib/i18n/client'
+import WebMcpTools from '@/components/webmcp/WebMcpTools'
 import { dirOf, getDictionary, type Lang } from '@/lib/i18n'
 
 // Self-hosted by next/font — removes the render-blocking Google Fonts request
@@ -37,6 +38,7 @@ export default function RootShell({ lang, children }: { lang: Lang; children: Re
       <body className="bg-dark text-white">
         <I18nProvider lang={lang} dictionary={getDictionary(lang)}>
           {children}
+          <WebMcpTools lang={lang} />
         </I18nProvider>
       </body>
     </html>
