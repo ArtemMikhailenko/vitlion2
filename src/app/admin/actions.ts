@@ -47,6 +47,12 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
 
 export async function logout() {
   const store = await cookies()
-  store.delete(SESSION_COOKIE)
+
+  // The path must match the one the cookie was set with. Deleting by name
+  // alone targets path "/", which leaves the "/admin"-scoped cookie in the
+  // browser untouched — logging out did nothing and the redirect to the login
+  // screen bounced straight back to the panel.
+  store.delete({ name: SESSION_COOKIE, path: '/admin' })
+
   redirect('/admin/login')
 }
