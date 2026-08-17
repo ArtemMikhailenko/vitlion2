@@ -23,5 +23,8 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  // scripts/ is run directly by Node with type stripping, not compiled by Next.
+  // Those files import with explicit .ts extensions, which Node requires and
+  // this compiler configuration rejects.
+  "exclude": ["node_modules", "scripts"]
 }
