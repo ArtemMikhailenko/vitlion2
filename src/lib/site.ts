@@ -3,12 +3,12 @@ import { CONTACT } from '@/data/services'
 /**
  * Canonical origin. Override per environment with NEXT_PUBLIC_SITE_URL.
  *
- * NOTE: the codebase has always canonicalised to vitlion.com while the mail
- * domain (and the current Hostinger deployment) is vitlion.co.il. Which one is
- * the primary domain is a business decision — set the env var once it is made,
- * so canonical/hreflang/sitemap/JSON-LD all move together.
+ * The default is the live domain, not the old one. It used to fall back to
+ * vitlion.com — the address of the still-running Tilda site — so a deployment
+ * where the env var failed to load would have pointed every canonical,
+ * hreflang, sitemap entry and JSON-LD id at a competitor for its own content.
  */
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://vitlion.com').replace(/\/+$/, '')
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.vitlion.co.il').replace(/\/+$/, '')
 
 export const SITE_NAME = 'Vitlion Group'
 

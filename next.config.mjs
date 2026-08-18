@@ -72,6 +72,21 @@ const nextConfig = {
         source: '/media/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=2592000, stale-while-revalidate=86400' }],
       },
+      {
+        // Lets an agent find the canonical machine-readable resources from the
+        // response headers alone, without fetching and parsing the HTML first.
+        // Applied to pages only — :path* would also match assets, where these
+        // links are noise on every image request.
+        source: '/:path((?!media|_next|api).*)',
+        headers: [
+          {
+            key: 'Link',
+            value:
+              '</sitemap.xml>; rel="sitemap"; type="application/xml", ' +
+              '</llms.txt>; rel="describedby"; type="text/plain"',
+          },
+        ],
+      },
     ]
   },
 }
