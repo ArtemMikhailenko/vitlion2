@@ -1,7 +1,8 @@
 'use server'
 
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { checkLoginAllowed, clearLoginAttempts, recordFailedLogin } from '@/lib/loginGuard'
 import { authenticate } from '@/lib/session'
 import {
   SESSION_COOKIE,
@@ -26,12 +27,29 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
     return { error: 'Введите почту и пароль.' }
   }
 
+  // Behind a proxy the socket address is the proxy's, so the forwarded header
+  // is the only thing that distinguishes callers. It is client-controlled and
+  // therefore spoofable — this raises the cost of guessing, it does not make
+  // guessing impossible.
+  const forwarded = (await headers()).get('x-forwarded-for') ?? 'unknown'
+  const client = forwarded.split(',')[0].trim() || 'unknown'
+
+  const guard = checkLoginAllowed(client)
+  if (!guard.allowed) {
+    return {
+      error: `Слишком много попыток входа. Попробуйте через ${guard.retryInMinutes} мин.`,
+    }
+  }
+
   const user = await authenticate(email, password)
   if (!user) {
+    recordFailedLogin(client)
     // Deliberately the same message for an unknown account and a wrong
     // password, so the form cannot be used to discover which emails exist.
     return { error: 'Неверная почта или пароль.' }
   }
+
+  clearLoginAttempts(client)
 
   const store = await cookies()
   store.set(SESSION_COOKIE, createSessionToken(user.id, user.email), {
