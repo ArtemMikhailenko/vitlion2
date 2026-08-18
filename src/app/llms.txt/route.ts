@@ -81,6 +81,24 @@ export async function GET() {
   out.push(line('צור קשר — контакты и форма заявки', abs(localePath('he', 'contact'))))
   out.push('')
 
+  out.push('## Для агентов', '')
+  out.push(
+    line(
+      'Agent Skill (SKILL.md)',
+      abs('/skill.md'),
+      'Как читать каталог, что можно и чего нельзя утверждать от имени компании',
+    ),
+  )
+  out.push(
+    line(
+      'Markdown-версия любой страницы',
+      abs('/'),
+      'Запросите обычный адрес страницы с заголовком Accept: text/markdown',
+    ),
+  )
+  out.push(line('Карта сайта', abs('/sitemap.xml'), 'Те же адреса с парами hreflang'))
+  out.push('')
+
   out.push('## Русская версия', '')
   out.push(line('Главная', abs(localePath('ru')), ruMeta.description))
   for (const category of catalog) {
