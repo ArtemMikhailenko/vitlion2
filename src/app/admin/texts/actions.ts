@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { sql } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { getCurrentUser } from '@/lib/session'
+import { recordHistory } from '@/lib/admin/history'
 import { ALL_FIELD_KEYS } from '@/lib/admin/fields'
 
 export interface SaveState {
@@ -13,7 +14,8 @@ export interface SaveState {
 }
 
 export async function saveTexts(_prev: SaveState, formData: FormData): Promise<SaveState> {
-  if (!(await getCurrentUser())) return { error: 'Сессия истекла. Войдите заново.' }
+  const user = await getCurrentUser()
+  if (!user) return { error: 'Сессия истекла. Войдите заново.' }
 
   const db = getDb()
   if (!db) {
@@ -23,6 +25,9 @@ export async function saveTexts(_prev: SaveState, formData: FormData): Promise<S
   // Only keys from the manifest are accepted, so a crafted form cannot write
   // arbitrary rows into the translations table.
   const rows: { key: string; lang: string; value: string }[] = []
+  // Snapshot before overwriting, so the previous wording is recoverable.
+  await recordHistory(ALL_FIELD_KEYS, user.email)
+
   for (const key of ALL_FIELD_KEYS) {
     for (const lang of ['he', 'ru'] as const) {
       const raw = formData.get(`${key}::${lang}`)

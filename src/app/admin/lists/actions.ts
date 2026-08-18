@@ -5,6 +5,7 @@ import { sql } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { findList } from '@/lib/admin/lists'
 import { getCurrentUser } from '@/lib/session'
+import { recordHistory } from '@/lib/admin/history'
 import { LANGS } from '@/lib/i18n'
 
 export interface ListState {
@@ -20,7 +21,8 @@ export interface ListState {
  * translations.value is jsonb, so the array goes in as-is.
  */
 export async function saveList(_prev: ListState, formData: FormData): Promise<ListState> {
-  if (!(await getCurrentUser())) return { error: 'Сессия истекла. Войдите заново.' }
+  const user = await getCurrentUser()
+  if (!user) return { error: 'Сессия истекла. Войдите заново.' }
 
   const db = getDb()
   if (!db) return { error: 'База данных не подключена — сохранять некуда.' }
@@ -34,6 +36,8 @@ export async function saveList(_prev: ListState, formData: FormData): Promise<Li
   } catch {
     return { error: 'Не удалось прочитать содержимое.' }
   }
+
+  await recordHistory([list.key], user.email)
 
   try {
     await db

@@ -212,3 +212,26 @@ export const siteSettings = pgTable('site_settings', {
   value: text('value').notNull(),
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 })
+
+/**
+ * Snapshots of edited text, so a change can be undone.
+ *
+ * Saving overwrote the previous value with no trace: a paragraph replaced by
+ * mistake was gone unless someone remembered the old wording. One row per
+ * key/lang per save is cheap — these are short strings and small arrays — and
+ * makes "верните как было вчера" answerable.
+ */
+export const contentHistory = pgTable(
+  'content_history',
+  {
+    id: serial('id').primaryKey(),
+    /** Dot path into the dictionary, matching translations.key. */
+    key: varchar('key', { length: 191 }).notNull(),
+    lang: varchar('lang', { length: 2 }).notNull(),
+    value: jsonb('value').notNull(),
+    /** Email of whoever saved it. */
+    author: varchar('author', { length: 191 }),
+    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
+  },
+  t => [index('history_key_idx').on(t.key, t.lang), index('history_created_idx').on(t.createdAt)],
+)
