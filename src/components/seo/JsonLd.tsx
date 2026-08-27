@@ -3,6 +3,7 @@ import { servedCities } from '@/data/geoContent'
 import { localePath, type Lang } from '@/lib/i18n'
 import { GEO, OFFICES, OG_IMAGE, SITE_NAME, SITE_URL, WARRANTY_YEARS } from '@/lib/site'
 import { getContactInfo } from '@/lib/content/contact'
+import { entityModified } from '@/lib/content/freshness'
 
 interface Crumb {
   name: string
@@ -124,6 +125,14 @@ export default async function JsonLd({ lang, faq, breadcrumbs, product }: Props)
 
   if (product) {
     /*
+     * `dateModified` carries the real edit time of this model's text, so a page
+     * revised last week is distinguishable from one untouched since launch.
+     * Search and AI systems weigh freshness when deciding what to cite; a date
+     * that is accurate is the only kind worth emitting.
+     */
+    const modified = await entityModified(product.path.split('/').pop() ?? '')
+
+    /*
      * No `offers`, and that is deliberate.
      *
      * Search Console reported five errors on these pages, and four of them came
@@ -156,6 +165,7 @@ export default async function JsonLd({ lang, faq, breadcrumbs, product }: Props)
       brand: { '@type': 'Brand', name: SITE_NAME },
       manufacturer: { '@id': `${SITE_URL}/#org` },
       isRelatedTo: { '@id': `${SITE_URL}/#business` },
+      dateModified: modified.toISOString(),
     })
   }
 

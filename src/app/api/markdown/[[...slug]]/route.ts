@@ -2,6 +2,7 @@ import type { ContentBlock } from '@/components/sections/ContentBlocks'
 import { getCategoryBlocks, getFaq, getModelBlocks, getPageSeo } from '@/lib/content'
 import { getCatalog } from '@/lib/content/catalog'
 import { getContactInfo } from '@/lib/content/contact'
+import { getFreshness, modifiedFor } from '@/lib/content/freshness'
 import { getDictionary, localePath, type Lang } from '@/lib/i18n'
 import { SITE_URL, WARRANTY_YEARS } from '@/lib/site'
 
@@ -57,9 +58,15 @@ export async function GET(
   const body = await render(lang, parts)
   if (!body) return new Response('Not found', { status: 404 })
 
+  // Same edit time the sitemap and the structured data report, so an agent gets
+  // one consistent answer wherever it looks.
+  const freshness = await getFreshness()
+  const modified = parts.length ? modifiedFor(freshness, parts[parts.length - 1]) : freshness.site
+
   return new Response(body, {
     headers: {
       'Content-Type': 'text/markdown; charset=utf-8',
+      'Last-Modified': modified.toUTCString(),
       // Without this a shared cache could serve the Markdown to a browser that
       // asked for HTML.
       Vary: 'Accept',

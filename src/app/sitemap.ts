@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getCatalog } from '@/lib/content/catalog'
+import { getFreshness, modifiedFor } from '@/lib/content/freshness'
 import { LANGS, localePath, type Lang } from '@/lib/i18n'
 import { SITE_URL } from '@/lib/site'
 
@@ -49,25 +50,38 @@ function entriesFor(
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const lastModified = new Date()
+  /*
+   * Real edit times, not `new Date()`.
+   *
+   * Every URL used to be stamped with the moment the sitemap was generated,
+   * which told crawlers the entire site had changed seconds ago — on every
+   * request. A lastmod that is trivially disproved is worse than none: the
+   * crawler stops trusting the field, and the pages that genuinely did change
+   * lose the signal they should have had.
+   */
+  const [catalog, freshness] = await Promise.all([getCatalog(), getFreshness()])
 
   const pages = PAGES.flatMap(p =>
-    entriesFor(p.path, p.priority, p.changeFrequency, lastModified),
+    entriesFor(
+      p.path,
+      p.priority,
+      p.changeFrequency,
+      modifiedFor(freshness, p.path),
+    ),
   )
 
   // Product models, each with its own page. Read from the live catalogue so a
   // model hidden in the panel stops being advertised to search engines.
-  const catalog = await getCatalog()
   const models = catalog
     .flatMap(c => c.services.map(s => ({ category: c.slug, service: s.slug })))
     .flatMap(({ category, service }) =>
-    entriesFor(
-      `${category}/${service}`,
-      { he: 0.6, ru: 0.4 },
-      { he: 'monthly', ru: 'monthly' },
-      lastModified,
-    ),
-  )
+      entriesFor(
+        `${category}/${service}`,
+        { he: 0.6, ru: 0.4 },
+        { he: 'monthly', ru: 'monthly' },
+        modifiedFor(freshness, service),
+      ),
+    )
 
   return [...pages, ...models]
 }

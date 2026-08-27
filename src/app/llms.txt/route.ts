@@ -1,5 +1,6 @@
 import { getCatalog } from '@/lib/content/catalog'
 import { getPageSeo } from '@/lib/content'
+import { getFreshness } from '@/lib/content/freshness'
 import { getDictionary, localePath } from '@/lib/i18n'
 import { SITE_URL } from '@/lib/site'
 
@@ -27,7 +28,7 @@ function line(title: string, url: string, description?: string): string {
 }
 
 export async function GET() {
-  const catalog = await getCatalog()
+  const [catalog, freshness] = await Promise.all([getCatalog(), getFreshness()])
   const out: string[] = []
 
   const heMeta = getDictionary('he').meta as { description?: string }
@@ -121,6 +122,7 @@ export async function GET() {
   return new Response(out.join('\n'), {
     headers: {
       'Content-Type': 'text/plain; charset=utf-8',
+      'Last-Modified': freshness.site.toUTCString(),
       'Cache-Control': 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400',
     },
   })
