@@ -38,3 +38,36 @@ declare global {
     modelContext?: ModelContext
   }
 }
+
+/**
+ * Declarative WebMCP: tool attributes on forms.
+ *
+ * Distinct from the deferred `<script type="webmcp">` above — this is the form
+ * variant from the W3C explainer, where the browser compiles a <form> and its
+ * inputs into a tool definition. Plain lowercase attributes, so React forwards
+ * them to the DOM untouched and a browser without WebMCP ignores them; the
+ * point is that they sit in the served HTML, where a scanner can read the tool
+ * without executing a line of script.
+ *
+ * https://github.com/webmachinelearning/webmcp/blob/main/declarative-api-explainer.md
+ */
+declare module 'react' {
+  interface FormHTMLAttributes<T> {
+    toolname?: string
+    tooldescription?: string
+    /** Present means the agent may submit without the person checking first. */
+    toolautosubmit?: boolean
+  }
+
+  interface InputHTMLAttributes<T> {
+    toolparamdescription?: string
+  }
+
+  interface SelectHTMLAttributes<T> {
+    toolparamdescription?: string
+  }
+
+  interface TextareaHTMLAttributes<T> {
+    toolparamdescription?: string
+  }
+}

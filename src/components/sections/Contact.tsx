@@ -2,6 +2,7 @@
 
 import { Phone, MessageCircle, Mail, Clock, MapPin } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n/client'
+import ContactForm from './ContactForm'
 import { digits, useContact } from '@/lib/contact/client'
 
 export default function Contact() {
@@ -58,6 +59,12 @@ export default function Contact() {
               )}
             </div>
           ))}
+        </div>
+
+        {/* The enquiry form — the only one on the site outside the floating
+            calculator, and the only one present in the server-rendered HTML. */}
+        <div className="mb-10">
+          <ContactForm />
         </div>
 
         {/* CTA buttons */}
