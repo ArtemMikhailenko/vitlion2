@@ -123,27 +123,39 @@ export default async function JsonLd({ lang, faq, breadcrumbs, product }: Props)
   }
 
   if (product) {
+    /*
+     * No `offers`, and that is deliberate.
+     *
+     * Search Console reported five errors on these pages, and four of them came
+     * from one mistake: an Offer was emitted with a currency and an availability
+     * but no price, because nothing here has a list price — every structure is
+     * made to measure and quoted after a site survey. An Offer without a price
+     * is not a valid offer, and Google then also asked for the shipping and
+     * return policies that any purchasable item must carry.
+     *
+     * Dropping it costs nothing. Merchant rich results need a real price, so
+     * these pages were never eligible; what remains is a valid Product that
+     * still tells Google and AI engines what the thing is, who makes it and
+     * what it looks like.
+     *
+     * `category` went with it: the value was the category name in Hebrew or
+     * Russian, which Search Console rejected outright.
+     */
     graph.push({
       '@type': 'Product',
       '@id': `${SITE_URL}${localePath(lang, product.path)}#product`,
       name: product.name,
       description: product.description,
       image: `${SITE_URL}${product.image}`,
-      category: product.category,
-      brand: { '@id': `${SITE_URL}/#org` },
-      // Everything is made to measure, so there is no list price to publish —
-      // the free on-site survey is the offer.
-      offers: {
-        '@type': 'Offer',
-        availability: 'https://schema.org/InStock',
-        priceCurrency: 'ILS',
-        url: `${SITE_URL}${localePath(lang, product.path)}`,
-        seller: { '@id': `${SITE_URL}/#business` },
-      },
-      warranty: {
-        '@type': 'WarrantyPromise',
-        durationOfWarranty: { '@type': 'QuantitativeValue', value: WARRANTY_YEARS, unitCode: 'ANN' },
-      },
+      url: `${SITE_URL}${localePath(lang, product.path)}`,
+      /*
+       * Inline rather than a reference to the Organization node: Search Console
+       * rejected `{ '@id': … }` here with "недопустимый тип объекта", because the
+       * Product validator does not resolve @id references for this field.
+       */
+      brand: { '@type': 'Brand', name: SITE_NAME },
+      manufacturer: { '@id': `${SITE_URL}/#org` },
+      isRelatedTo: { '@id': `${SITE_URL}/#business` },
     })
   }
 
