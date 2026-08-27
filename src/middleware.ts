@@ -10,23 +10,29 @@ import { NextResponse, type NextRequest } from 'next/server'
  * Browsers are unaffected: their Accept header lists text/html and never
  * text/markdown, so this rewrite cannot fire for a person.
  *
- * The usual second half of content negotiation — Vary: Accept on the HTML — is
- * not available here: the App Router writes its own Vary for RSC and replaces
- * anything set in next.config or appended in middleware. Verified, not assumed.
- * So the Markdown response is marked no-store instead, and a shared cache never
- * holds a copy it could hand to a browser asking for the page.
+ * Content negotiation alone is not enough in production, which was verified
+ * against the live site rather than assumed: Hostinger's CDN caches by URL
+ * without honouring Vary, so a request for Markdown was answered from the
+ * cached HTML entry — content-type text/html, s-maxage of a year. Marking the
+ * Markdown response no-store keeps it out of the cache but cannot stop the HTML
+ * already sitting there from being served.
+ *
+ * So every page also has its own Markdown address under /md, advertised in a
+ * Link header, in llms.txt and in the agent skill. A distinct URL cannot
+ * collide in any cache. This rewrite stays for clients that negotiate and for
+ * caches that respect Vary.
  */
 export function middleware(request: NextRequest) {
   const accept = request.headers.get('accept') ?? ''
   if (!accept.includes('text/markdown')) return NextResponse.next()
 
   const url = request.nextUrl.clone()
-  url.pathname = `/api/markdown${request.nextUrl.pathname}`.replace(/\/$/, '')
+  url.pathname = `/md${request.nextUrl.pathname}`.replace(/\/$/, '')
   return NextResponse.rewrite(url)
 }
 
 export const config = {
   // Content routes only: never the API, the build output, media, the admin
   // panel, or anything with a file extension.
-  matcher: ['/((?!api|_next|admin|media|.*\\.).*)'],
+  matcher: ['/((?!api|md|_next|admin|media|.*\\.).*)'],
 }

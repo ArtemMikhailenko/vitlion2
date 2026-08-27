@@ -12,7 +12,9 @@ export const dynamic = 'force-dynamic'
 /**
  * Markdown rendering of the public pages, reached by asking for it.
  *
- * The middleware rewrites here when a request carries `Accept: text/markdown`.
+ * Reachable two ways: directly at /md/<path>, which is what llms.txt and the
+ * skill advertise, and by a middleware rewrite when a request for the page
+ * itself carries `Accept: text/markdown`.
  * Everything is read from the same content layer the HTML pages use, so a text
  * edited in the panel changes both at once and the two versions cannot say
  * different things.

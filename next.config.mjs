@@ -77,13 +77,17 @@ const nextConfig = {
         // response headers alone, without fetching and parsing the HTML first.
         // Applied to pages only — :path* would also match assets, where these
         // links are noise on every image request.
-        source: '/:path((?!media|_next|api).*)',
+        source: '/:path((?!media|_next|api|md).*)',
         headers: [
           {
             key: 'Link',
             value:
               '</sitemap.xml>; rel="sitemap"; type="application/xml", ' +
-              '</llms.txt>; rel="describedby"; type="text/plain"',
+              '</llms.txt>; rel="describedby"; type="text/plain", ' +
+              // The same page as plain Markdown, at an address of its own.
+              // Content negotiation on this URL is answered from the CDN's
+              // cached HTML, so the alternate is the reliable route.
+              '</md/:path>; rel="alternate"; type="text/markdown"',
           },
         ],
       },

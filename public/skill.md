@@ -13,12 +13,16 @@ paths, Russian under `/ru`.
 
 ## Getting the content
 
-Every page answers in Markdown when asked for it. Request the normal page URL
-with a Markdown `Accept` header and you get the text without the markup:
+Every page has a plain-text twin: put `/md` in front of its path.
 
 ```
-curl -H "Accept: text/markdown" https://www.vitlion.co.il/ru/electric-pergolas/bioclimatic
+curl https://www.vitlion.co.il/md/ru/electric-pergolas/bioclimatic
 ```
+
+Asking the normal URL with `Accept: text/markdown` works too, and each page
+advertises its twin in a `Link: rel="alternate"` header. Prefer the `/md`
+address: the CDN in front of this site caches by URL without honouring `Vary`,
+so a negotiated request can be answered from the cached HTML instead.
 
 A model page returns its name, short description, full description, the
 specification list, the long-form sections and links to sibling models. A

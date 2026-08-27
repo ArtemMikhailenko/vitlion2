@@ -93,8 +93,10 @@ export async function GET() {
   out.push(
     line(
       'Markdown-версия любой страницы',
-      abs('/'),
-      'Запросите обычный адрес страницы с заголовком Accept: text/markdown',
+      abs('/md/'),
+      'Добавьте /md перед путём: /md/ru/electric-pergolas/bioclimatic. ' +
+        'Заголовок Accept: text/markdown на обычном адресе тоже работает, но ' +
+        'кэш может ответить HTML — адрес с /md надёжнее',
     ),
   )
   out.push(line('Карта сайта', abs('/sitemap.xml'), 'Те же адреса с парами hreflang'))
