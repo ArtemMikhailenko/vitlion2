@@ -59,8 +59,12 @@ export async function POST(request: Request) {
     page: clean(body.page, LIMITS.page),
   }
 
+  let id: number | undefined
   try {
-    await db.insert(schema.leads).values(lead)
+    // The id goes back to the browser so the Google Ads conversion can use it
+    // as transaction_id: a reload or a double submit then counts once.
+    const [row] = await db.insert(schema.leads).values(lead).returning({ id: schema.leads.id })
+    id = row?.id
   } catch (error) {
     console.error('[leads] insert failed', error)
     return NextResponse.json({ ok: false }, { status: 500 })
@@ -71,5 +75,5 @@ export async function POST(request: Request) {
   // notifyNewLead swallows its own failures so the visitor still gets ok.
   await notifyNewLead(lead)
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, id })
 }

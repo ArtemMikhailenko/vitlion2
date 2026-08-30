@@ -2,6 +2,7 @@ import type { ReactNode } from 'react'
 import { Heebo, Ubuntu } from 'next/font/google'
 import { I18nProvider } from '@/lib/i18n/client'
 import WebMcpTools from '@/components/webmcp/WebMcpTools'
+import GoogleAds from '@/components/analytics/GoogleAds'
 import { ContactProvider } from '@/lib/contact/client'
 import { CatalogProvider } from '@/lib/catalog/client'
 import { getContactInfo } from '@/lib/content/contact'
@@ -47,6 +48,7 @@ export default async function RootShell({ lang, children }: { lang: Lang; childr
             <CatalogProvider value={catalog}>
               {children}
               <WebMcpTools lang={lang} />
+              <GoogleAds />
             </CatalogProvider>
           </ContactProvider>
         </I18nProvider>

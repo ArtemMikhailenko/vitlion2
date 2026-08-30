@@ -2,6 +2,7 @@
 
 import type { JSX } from 'react'
 import { useState } from 'react'
+import { trackLead } from '@/lib/analytics'
 import { useTranslation } from '@/lib/i18n/client'
 import { X, ChevronLeft, Calculator } from 'lucide-react'
 
@@ -151,6 +152,11 @@ export default function CostQuiz() {
         }),
       })
       if (!response.ok) throw new Error(String(response.status))
+
+      // Same conversion as the contact form, keyed by the stored lead's id.
+      const { id } = (await response.json().catch(() => ({}))) as { id?: number }
+      trackLead(id)
+
       setSubmitted(true)
     } catch (error) {
       console.error('[quiz] submit failed', error)

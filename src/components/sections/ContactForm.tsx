@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
+import { trackLead } from '@/lib/analytics'
 import { useCatalog } from '@/lib/catalog/client'
 import { useTranslation } from '@/lib/i18n/client'
 
@@ -49,6 +50,12 @@ export default function ContactForm() {
         }),
       })
       if (!response.ok) throw new Error(String(response.status))
+
+      // Reported here rather than on a thank-you page: there is no such page,
+      // and this fires only once the lead is actually stored.
+      const { id } = (await response.json().catch(() => ({}))) as { id?: number }
+      trackLead(id)
+
       setDone(true)
     } catch (error) {
       console.error('[contact] submit failed', error)
