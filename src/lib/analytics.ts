@@ -9,8 +9,9 @@
  * — a thank-you page counts a page view, this counts a row in the database.
  */
 
-/** Public identifier; it appears in the page source either way. */
+/** Public identifiers; they appear in the page source either way. */
 export const GOOGLE_ADS_ID = 'AW-18389159913'
+export const GOOGLE_ANALYTICS_ID = 'G-Q3RTBFMVPD'
 
 /** Conversion action label, from the Ads account. */
 const CONVERSION_LABEL = 'AW-18389159913/CytgCPyfwOkcEOmf0cBE'
@@ -38,8 +39,18 @@ export function trackLead(transactionId?: number | string): void {
   if (typeof window === 'undefined' || typeof window.gtag !== 'function') return
 
   try {
+    // Two events, because the two products count different things. Ads needs
+    // the conversion action to attribute the click that paid for it; Analytics
+    // wants its own recommended event so leads show up in reports next to
+    // everything else. Sent separately so neither shows up as noise in the
+    // other's interface.
     window.gtag('event', 'conversion', {
       send_to: CONVERSION_LABEL,
+      transaction_id: transactionId != null ? String(transactionId) : '',
+    })
+
+    window.gtag('event', 'generate_lead', {
+      send_to: GOOGLE_ANALYTICS_ID,
       transaction_id: transactionId != null ? String(transactionId) : '',
     })
   } catch (error) {
