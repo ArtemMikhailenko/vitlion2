@@ -4,7 +4,7 @@ import { useActionState, useState, useTransition } from 'react'
 import { useFormStatus } from 'react-dom'
 import { Card, Notice, SaveBar, inputClass } from '@/components/admin/fields'
 import { useSaveEffect } from '@/components/admin/useSaveEffect'
-import { saveNotify, testNotify, type NotifyState } from './actions'
+import { saveNotify, testNotify, testWebhook, type NotifyState } from './actions'
 
 function Bar({ dirty, disabled }: { dirty: boolean; disabled: boolean }) {
   const { pending } = useFormStatus()
@@ -15,18 +15,27 @@ export default function NotifyEditor({
   enabled,
   chatId,
   hasToken,
+  webhookEnabled,
+  webhookUrl,
+  hasWebhookSecret,
   canSave,
 }: {
   enabled: boolean
   chatId: string
   /** The token itself is never sent to the browser — only whether one is stored. */
   hasToken: boolean
+  webhookEnabled: boolean
+  webhookUrl: string
+  /** Same for the webhook secret. */
+  hasWebhookSecret: boolean
   canSave: boolean
 }) {
   const [state, formAction] = useActionState<NotifyState, FormData>(saveNotify, {})
   const [dirty, setDirty] = useState(false)
   const [test, setTest] = useState<NotifyState>({})
   const [testing, startTest] = useTransition()
+  const [hookTest, setHookTest] = useState<NotifyState>({})
+  const [hookTesting, startHookTest] = useTransition()
 
   useSaveEffect(state, () => setDirty(false))
 
@@ -111,6 +120,80 @@ export default function NotifyEditor({
                 className={inputClass}
               />
             </label>
+          </div>
+        </Card>
+
+        <Card
+          title="Передача заявок в CRM"
+          hint="Каждая новая заявка уходит отдельным запросом на указанный адрес. Работает независимо от Telegram: одно другому не мешает."
+        >
+          <div className="space-y-4">
+            <label className="flex items-start gap-3">
+              <input
+                type="checkbox"
+                name="webhookEnabled"
+                defaultChecked={webhookEnabled}
+                className="mt-0.5 h-4 w-4 accent-[#C4983A]"
+              />
+              <span>
+                <span className="block text-sm text-[#E4E0D8]">Отправлять заявки в CRM</span>
+                <span className="mt-0.5 block text-xs text-[#585C78]">
+                  Заявка всё равно сохраняется в панели — даже если CRM недоступна.
+                </span>
+              </span>
+            </label>
+
+            <label className="block">
+              <span className="mb-1.5 block text-xs text-[#8C90A8]">Адрес (webhook URL)</span>
+              <input
+                name="webhookUrl"
+                defaultValue={webhookUrl}
+                placeholder="https://..."
+                dir="ltr"
+                className={inputClass}
+              />
+              <span className="mt-1 block text-[11px] leading-relaxed text-[#585C78]">
+                Только https. Подойдёт адрес из CRM, Zapier, Make или n8n.
+              </span>
+            </label>
+
+            <label className="block">
+              <span className="mb-1.5 block text-xs text-[#8C90A8]">
+                Секретный ключ (необязательно)
+              </span>
+              <input
+                name="webhookSecret"
+                type="password"
+                autoComplete="off"
+                placeholder={hasWebhookSecret ? '•••••••• — сохранён, оставьте пустым' : 'необязательно'}
+                dir="ltr"
+                className={inputClass}
+              />
+              <span className="mt-1 block text-[11px] leading-relaxed text-[#585C78]">
+                {hasWebhookSecret
+                  ? 'Ключ сохранён. Заполняйте, только если меняете его.'
+                  : 'Уходит в заголовке X-Vitlion-Secret — чтобы принимающая сторона отличала наши заявки от чужих.'}
+              </span>
+            </label>
+
+            <div className="border-t border-[#1C1F2C] pt-4">
+              {hookTest.error && <Notice kind="error">{hookTest.error}</Notice>}
+              {hookTest.tested && <Notice kind="ok">{hookTest.tested}</Notice>}
+
+              <button
+                type="button"
+                disabled={hookTesting || !canSave}
+                onClick={() => startHookTest(async () => setHookTest(await testWebhook()))}
+                className="rounded-lg border border-[#23263A] px-4 py-2 text-sm text-[#8C90A8] transition-colors hover:border-[#C4983A] hover:text-[#E4E0D8] disabled:opacity-40"
+              >
+                {hookTesting ? 'Отправляю…' : 'Отправить тестовую заявку'}
+              </button>
+              {dirty && (
+                <p className="mt-2 text-[11px] text-[#585C78]">
+                  Сначала сохраните — проверка берёт адрес из базы, а не из поля.
+                </p>
+              )}
+            </div>
           </div>
         </Card>
 

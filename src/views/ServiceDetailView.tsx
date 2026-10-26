@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import type { ContentBlock } from '@/components/sections/ContentBlocks'
 import ContentBlocks from '@/components/sections/ContentBlocks'
+import Lightbox from '@/components/ui/Lightbox'
 import { findServiceLive } from '@/lib/content/catalog'
 import { getT, localePath, type Lang } from '@/lib/i18n'
 import { getContactInfo } from '@/lib/content/contact'
@@ -28,6 +29,15 @@ export default async function ServiceDetailView({ lang, categorySlug, serviceSlu
   const t = getT(lang)
   const siblings = entry.category.services.filter(s => s.slug !== serviceSlug)
   const waHref = `https://wa.me/${(await getContactInfo()).whatsapp.replace(/\D/g, '')}`
+
+  /*
+   * One ordered list for both viewers, main image first. The gallery often
+   * repeats the main shot, and a duplicate would make the counter lie and the
+   * arrows land on the same picture twice.
+   */
+  const viewable = [service.mainImage, ...service.gallery].filter(
+    (src, i, all) => src && all.indexOf(src) === i,
+  )
   const features: string[] = service.features[lang] ?? []
 
   return (
@@ -65,12 +75,14 @@ export default async function ServiceDetailView({ lang, categorySlug, serviceSlu
 
       <section className="bg-dark pb-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <img
-            src={service.mainImage}
-            alt={service.name[lang]}
-            className="w-full rounded-2xl border border-dark-border object-cover"
-            loading="eager"
-          />
+          <Lightbox images={viewable} alt={service.name[lang]}>
+            <img
+              src={service.mainImage}
+              alt={service.name[lang]}
+              className="w-full rounded-2xl border border-dark-border object-cover"
+              loading="eager"
+            />
+          </Lightbox>
         </div>
       </section>
 
@@ -103,8 +115,9 @@ export default async function ServiceDetailView({ lang, categorySlug, serviceSlu
         <section className="bg-dark py-14">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="mb-6 text-2xl font-bold text-ink">{t('services.gallery')}</h2>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-              {service.gallery.map((image, i) => (
+            <Lightbox images={viewable} alt={service.name[lang]}>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {service.gallery.map((image, i) => (
                 <img
                   key={image}
                   src={image}
@@ -113,8 +126,9 @@ export default async function ServiceDetailView({ lang, categorySlug, serviceSlu
                   loading="lazy"
                   decoding="async"
                 />
-              ))}
-            </div>
+                ))}
+              </div>
+            </Lightbox>
           </div>
         </section>
       )}

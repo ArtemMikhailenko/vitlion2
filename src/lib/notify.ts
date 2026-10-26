@@ -19,17 +19,34 @@ export interface NotifySettings {
   enabled: boolean
   token: string
   chatId: string
+  webhookEnabled: boolean
+  webhookUrl: string
+  /** Sent as X-Vitlion-Secret so the receiver can reject forged posts. */
+  webhookSecret: string
 }
 
 const KEYS = {
   enabled: 'notify.telegramEnabled',
   token: 'notify.telegramToken',
   chatId: 'notify.telegramChatId',
+  webhookEnabled: 'notify.webhookEnabled',
+  webhookUrl: 'notify.webhookUrl',
+  webhookSecret: 'notify.webhookSecret',
 } as const
+
+/** Everything off. Named once so a new setting cannot be missed in one branch. */
+const BLANK: NotifySettings = {
+  enabled: false,
+  token: '',
+  chatId: '',
+  webhookEnabled: false,
+  webhookUrl: '',
+  webhookSecret: '',
+}
 
 export async function getNotifySettings(): Promise<NotifySettings> {
   const db = getDb()
-  if (!db) return { enabled: false, token: '', chatId: '' }
+  if (!db) return BLANK
 
   try {
     const rows = await db.select().from(schema.siteSettings)
@@ -38,10 +55,13 @@ export async function getNotifySettings(): Promise<NotifySettings> {
       enabled: map.get(KEYS.enabled) === 'true',
       token: map.get(KEYS.token) ?? '',
       chatId: map.get(KEYS.chatId) ?? '',
+      webhookEnabled: map.get(KEYS.webhookEnabled) === 'true',
+      webhookUrl: map.get(KEYS.webhookUrl) ?? '',
+      webhookSecret: map.get(KEYS.webhookSecret) ?? '',
     }
   } catch (error) {
     console.error('[notify] settings query failed', error)
-    return { enabled: false, token: '', chatId: '' }
+    return BLANK
   }
 }
 
@@ -124,19 +144,87 @@ export async function sendTelegram(
 }
 
 /**
+ * Posts the lead to a CRM endpoint.
+ *
+ * JSON rather than a form, and a flat shape, because every CRM intake and every
+ * automation tool in between reads that without configuration. The secret goes
+ * in a header, never the body or the query, so it does not end up in the
+ * receiver's access log.
+ *
+ * Returns a Russian error string, or null on success.
+ */
+export async function sendWebhook(
+  settings: NotifySettings,
+  lead: LeadSummary & { id?: number },
+): Promise<string | null> {
+  if (!settings.webhookUrl) return 'Не задан адрес вебхука.'
+
+  let target: URL
+  try {
+    target = new URL(settings.webhookUrl)
+  } catch {
+    return 'Адрес вебхука не похож на ссылку.'
+  }
+  if (target.protocol !== 'https:') {
+    return 'Адрес должен начинаться с https:// — по http данные клиента пойдут открытым текстом.'
+  }
+
+  try {
+    const response = await fetch(target, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...(settings.webhookSecret ? { 'X-Vitlion-Secret': settings.webhookSecret } : {}),
+      },
+      body: JSON.stringify({
+        id: lead.id ?? null,
+        name: lead.name,
+        phone: lead.phone,
+        service: lead.service ?? null,
+        shape: lead.shape ?? null,
+        area: lead.area ?? null,
+        language: lead.lang ?? null,
+        page: lead.page ?? null,
+        source: 'vitlion.co.il',
+        createdAt: new Date().toISOString(),
+      }),
+      // A slow CRM must not hold the visitor's form open.
+      signal: AbortSignal.timeout(8000),
+    })
+
+    if (response.ok) return null
+    return `CRM ответила ${response.status}.`
+  } catch (error) {
+    console.error('[notify] webhook request failed', error)
+    return 'Не удалось достучаться до указанного адреса.'
+  }
+}
+
+/**
  * Fire-and-forget notification for a freshly stored lead.
  *
  * Never throws and never rejects: the enquiry is already saved by this point,
  * and a broken bot token must not turn a captured lead into an error page for
  * the person who filled the form.
  */
-export async function notifyNewLead(lead: LeadSummary): Promise<void> {
+export async function notifyNewLead(lead: LeadSummary & { id?: number }): Promise<void> {
   try {
     const settings = await getNotifySettings()
-    if (!settings.enabled) return
 
-    const error = await sendTelegram(settings, formatLead(lead))
-    if (error) console.error('[notify] lead notification failed:', error)
+    // Settled, not all: a CRM that is down must not stop the Telegram message,
+    // and a wrong bot token must not cost the CRM its copy of the lead.
+    const [telegram, webhook] = await Promise.allSettled([
+      settings.enabled ? sendTelegram(settings, formatLead(lead)) : Promise.resolve(null),
+      settings.webhookEnabled ? sendWebhook(settings, lead) : Promise.resolve(null),
+    ])
+
+    for (const [name, result] of [
+      ['telegram', telegram],
+      ['webhook', webhook],
+    ] as const) {
+      if (result.status === 'rejected') console.error(`[notify] ${name} threw`, result.reason)
+      else if (result.value) console.error(`[notify] ${name} failed:`, result.value)
+    }
   } catch (error) {
     console.error('[notify] unexpected failure', error)
   }

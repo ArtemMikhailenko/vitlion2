@@ -17,7 +17,7 @@ export default async function NotificationsPage() {
   return (
     <AdminShell
       title="Уведомления"
-      description="Заявка с сайта приходит в Telegram сразу — не нужно держать панель открытой."
+      description="Куда уходит новая заявка: в Telegram и в CRM. Заявка в любом случае сохраняется в разделе «Заявки»."
       userEmail={user.email}
       crumbs={[{ label: 'Обзор', href: '/admin' }, { label: 'Уведомления' }]}
     >
@@ -31,6 +31,9 @@ export default async function NotificationsPage() {
         enabled={settings.enabled}
         chatId={settings.chatId}
         hasToken={Boolean(settings.token)}
+        webhookEnabled={settings.webhookEnabled}
+        webhookUrl={settings.webhookUrl}
+        hasWebhookSecret={Boolean(settings.webhookSecret)}
         canSave={isDbConfigured()}
       />
     </AdminShell>

@@ -73,7 +73,7 @@ export async function POST(request: Request) {
   // Awaited, not detached: on serverless the response can end the invocation
   // and kill a pending request. Eight seconds is the worst case, and
   // notifyNewLead swallows its own failures so the visitor still gets ok.
-  await notifyNewLead(lead)
+  await notifyNewLead({ ...lead, id })
 
   return NextResponse.json({ ok: true, id })
 }

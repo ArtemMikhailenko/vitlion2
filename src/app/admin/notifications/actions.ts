@@ -2,7 +2,7 @@
 
 import { sql } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
-import { NOTIFY_KEYS, getNotifySettings, sendTelegram } from '@/lib/notify'
+import { NOTIFY_KEYS, getNotifySettings, sendTelegram, sendWebhook } from '@/lib/notify'
 import { getCurrentUser } from '@/lib/session'
 
 export interface NotifyState {
@@ -36,7 +36,14 @@ export async function saveNotify(_prev: NotifyState, formData: FormData): Promis
   const rows: { key: string; value: string }[] = [
     { key: NOTIFY_KEYS.enabled, value: String(enabled) },
     { key: NOTIFY_KEYS.chatId, value: chatId },
+    { key: NOTIFY_KEYS.webhookEnabled, value: String(formData.get('webhookEnabled') === 'on') },
+    { key: NOTIFY_KEYS.webhookUrl, value: String(formData.get('webhookUrl') ?? '').trim() },
   ]
+
+  // Same rule as the bot token: an empty box means "keep what is stored",
+  // because the form never renders the secret back.
+  const webhookSecret = String(formData.get('webhookSecret') ?? '').trim()
+  if (webhookSecret) rows.push({ key: NOTIFY_KEYS.webhookSecret, value: webhookSecret })
 
   // An empty token field means "leave the saved one alone". The form never
   // renders the token back, so an empty box is the normal state on every visit
@@ -68,4 +75,25 @@ export async function testNotify(): Promise<NotifyState> {
   )
 
   return error ? { error } : { tested: 'Сообщение отправлено. Проверьте Telegram.' }
+}
+
+/** Posts a clearly-marked test lead, so the CRM mapping can be checked end to end. */
+export async function testWebhook(): Promise<NotifyState> {
+  if (!(await getCurrentUser())) return { error: 'Сессия истекла. Войдите заново.' }
+
+  const settings = await getNotifySettings()
+  if (!settings.webhookUrl) return { error: 'Сначала сохраните адрес вебхука.' }
+
+  const error = await sendWebhook(settings, {
+    id: 0,
+    name: 'ТЕСТ — проверка связи, не звонить',
+    phone: '+972000000000',
+    service: 'проверка',
+    lang: 'ru',
+    page: '/admin/notifications',
+  })
+
+  return error
+    ? { error }
+    : { tested: 'Отправлено. В CRM появится заявка с именем «ТЕСТ — проверка связи».' }
 }
