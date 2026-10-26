@@ -7,8 +7,9 @@ import { buildMetadata } from '@/lib/seo'
 
 type Params = { category: string; service: string }
 
-export const dynamicParams = false
-
+// Known slugs are prerendered; an unknown one still 404s, because the page
+// below checks it — see the note in the category route about why that check
+// does not live in `dynamicParams`.
 export function generateStaticParams(): Params[] {
   return allServiceParams()
 }

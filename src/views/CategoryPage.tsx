@@ -29,7 +29,7 @@ export default async function CategoryPage({ lang, slug }: Props) {
   const category = await findCategoryLive(slug)
   const seo = SEO_PAGES[slug]?.[lang]
 
-  // The route only renders known slugs (generateStaticParams + dynamicParams:false).
+  // The route already 404s on an unknown slug, so this is belt and braces.
   if (!category || !seo) return null
 
   const waHref = `https://wa.me/${(await getContactInfo()).whatsapp.replace(/\D/g, '')}`
