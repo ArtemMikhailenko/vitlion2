@@ -33,9 +33,6 @@ export const OFFICES = [
 /** Head office coordinates (Rishon LeZion). */
 export const GEO = { latitude: 31.973, longitude: 34.7925 } as const
 
-/** Written warranty, stated identically in the hero, the FAQ and JSON-LD. */
-export const WARRANTY_YEARS = 10
-
 export const SOCIAL_PROFILES = [
   CONTACT.facebook,
   CONTACT.instagram,

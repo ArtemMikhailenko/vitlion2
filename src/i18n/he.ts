@@ -22,9 +22,9 @@ const he = {
   hero: {
     // The previous "500+ projects" claim was removed on purpose: it was not
     // corroborated anywhere else on the site, and unverifiable numbers in the
-    // most prominent element weaken E-E-A-T / GEO trust signals. Replaced with
-    // the written 10-year warranty, which is stated identically in the FAQ and
-    // in JSON-LD — and which none of the tracked competitors publish clearly.
+    // most prominent element weaken E-E-A-T / GEO trust signals. The warranty
+    // that replaced it was itself wrong — ten years, where the real term is
+    // shorter and depends on the structure — so no number stands here now.
     badge: 'ייצור עצמי במפעל בישראל',
     title: 'אלומיניום\nשמשנה\nמרחבים',
     // Keyword tail of the improved H1 from the brief. Kept as a separate key so
@@ -39,7 +39,7 @@ const he = {
     // own strapline "עבודות אלומיניום וזכוכית".
     titleSuffix: 'פרגולות, זיגוג ומסכי ZIP',
     subtitle:
-      'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום וזכוכית במרכז, בצפון ובדרום הארץ - מתל אביב וחיפה ועד באר שבע. פרגולות קבועות וחשמליות, זכוכיות נאספות, גיליוטינות ומסכי ZIP - מיוצרים במפעל שלנו בישראל ומגיעים עם אחריות של 10 שנים.',
+      'עיצוב, ייצור והתקנה מקצועית של מבנים מאלומיניום וזכוכית במרכז, בצפון ובדרום הארץ - מתל אביב וחיפה ועד באר שבע. פרגולות קבועות וחשמליות, זכוכיות נאספות, גיליוטינות ומסכי ZIP - מיוצרים במפעל שלנו בישראל.',
     cta: 'קבל ייעוץ חינם',
     ctaSecondary: 'צפה בפרויקטים',
     scrollDown: 'גלול למטה',
@@ -68,7 +68,6 @@ const he = {
           'אלומיניום מאנודיזציה: לא מחליד',
           'כל מידה לפי הזמנה',
           'אינטגרציה לבית חכם',
-          'אחריות 10 שנים על המבנה',
         ],
       },
       pergola_static: {
@@ -82,7 +81,6 @@ const he = {
           'זוויות נטייה שונות ללוחות',
           'כל צבעי RAL',
           'התקנה מיום עבודה אחד',
-          'אחריות 10 שנים',
         ],
       },
       zip_pvc: {
@@ -240,8 +238,8 @@ const he = {
       },
       {
         icon: '🛡️',
-        title: 'אחריות 10 שנים',
-        text: 'מספקים אחריות כתובה ל-10 שנים על כל המבנים. ההשקעה שלך מוגנת היטב.',
+        title: 'אחריות בכתב',
+        text: 'על כל מבנה אנחנו מוציאים אחריות כתובה. התקופה והתנאים תלויים בסוג המבנה ומפורטים בהסכם.',
       },
       {
         icon: '🎨',

@@ -4,7 +4,7 @@ import { getCatalog } from '@/lib/content/catalog'
 import { getContactInfo } from '@/lib/content/contact'
 import { getFreshness, modifiedFor } from '@/lib/content/freshness'
 import { getDictionary, localePath, type Lang } from '@/lib/i18n'
-import { SITE_URL, WARRANTY_YEARS } from '@/lib/site'
+import { SITE_URL } from '@/lib/site'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -39,7 +39,9 @@ async function footer(lang: Lang): Promise<string[]> {
     '',
     `Vitlion Group — ${lang === 'ru' ? 'производство и монтаж алюминиевых конструкций в Израиле' : 'ייצור והתקנה של מבני אלומיניום בישראל'}.`,
     `${lang === 'ru' ? 'Телефон' : 'טלפון'}: ${contact.phone} · WhatsApp: ${contact.whatsapp} · ${contact.email}`,
-    `${lang === 'ru' ? 'Гарантия' : 'אחריות'}: ${WARRANTY_YEARS} ${lang === 'ru' ? 'лет' : 'שנים'}. ${lang === 'ru' ? 'Замер бесплатный, цены рассчитываются по проекту.' : 'מדידה חינם, המחיר נקבע לפי הפרויקט.'}`,
+    lang === 'ru'
+      ? 'Замер бесплатный, цены рассчитываются по проекту. На каждую конструкцию выдаётся письменная гарантия; срок указан в договоре.'
+      : 'מדידה חינם, המחיר נקבע לפי הפרויקט. על כל מבנה מונפקת אחריות כתובה; התקופה מפורטת בהסכם.',
     '',
   ]
 }

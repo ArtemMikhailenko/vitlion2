@@ -1,7 +1,7 @@
 import type { FaqItem } from '@/data/geoContent'
 import { servedCities } from '@/data/geoContent'
 import { localePath, type Lang } from '@/lib/i18n'
-import { GEO, OFFICES, OG_IMAGE, SITE_NAME, SITE_URL, WARRANTY_YEARS } from '@/lib/site'
+import { GEO, OFFICES, OG_IMAGE, SITE_NAME, SITE_URL } from '@/lib/site'
 import { getContactInfo } from '@/lib/content/contact'
 import { entityModified } from '@/lib/content/freshness'
 
@@ -77,10 +77,6 @@ export default async function JsonLd({ lang, faq, breadcrumbs, product }: Props)
       { '@type': 'Country', name: 'Israel' },
       ...servedCities(lang).map(city => ({ '@type': 'City', name: city })),
     ],
-    warranty: {
-      '@type': 'WarrantyPromise',
-      durationOfWarranty: { '@type': 'QuantitativeValue', value: WARRANTY_YEARS, unitCode: 'ANN' },
-    },
   }
 
   const website = {

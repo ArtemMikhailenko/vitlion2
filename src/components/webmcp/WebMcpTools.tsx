@@ -5,7 +5,7 @@ import { useCatalog } from '@/lib/catalog/client'
 import { digits, useContact } from '@/lib/contact/client'
 import { getGeoContent } from '@/data/geoContent'
 import { localePath, type Lang } from '@/lib/i18n'
-import { OFFICES, SITE_URL, WARRANTY_YEARS } from '@/lib/site'
+import { OFFICES, SITE_URL } from '@/lib/site'
 
 /**
  * Exposes the catalog, service area, FAQ and contact details to in-browser AI
@@ -105,7 +105,7 @@ export default function WebMcpTools({ lang }: { lang: Lang }) {
       {
         name: 'vitlion_answer_faq',
         description:
-          'Answer common questions about aluminium pergolas from Vitlion Group: whether a building permit is required, wind and rain resistance, bioclimatic versus PVC, the warranty, and maintenance.',
+          'Answer common questions about aluminium pergolas from Vitlion Group: whether a building permit is required, wind and rain resistance, bioclimatic versus PVC, and maintenance.',
         inputSchema: {
           type: 'object',
           properties: { question: { type: 'string', description: 'The visitor question.' } },
@@ -137,14 +137,13 @@ export default function WebMcpTools({ lang }: { lang: Lang }) {
       {
         name: 'vitlion_get_contact',
         description:
-          'Contact details for Vitlion Group: phone, WhatsApp, email, office addresses and the warranty term. Use this to hand a visitor the right way to request a free on-site measurement.',
+          'Contact details for Vitlion Group: phone, WhatsApp, email and office addresses. Use this to hand a visitor the right way to request a free on-site measurement.',
         annotations: { readOnlyHint: true },
         execute: async () => ({
           phone: contact.phone,
           whatsapp: `https://wa.me/${digits(contact.whatsapp)}`,
           email: contact.email,
           offices: OFFICES.map(o => ({ street: o.street[lang], city: o.locality[lang] })),
-          warrantyYears: WARRANTY_YEARS,
           website: abs(localePath(lang)),
           note: 'On-site measurement is free and carries no obligation. A person must make the request themselves.',
         }),
