@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { getT, localePath, LANGS, type Lang } from './i18n'
+import { localePath, LANGS, type Lang } from './i18n'
+import { getLiveT } from './content/translations'
 import { OG_IMAGE, SITE_NAME, SITE_URL } from './site'
 
 interface BuildMetadataArgs {
@@ -19,14 +20,15 @@ interface BuildMetadataArgs {
   indexable?: boolean
 }
 
-export function buildMetadata({
+export async function buildMetadata({
   lang,
   path = '',
   title,
   description,
   indexable = false,
-}: BuildMetadataArgs): Metadata {
-  const t = getT(lang)
+}: BuildMetadataArgs): Promise<Metadata> {
+  // Live, so a title or description edited in the panel reaches the <head>.
+  const t = await getLiveT(lang)
   const canonical = `${SITE_URL}${localePath(lang, path)}`
 
   const languages: Record<string, string> = {}

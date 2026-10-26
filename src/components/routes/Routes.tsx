@@ -8,15 +8,16 @@ import ContactPage from '@/views/ContactPage'
 import CategoryPage from '@/views/CategoryPage'
 import ServiceDetailView from '@/views/ServiceDetailView'
 import ContentBlocks from '@/components/sections/ContentBlocks'
-import { SERVICES_BRIEF, getModelBrief } from '@/data/briefContent'
+import { SERVICES_BRIEF } from '@/data/briefContent'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import CTASection from '@/components/sections/CTASection'
 import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import ScrollProgress from '@/components/ui/ScrollProgress'
-import { getGeoContent } from '@/data/geoContent'
 import { findCategoryLive, findServiceLive } from '@/lib/content/catalog'
-import { getT, type Lang } from '@/lib/i18n'
+import { getFaq, getModelBlocks, getPageSeo } from '@/lib/content'
+import { getLiveT } from '@/lib/content/translations'
+import type { Lang } from '@/lib/i18n'
 
 /**
  * Server-side wrappers shared by the Hebrew and Russian route trees.
@@ -33,9 +34,8 @@ export function HomeRoute({ lang }: { lang: Lang }) {
   )
 }
 
-export function ServicesRoute({ lang }: { lang: Lang }) {
-  const t = getT(lang)
-  const { faq } = getGeoContent(lang)
+export async function ServicesRoute({ lang }: { lang: Lang }) {
+  const [t, faq, seo] = await Promise.all([getLiveT(lang), getFaq(lang), getPageSeo('services', lang)])
 
   return (
     <>
@@ -44,13 +44,14 @@ export function ServicesRoute({ lang }: { lang: Lang }) {
           warranty — questions no tracked competitor answers on-page. */}
       <JsonLd
         lang={lang}
-        faq={faq.items}
+        faq={faq}
         breadcrumbs={[
           { name: t('nav.home') as string },
           { name: t('nav.services') as string, path: 'services' },
         ]}
       />
       <ServicesPage
+        seo={seo}
         geoSections={
           <>
             <ContentBlocks
@@ -68,7 +69,7 @@ export function ServicesRoute({ lang }: { lang: Lang }) {
 }
 
 export async function CategoryRoute({ lang, slug }: { lang: Lang; slug: string }) {
-  const t = getT(lang)
+  const t = await getLiveT(lang)
   const category = await findCategoryLive(slug)
 
   return (
@@ -95,7 +96,7 @@ export async function ServiceRoute({
   categorySlug: string
   serviceSlug: string
 }) {
-  const t = getT(lang)
+  const t = await getLiveT(lang)
   const entry = await findServiceLive(categorySlug, serviceSlug)
   if (!entry) return null
 
@@ -125,7 +126,7 @@ export async function ServiceRoute({
         lang={lang}
         categorySlug={categorySlug}
         serviceSlug={serviceSlug}
-        blocks={getModelBrief(serviceSlug, lang)}
+        blocks={await getModelBlocks(serviceSlug, lang)}
       />
       <CTASection />
       <Footer />

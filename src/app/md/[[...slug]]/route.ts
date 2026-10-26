@@ -3,7 +3,8 @@ import { getCategoryBlocks, getFaq, getModelBlocks, getPageSeo } from '@/lib/con
 import { getCatalog } from '@/lib/content/catalog'
 import { getContactInfo } from '@/lib/content/contact'
 import { getFreshness, modifiedFor } from '@/lib/content/freshness'
-import { getDictionary, localePath, type Lang } from '@/lib/i18n'
+import { localePath, type Lang } from '@/lib/i18n'
+import { getLiveDictionary } from '@/lib/content/translations'
 import { SITE_URL } from '@/lib/site'
 
 export const runtime = 'nodejs'
@@ -86,7 +87,7 @@ export async function GET(
 
 async function render(lang: Lang, parts: string[]): Promise<string | null> {
   const catalog = await getCatalog()
-  const dict = getDictionary(lang)
+  const dict = await getLiveDictionary(lang)
   const meta = dict.meta as { title?: string; description?: string }
   const abs = (path: string) => `${SITE_URL}${path}`
 

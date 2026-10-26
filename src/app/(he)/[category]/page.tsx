@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { CategoryRoute } from '@/components/routes/Routes'
 import { INDEXABLE_CATEGORY_SLUGS, SEO_PAGES } from '@/data/seoContent'
+import { getPageSeo } from '@/lib/content'
 import { findCategoryLive } from '@/lib/content/catalog'
 import { buildMetadata } from '@/lib/seo'
 
@@ -23,7 +24,8 @@ export async function generateMetadata({
   params: Promise<Params>
 }): Promise<Metadata> {
   const { category } = await params
-  const seo = SEO_PAGES[category]?.['he']
+  if (!SEO_PAGES[category]) return {}
+  const seo = await getPageSeo(category, 'he')
   if (!seo) return {}
 
   return buildMetadata({

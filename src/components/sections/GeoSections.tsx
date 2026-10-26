@@ -1,4 +1,5 @@
 import { getGeoContent } from '@/data/geoContent'
+import { getFaq } from '@/lib/content'
 import type { Lang } from '@/lib/i18n'
 
 /**
@@ -10,8 +11,11 @@ import type { Lang } from '@/lib/i18n'
  * classic crawlers and AI bots (which mostly do not execute JS) read the full
  * text, which is the entire point of the exercise.
  */
-export default function GeoSections({ lang }: { lang: Lang }) {
-  const { serviceArea, timeline, costFactors, faq } = getGeoContent(lang)
+export default async function GeoSections({ lang }: { lang: Lang }) {
+  const { serviceArea, timeline, costFactors, faq: faqCopy } = getGeoContent(lang)
+  // Questions and answers come from the FAQ screen in the panel; only the
+  // heading is part of the bundled GEO copy.
+  const faq = { heading: faqCopy.heading, items: await getFaq(lang) }
 
   return (
     <>

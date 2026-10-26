@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 }
 
 /*
- * HTML is cached for five minutes, not for a year.
+ * HTML is cached for a minute, not for a year.
  *
  * With no revalidate every page was fully static and Next sent
  * s-maxage=31536000. Hostinger's CDN honoured it, which had two costs. After a
@@ -35,10 +35,13 @@ export const metadata: Metadata = {
  * visitors its own copy, so they appeared to do nothing until the cache was
  * purged by hand.
  *
- * Five minutes bounds both. expireTime in next.config caps how long a stale
- * copy may still be served while a fresh one is fetched.
+ * A minute bounds both. It was five, and the owner's first question after an
+ * edit was how long to wait — a minute is short enough not to be asked, and
+ * at this traffic one regeneration per page per minute costs the database
+ * nothing. expireTime in next.config caps how long a stale copy may still be
+ * served while a fresh one is fetched.
  */
-export const revalidate = 300
+export const revalidate = 60
 
 export const viewport: Viewport = {
   themeColor: '#0A0A0A',

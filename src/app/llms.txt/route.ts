@@ -1,7 +1,8 @@
 import { getCatalog } from '@/lib/content/catalog'
 import { getPageSeo } from '@/lib/content'
 import { getFreshness } from '@/lib/content/freshness'
-import { getDictionary, localePath } from '@/lib/i18n'
+import { localePath } from '@/lib/i18n'
+import { getLiveDictionary } from '@/lib/content/translations'
 import { SITE_URL } from '@/lib/site'
 
 export const runtime = 'nodejs'
@@ -31,8 +32,8 @@ export async function GET() {
   const [catalog, freshness] = await Promise.all([getCatalog(), getFreshness()])
   const out: string[] = []
 
-  const heMeta = getDictionary('he').meta as { description?: string }
-  const ruMeta = getDictionary('ru').meta as { description?: string }
+  const heMeta = (await getLiveDictionary('he')).meta as { description?: string }
+  const ruMeta = (await getLiveDictionary('ru')).meta as { description?: string }
 
   out.push('# Vitlion Group', '')
   out.push(`> ${heMeta.description ?? ''}`, '')

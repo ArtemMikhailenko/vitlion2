@@ -3,7 +3,8 @@ import type { ContentBlock } from '@/components/sections/ContentBlocks'
 import ContentBlocks from '@/components/sections/ContentBlocks'
 import Lightbox from '@/components/ui/Lightbox'
 import { findServiceLive } from '@/lib/content/catalog'
-import { getT, localePath, type Lang } from '@/lib/i18n'
+import { localePath, type Lang } from '@/lib/i18n'
+import { getLiveT } from '@/lib/content/translations'
 import { getContactInfo } from '@/lib/content/contact'
 
 interface Props {
@@ -26,7 +27,7 @@ export default async function ServiceDetailView({ lang, categorySlug, serviceSlu
   if (!entry) return null
 
   const { category, service } = entry
-  const t = getT(lang)
+  const t = await getLiveT(lang)
   const siblings = entry.category.services.filter(s => s.slug !== serviceSlug)
   const waHref = `https://wa.me/${(await getContactInfo()).whatsapp.replace(/\D/g, '')}`
 

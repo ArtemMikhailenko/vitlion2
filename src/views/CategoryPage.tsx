@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import ContentBlocks from '../components/sections/ContentBlocks'
-import { getCategoryBrief } from '../data/briefContent'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import CTASection from '../components/sections/CTASection'
@@ -8,7 +7,7 @@ import WhatsAppButton from '../components/ui/WhatsAppButton'
 import ScrollProgress from '../components/ui/ScrollProgress'
 import SeoContentSection from '../components/seo/SeoContentSection'
 import { getContactInfo } from '@/lib/content/contact'
-import { SEO_PAGES } from '../data/seoContent'
+import { getCategoryBlocks, getPageSeo } from '@/lib/content'
 import { findCategoryLive } from '@/lib/content/catalog'
 import { localePath, type Lang } from '@/lib/i18n'
 
@@ -27,13 +26,13 @@ interface Props {
  */
 export default async function CategoryPage({ lang, slug }: Props) {
   const category = await findCategoryLive(slug)
-  const seo = SEO_PAGES[slug]?.[lang]
+  const seo = await getPageSeo(slug, lang)
 
   // The route already 404s on an unknown slug, so this is belt and braces.
   if (!category || !seo) return null
 
   const waHref = `https://wa.me/${(await getContactInfo()).whatsapp.replace(/\D/g, '')}`
-  const briefBlocks = getCategoryBrief(slug, lang)
+  const briefBlocks = await getCategoryBlocks(slug, lang)
 
   return (
     <>

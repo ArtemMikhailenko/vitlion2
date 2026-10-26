@@ -5,7 +5,7 @@ const nextConfig = {
   // How long a stale page may still be served while a fresh one is generated.
   // Next defaults this to a year, which is what let the CDN keep pre-deploy
   // HTML alive long after its JavaScript chunks were gone. One hour on top of
-  // the five-minute revalidate in the root layouts.
+  // the one-minute revalidate in the root layouts.
   expireTime: 3600,
 
   // Static generation fans out one worker per CPU by default. The page count

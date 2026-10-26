@@ -7,7 +7,8 @@ import { ContactProvider } from '@/lib/contact/client'
 import { CatalogProvider } from '@/lib/catalog/client'
 import { getContactInfo } from '@/lib/content/contact'
 import { getCatalog } from '@/lib/content/catalog'
-import { dirOf, getDictionary, type Lang } from '@/lib/i18n'
+import { getLiveDictionary } from '@/lib/content/translations'
+import { dirOf, type Lang } from '@/lib/i18n'
 
 // Self-hosted by next/font — removes the render-blocking Google Fonts request
 // the old index.html had, and prevents the layout shift that came with it.
@@ -100,7 +101,7 @@ export default async function RootShell({ lang, children }: { lang: Lang; childr
         <script dangerouslySetInnerHTML={{ __html: CHUNK_RECOVERY }} />
       </head>
       <body className="bg-dark text-white">
-        <I18nProvider lang={lang} dictionary={getDictionary(lang)}>
+        <I18nProvider lang={lang} dictionary={await getLiveDictionary(lang)}>
           <ContactProvider value={contact}>
             <CatalogProvider value={catalog}>
               {children}
