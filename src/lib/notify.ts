@@ -44,25 +44,43 @@ const BLANK: NotifySettings = {
   webhookSecret: '',
 }
 
-export async function getNotifySettings(): Promise<NotifySettings> {
+/**
+ * Settings plus whether they could be read at all.
+ *
+ * A failed query and "everything switched off" look identical to the lead
+ * route, which is right for a visitor. The panel must tell them apart: a
+ * missing table once made the CRM silently receive nothing while the panel
+ * looked merely unconfigured.
+ */
+export async function readNotifySettings(): Promise<{
+  settings: NotifySettings
+  failed: boolean
+}> {
   const db = getDb()
-  if (!db) return BLANK
+  if (!db) return { settings: BLANK, failed: false }
 
   try {
     const rows = await db.select().from(schema.siteSettings)
     const map = new Map(rows.map(r => [r.key, r.value]))
     return {
-      enabled: map.get(KEYS.enabled) === 'true',
-      token: map.get(KEYS.token) ?? '',
-      chatId: map.get(KEYS.chatId) ?? '',
-      webhookEnabled: map.get(KEYS.webhookEnabled) === 'true',
-      webhookUrl: map.get(KEYS.webhookUrl) ?? '',
-      webhookSecret: map.get(KEYS.webhookSecret) ?? '',
+      settings: {
+        enabled: map.get(KEYS.enabled) === 'true',
+        token: map.get(KEYS.token) ?? '',
+        chatId: map.get(KEYS.chatId) ?? '',
+        webhookEnabled: map.get(KEYS.webhookEnabled) === 'true',
+        webhookUrl: map.get(KEYS.webhookUrl) ?? '',
+        webhookSecret: map.get(KEYS.webhookSecret) ?? '',
+      },
+      failed: false,
     }
   } catch (error) {
     console.error('[notify] settings query failed', error)
-    return BLANK
+    return { settings: BLANK, failed: true }
   }
+}
+
+export async function getNotifySettings(): Promise<NotifySettings> {
+  return (await readNotifySettings()).settings
 }
 
 export const NOTIFY_KEYS = KEYS
@@ -210,6 +228,7 @@ export async function sendWebhook(
 export async function notifyNewLead(lead: LeadSummary & { id?: number }): Promise<void> {
   try {
     const settings = await getNotifySettings()
+    if (!settings.webhookEnabled) console.warn('[notify] CRM webhook is off; lead not forwarded')
 
     // Settled, not all: a CRM that is down must not stop the Telegram message,
     // and a wrong bot token must not cost the CRM its copy of the lead.

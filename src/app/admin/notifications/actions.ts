@@ -1,6 +1,7 @@
 'use server'
 
 import { sql } from 'drizzle-orm'
+import { revalidatePath } from 'next/cache'
 import { getDb, schema } from '@/db'
 import { NOTIFY_KEYS, getNotifySettings, sendTelegram, sendWebhook } from '@/lib/notify'
 import { getCurrentUser } from '@/lib/session'
@@ -57,6 +58,8 @@ export async function saveNotify(_prev: NotifyState, formData: FormData): Promis
     return { error: 'Не удалось сохранить. Проверьте, что выполнен db/site-settings.sql.' }
   }
 
+  // Refreshes the status line at the top, so it reflects what was just stored.
+  revalidatePath('/admin/notifications')
   return { ok: true }
 }
 
